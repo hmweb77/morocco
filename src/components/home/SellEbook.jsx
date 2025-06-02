@@ -347,7 +347,12 @@ const PremiumEbooksSection = () => {
                     {/* Primary CTA - Buy Now */}
                     <Link href="/guide">
                     <motion.button
-                      onClick={() => window.open('/guide')}
+                     onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.open('/guide');
+                      }
+                    }}
+                    
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
@@ -364,7 +369,12 @@ const PremiumEbooksSection = () => {
                     {/* Secondary CTA - Preview */}
                     <Link href="/guide">
                     <motion.button
-                      onClick={() => window.open('/guide')}
+                     onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.open('/guide');
+                      }
+                    }}
+                    
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="w-full py-3 px-6 rounded-2xl font-semibold transition-all duration-300 border-2 flex items-center justify-center gap-2 hover:shadow-md"

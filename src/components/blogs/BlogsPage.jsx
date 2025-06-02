@@ -181,9 +181,11 @@ const BlogPage = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
-
+  
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',

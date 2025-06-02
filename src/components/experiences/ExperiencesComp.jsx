@@ -951,7 +951,12 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => window.open(experience.ctaLink, '_blank')}
+                onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      window.open(experience.ctaLink, '_blank');
+                    }
+                  }}
+                  
                 className="w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
                 style={{ 
                   backgroundColor: '#A34128',
@@ -1033,7 +1038,12 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => window.open(experience.ctaLink, '_blank')}
+                  onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      window.open(experience.ctaLink, '_blank');
+                    }
+                  }}
+                  
                   className="w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
                   style={{ 
                     backgroundColor: '#A34128',
@@ -1632,7 +1642,12 @@ const ExperiencesPage = () => {
                             <motion.button
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
-                              onClick={() => window.open(experience.ctaLink, '_blank')}
+                              onClick={() => {
+                                if (typeof window !== 'undefined') {
+                                  window.open(experience.ctaLink, '_blank');
+                                }
+                              }}
+                              
                               className="px-6 py-3 rounded-lg font-semibold transition-all duration-300"
                               style={{ backgroundColor: '#A34128', color: '#FDFDFD' }}
                             >

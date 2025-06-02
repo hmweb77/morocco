@@ -163,7 +163,12 @@ const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }
       <div className="space-y-2">
         <ActionButton
           primary
-          onClick={() => window.open(experience.ctaLink, '_blank')}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.open(experience.ctaLink, '_blank');
+            }
+          }}
+          
           text={experience.cta}
         />
         <ActionButton
@@ -274,7 +279,13 @@ const CardBack = ({ experience, IconComponent, onFlip }) => (
         <div className="space-y-3">
           <ActionButton
             primary
-            onClick={() => window.open(experience.ctaLink, '_blank')}
+    
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.open(experience.ctaLink, '_blank');
+              }
+            }}
+            
             text={experience.cta}
           />
           <ActionButton

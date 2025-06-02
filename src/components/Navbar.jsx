@@ -111,7 +111,12 @@ const MoroccoResponsiveNavbar = () => {
             <motion.div 
               className="flex items-center gap-3 cursor-pointer"
               whileHover={{ scale: 1.02 }}
-              onClick={() => window.location.href = '/'}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.location.href = '/';
+                }
+              }}
+              
             >
               <div 
                 className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg"
@@ -136,7 +141,14 @@ const MoroccoResponsiveNavbar = () => {
                     <motion.button
                       className="flex items-center gap-2 px-4 py-2 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 font-medium relative"
                       whileHover={{ scale: 1.02 }}
-                      onClick={() => item.dropdown ? toggleDropdown(item.label) : window.location.href = item.href}
+                      onClick={() => {
+                        if (item.dropdown) {
+                          toggleDropdown(item.label);
+                        } else if (typeof window !== 'undefined') {
+                          window.location.href = item.href;
+                        }
+                      }}
+                      
                     >
                       {/* <Icon className="w-4 h-4" /> */}
                       <span>{item.label}</span>
@@ -208,7 +220,12 @@ const MoroccoResponsiveNavbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-4 py-2 rounded-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 flex items-center gap-2"
-                onClick={() => window.location.href = '/guide'}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.location.href = '/guide';
+                  }
+                }}
+                
               >
                 <Download className="w-4 h-4" />
                 <span className="hidden lg:inline">Free Guide</span>
@@ -221,7 +238,12 @@ const MoroccoResponsiveNavbar = () => {
                 style={{ 
                   background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
                 }}
-                onClick={() => window.location.href = '/guide'}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.location.href = '/guide';
+                  }
+                }}
+                
               >
                 <Star className="w-4 h-4" />
                 Plan My Trip
@@ -261,7 +283,12 @@ const MoroccoResponsiveNavbar = () => {
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 px-4 py-3 rounded-xl font-medium text-gray-700 bg-gray-100/80 transition-all duration-300 flex items-center justify-center gap-2"
-                    onClick={() => window.location.href = '/free-guide'}
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.location.href = '/guide';
+                      }
+                    }}
+                    
                   >
                     <Download className="w-4 h-4" />
                     Free Guide
@@ -273,7 +300,12 @@ const MoroccoResponsiveNavbar = () => {
                     style={{ 
                       background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
                     }}
-                    onClick={() => window.location.href = '/plan-trip'}
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.location.href = '/guide';
+                      }
+                    }}
+                    
                   >
                     <Star className="w-4 h-4" />
                     Plan Trip
@@ -287,7 +319,14 @@ const MoroccoResponsiveNavbar = () => {
                     <div key={item.label}>
                       <motion.button
                         className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 font-medium"
-                        onClick={() => item.dropdown ? toggleDropdown(item.label) : window.location.href = item.href}
+                        onClick={() => {
+                          if (item.dropdown) {
+                            toggleDropdown(item.label);
+                          } else if (typeof window !== 'undefined') {
+                            window.location.href = item.href;
+                          }
+                        }}
+                        
                         whileTap={{ scale: 0.98 }}
                       >
                         <div className="flex items-center gap-3">
