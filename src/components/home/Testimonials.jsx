@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { Star, Quote, ChevronLeft, ChevronRight, Heart, MapPin, User, Shield } from 'lucide-react';
 
 const TravelersTestimonialsSection = () => {
@@ -12,7 +13,7 @@ const TravelersTestimonialsSection = () => {
       id: 1,
       name: 'Anna K.',
       location: 'Germany',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
       rating: 5,
       quote: 'The free guide helped me avoid three scams in one day!',
       content: 'Morocco was my dream trip, but I was nervous. The ebook explained everything — from bargaining tricks to safe taxi tips. I felt 100× more prepared.',
@@ -364,7 +365,7 @@ const TravelersTestimonialsSection = () => {
           <p className="text-lg mb-6 max-w-2xl mx-auto" style={{ color: '#2C2C2C' }}>
             Join thousands of travelers who've explored Morocco safely and authentically with our trusted guides.
           </p>
-          
+          <Link href="/guide">
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
@@ -376,6 +377,7 @@ const TravelersTestimonialsSection = () => {
           >
             Get Your Travel Guide Now
           </motion.button>
+          </Link>
 
           {/* Trust Indicators */}
           <div className="flex items-center justify-center gap-6 mt-6 text-sm" style={{ color: '#70977B' }}>

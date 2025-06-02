@@ -2,8 +2,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Clock, DollarSign, Star, Camera, Mountain, Waves, Compass, X, Heart, Calendar, Users, Shield } from 'lucide-react';
+import MapGlobal from '../Map/MapComponent';
+import { useRouter } from 'next/navigation';
 
 const InteractiveMoroccoMap = () => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/experiences');
+  };
+
   const [selectedCity, setSelectedCity] = useState(null);
   const [hoveredCity, setHoveredCity] = useState(null);
   const [savedCities, setSavedCities] = useState(new Set());
@@ -24,7 +31,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Jemaa el-Fnaa', 'Medinas', 'Rooftop dining', 'Atlas day trips'],
       experiences: ['Medina Food Tour', 'Traditional Hammam', 'Atlas Mountains Hike'],
       safety: 'Generally safe, watch for pickpockets in crowded areas',
-      rating: 4.8
+      rating: 4.8,
+      lat: 31.6295,
+      lng: -8.0087
     },
     {
       id: 'fes',
@@ -40,7 +49,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Tanneries', 'World\'s oldest university', 'Spiritual atmosphere', 'Pottery workshops'],
       experiences: ['Leather Tannery Tour', 'Pottery Making Class', 'Sufi Music Experience'],
       safety: 'Very safe, local guides recommended for medina navigation',
-      rating: 4.7
+      rating: 4.7,
+      lat: 34.0181,
+      lng: -5.0078
     },
     {
       id: 'chefchaouen',
@@ -56,7 +67,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Blue-washed buildings', 'Mountain hikes', 'Peaceful vibes', 'Artisan shops'],
       experiences: ['Blue Streets Photo Walk', 'Rif Mountains Hike', 'Traditional Weaving Tour'],
       safety: 'Very safe and relaxed, mountain weather can change quickly',
-      rating: 4.9
+      rating: 4.9,
+      lat: 35.1716,
+      lng: -5.2696
     },
     {
       id: 'essaouira',
@@ -72,7 +85,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Coastal charm', 'Surfing & windsurfing', 'Fresh seafood', 'Portuguese fortresses'],
       experiences: ['Windsurfing Lessons', 'Seafood Tasting Tour', 'Fortress History Walk'],
       safety: 'Very safe coastal town, strong winds perfect for water sports',
-      rating: 4.6
+      rating: 4.6,
+      lat: 31.5145,
+      lng: -9.7696
     },
     {
       id: 'merzouga',
@@ -88,7 +103,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Desert adventures', 'Camel rides', 'Stargazing', 'Erg Chebbi dunes'],
       experiences: ['Camel Trek & Desert Camp', 'Sandboarding', 'Berber Music Night'],
       safety: 'Safe with guides, bring sun protection and warm clothes for nights',
-      rating: 4.9
+      rating: 4.9,
+      lat: 31.1209,
+      lng: -4.0083
     },
     {
       id: 'casablanca',
@@ -104,7 +121,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Hassan II Mosque', 'Modern architecture', 'Corniche waterfront', 'Art Deco buildings'],
       experiences: ['Mosque Architecture Tour', 'Art Deco Walking Tour', 'Modern Moroccan Cooking'],
       safety: 'Safe major city, standard urban precautions recommended',
-      rating: 4.5
+      rating: 4.5,
+      lat: 33.5731,
+      lng: -7.5898
     },
     {
       id: 'rabat',
@@ -120,7 +139,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Royal Palace', 'Kasbah of the Udayas', 'Modern tram system', 'Hassan Tower'],
       experiences: ['Royal Gardens Tour', 'Kasbah Walking Tour', 'Traditional Arts Workshop'],
       safety: 'Very safe capital city, well-maintained and modern',
-      rating: 4.4
+      rating: 4.4,
+      lat: 34.0209,
+      lng: -6.8416
     },
     {
       id: 'tangier',
@@ -136,7 +157,9 @@ const InteractiveMoroccoMap = () => {
       highlights: ['Caves of Hercules', 'Medina', 'Cap Spartel', 'International atmosphere'],
       experiences: ['Cultural Fusion Tour', 'Hercules Caves Visit', 'Medina Art Walk'],
       safety: 'Safe port city, busy international gateway',
-      rating: 4.3
+      rating: 4.3,
+      lat: 35.7595,
+      lng: -5.8340
     }
   ];
 
@@ -158,6 +181,14 @@ const InteractiveMoroccoMap = () => {
     });
   };
 
+  // Handler for when a city is selected from the map
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+  };
+
+
+
+  
   return (
     <section className="relative py-20 overflow-hidden" style={{ backgroundColor: '#FDFDFD' }}>
       {/* Background Pattern */}
@@ -245,80 +276,13 @@ const InteractiveMoroccoMap = () => {
             viewport={{ once: true }}
             className="lg:col-span-2 relative"
           >
-            <div 
-              className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-xl"
-            >
-              {/* Real Morocco Map Background */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: "url('/mapMorocco.png')",
-                  filter: 'brightness(0.9) contrast(1.1)'
-                }}
+            <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-xl">
+              {/* Pass the required props to MapContainer */}
+              <MapGlobal 
+                cities={filteredCities}
+                onCitySelect={handleCitySelect}
+                selectedCity={selectedCity}
               />
-              
-              {/* Map Overlay for better contrast */}
-              <div 
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(62, 141, 193, 0.1), rgba(243, 231, 210, 0.2))'
-                }}
-              />
-
-              {/* City Pins */}
-              {filteredCities.map((city) => (
-                <motion.div
-                  key={city.id}
-                  className="absolute cursor-pointer"
-                  style={{
-                    left: `${city.position.x}%`,
-                    top: `${city.position.y}%`,
-                    transform: 'translate(-50%, -50%)'
-                  }}
-                  onMouseEnter={() => setHoveredCity(city.id)}
-                  onMouseLeave={() => setHoveredCity(null)}
-                  onClick={() => setSelectedCity(city)}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-lg relative"
-                    style={{ backgroundColor: '#A34128' }}
-                  >
-                    <span>{city.icon}</span>
-                    
-                    {/* Tooltip */}
-                    <AnimatePresence>
-                      {hoveredCity === city.id && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                          animate={{ opacity: 1, y: -45, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.8 }}
-                          className="absolute left-1/2 transform -translate-x-1/2 bg-white rounded-lg p-3 shadow-xl border-2 whitespace-nowrap z-10"
-                          style={{ borderColor: '#F9C75E' }}
-                        >
-                          <div className="text-sm font-bold" style={{ color: '#1C3F60' }}>
-                            {city.name}
-                          </div>
-                          <div className="text-xs" style={{ color: '#70977B' }}>
-                            Top pick: {city.topPick}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Map Title */}
-              <div className="absolute top-4 left-4">
-                <h3 className="text-lg font-bold mb-1" style={{ color: '#1C3F60' }}>
-                  Interactive Morocco Map
-                </h3>
-                <p className="text-sm" style={{ color: '#70977B' }}>
-                  Click on cities to explore their unique attractions and experiences
-                </p>
-              </div>
             </div>
           </motion.div>
 
@@ -340,6 +304,7 @@ const InteractiveMoroccoMap = () => {
                   onClose={() => setSelectedCity(null)}
                   onSave={() => toggleSaveCity(selectedCity.id)}
                   isSaved={savedCities.has(selectedCity.id)}
+                  onStartAdventure={handleClick}
                 />
               ) : (
                 <CitySelectPrompt />
@@ -405,18 +370,6 @@ const InteractiveMoroccoMap = () => {
             >
               Customize My Trip
             </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 border-2"
-              style={{ 
-                backgroundColor: 'transparent',
-                color: '#3E8DC1',
-                borderColor: '#3E8DC1'
-              }}
-            >
-              Explore the Map
-            </motion.button>
           </div>
         </motion.div>
       </div>
@@ -425,7 +378,7 @@ const InteractiveMoroccoMap = () => {
 };
 
 // City Detail Panel Component
-const CityDetailPanel = ({ city, onClose, onSave, isSaved }) => (
+const CityDetailPanel = ({ city, onClose, onSave, isSaved,onStartAdventure }) => (
   <div className="space-y-4">
     {/* Header */}
     <div className="flex items-start justify-between mb-4">
@@ -516,7 +469,7 @@ const CityDetailPanel = ({ city, onClose, onSave, isSaved }) => (
     {/* Action Buttons */}
     <div className="space-y-3 pt-4">
       <button
-        onClick={onSave}
+         onClick={onStartAdventure}
         className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 ${
           isSaved ? 'opacity-75' : ''
         }`}
@@ -526,10 +479,10 @@ const CityDetailPanel = ({ city, onClose, onSave, isSaved }) => (
         }}
       >
         <Heart className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
-        {isSaved ? 'Saved to My Trip' : 'Save to My Trip'}
+        Start the adventure
       </button>
       
-      <button
+      {/* <button
         className="w-full py-2 px-4 rounded-lg font-medium transition-all duration-300 border-2 flex items-center justify-center gap-2"
         style={{ 
           backgroundColor: 'transparent',
@@ -539,7 +492,7 @@ const CityDetailPanel = ({ city, onClose, onSave, isSaved }) => (
       >
         <Camera className="w-4 h-4" />
         Learn More
-      </button>
+      </button> */}
     </div>
   </div>
 );

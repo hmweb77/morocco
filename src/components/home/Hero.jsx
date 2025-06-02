@@ -5,7 +5,7 @@ import { MapPin, Calendar, Star, Download, MessageCircle } from 'lucide-react';
 
 const EnhancedMoroccoHeroSection = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50">
+    <div className="relative py-6 overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Geometric Background Pattern */}
       <div className="absolute inset-0">
         <svg

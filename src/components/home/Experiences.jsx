@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Clock, DollarSign, Users, Camera, Mountain, Utensils, Star, Info, ArrowLeft, Car, Ticket, MapPin as LocationIcon, UtensilsCrossed, CreditCard, Lightbulb } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { MapPin, Clock, DollarSign, Users, Camera, Mountain, Utensils, Star, Info, ArrowLeft, Car, Ticket, UtensilsCrossed, CreditCard, Lightbulb, Droplets, Calendar, CheckCircle, XCircle, Backpack, AlertCircle } from 'lucide-react';
 
 // Reusable FlipCard Component
 const FlipCard = ({ experience, index, onHover, isHovered }) => {
@@ -14,7 +16,8 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
       Romantic: '#A34128',
       Adventure: '#D38E63',
       Culinary: '#70977B',
-      Active: '#F9C75E'
+      Active: '#F9C75E',
+      Nature: '#70977B'
     };
     return colors[tag] || '#3E8DC1';
   };
@@ -27,7 +30,7 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group relative h-[620px]"
+      className="group relative h-[680px]"
       style={{ perspective: '1000px' }}
       onMouseEnter={() => onHover(experience.id)}
       onMouseLeave={() => onHover(null)}
@@ -119,24 +122,24 @@ const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }
     {/* Content Section */}
     <div className="p-6">
       <div className="flex items-start gap-3 mb-3">
-        <div 
+        {/* <div 
           className="p-2 rounded-lg"
           style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
         >
           <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
-        </div>
+        </div> */}
         <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2 font-serif" style={{ color: '#1C3F60' }}>
+          <h3 className="text-xl font-bold mb-2 font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
             {experience.title}
           </h3>
         </div>
       </div>
 
-      <p className="text-sm mb-4 leading-relaxed" style={{ color: '#2C2C2C' }}>
+      <p className="text-sm mb-4 leading-relaxed line-clamp-3" style={{ color: '#2C2C2C' }}>
         {experience.description}
       </p>
 
-      <div className="mb-6">
+      <div className="mb-4">
         <p className="text-sm font-medium mb-1" style={{ color: '#70977B' }}>
           Best For:
         </p>
@@ -145,11 +148,22 @@ const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }
         </p>
       </div>
 
+      {/* Reviews */}
+      <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-1">
+          <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
+          <span className="text-sm font-medium" style={{ color: '#1C3F60' }}>{experience.rating}</span>
+        </div>
+        <span className="text-sm" style={{ color: '#70977B' }}>
+          ({experience.reviews.toLocaleString()} reviews)
+        </span>
+      </div>
+
       {/* Action Buttons */}
       <div className="space-y-2">
         <ActionButton
           primary
-          onClick={() => {}}
+          onClick={() => window.open(experience.ctaLink, '_blank')}
           text={experience.cta}
         />
         <ActionButton
@@ -165,7 +179,7 @@ const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }
 // Back Card Component
 const CardBack = ({ experience, IconComponent, onFlip }) => (
   <div 
-    className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg p-6 overflow-y-auto"
+    className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg"
     style={{ 
       backgroundColor: '#F3E7D2',
       backfaceVisibility: 'hidden',
@@ -173,98 +187,127 @@ const CardBack = ({ experience, IconComponent, onFlip }) => (
     }}
   >
     <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <div 
-          className="p-2 rounded-lg"
-          style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
-        >
-          <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto p-6">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-6">
+          <div 
+            className="p-2 rounded-lg"
+            style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
+          >
+            <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
+          </div>
+          <h3 className="text-lg font-bold font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
+            {experience.title}
+          </h3>
         </div>
-        <h3 className="text-lg font-bold font-serif" style={{ color: '#1C3F60' }}>
-          {experience.title}
-        </h3>
+
+        {/* Details Content */}
+        <div className="space-y-4">
+          {/* Highlights */}
+          <DetailSection
+            icon={Star}
+            title="Highlights"
+            content={experience.highlights}
+            isList
+            isHighlight
+          />
+          
+          {/* Itinerary */}
+          <DetailSection
+            icon={Calendar}
+            title="Itinerary"
+            content={experience.itinerary}
+            isList
+          />
+          
+          {/* What's Included */}
+          <DetailSection
+            icon={CheckCircle}
+            title="What's Included"
+            content={experience.includes}
+            isList
+            iconColor="#70977B"
+          />
+          
+          {/* Not Included */}
+          <DetailSection
+            icon={XCircle}
+            title="Not Included"
+            content={experience.notIncluded}
+            isList
+            iconColor="#A34128"
+          />
+          
+          {/* Not Suitable For */}
+          {experience.notSuitableFor && (
+            <DetailSection
+              icon={AlertCircle}
+              title="Not Suitable For"
+              content={experience.notSuitableFor}
+              isList
+              iconColor="#D38E63"
+            />
+          )}
+          
+          {/* What to Bring */}
+          <DetailSection
+            icon={Backpack}
+            title="What to Bring"
+            content={experience.whatToBring}
+            isList
+          />
+          
+          {/* Good to Know */}
+          <DetailSection
+            icon={Lightbulb}
+            title="Good to Know"
+            content={experience.goodToKnow}
+            isList
+            isHighlight
+          />
+        </div>
       </div>
 
-      {/* Details Content */}
-      <div className="flex-1 space-y-4">
-        <DetailSection
-          icon={Car}
-          title="Getting There"
-          content={experience.details.gettingThere}
-        />
-        
-        <DetailSection
-          icon={Ticket}
-          title="Entry Info"
-          content={experience.details.entryInfo}
-        />
-        
-        <DetailSection
-          icon={LocationIcon}
-          title="Highlights"
-          content={experience.details.topSpots}
-          isList
-        />
-        
-        <DetailSection
-          icon={UtensilsCrossed}
-          title="Where to Eat"
-          content={experience.details.dining}
-        />
-        
-        <DetailSection
-          icon={CreditCard}
-          title="Price Guide"
-          content={experience.details.priceGuide}
-        />
-        
-        <DetailSection
-          icon={Lightbulb}
-          title="Travel Tips"
-          content={experience.details.tips}
-          isList
-          isHighlight
-        />
-      </div>
-
-      {/* Back Buttons */}
-      <div className="space-y-3 mt-6">
-        <ActionButton
-          primary
-          onClick={() => {}}
-          text={experience.cta}
-        />
-        <ActionButton
-          onClick={onFlip}
-          text="Back to Overview"
-          icon={ArrowLeft}
-        />
+      {/* Fixed Bottom Buttons */}
+      <div className="p-6 pt-4 border-t" style={{ borderColor: '#E8DCC6' }}>
+        <div className="space-y-3">
+          <ActionButton
+            primary
+            onClick={() => window.open(experience.ctaLink, '_blank')}
+            text={experience.cta}
+          />
+          <ActionButton
+            onClick={onFlip}
+            text="Back to Overview"
+            icon={ArrowLeft}
+          />
+        </div>
       </div>
     </div>
   </div>
 );
 
 // Reusable Detail Section Component
-const DetailSection = ({ icon: Icon, title, content, isList = false, isHighlight = false }) => (
+const DetailSection = ({ icon: Icon, title, content, isList = false, isHighlight = false, iconColor }) => (
   <div>
     <div className="flex items-center gap-2 mb-2">
       <Icon 
         className="w-4 h-4" 
-        style={{ color: isHighlight ? '#F9C75E' : '#3E8DC1' }} 
+        style={{ color: iconColor || (isHighlight ? '#F9C75E' : '#3E8DC1') }} 
       />
       <h4 className="font-semibold text-sm" style={{ color: '#1C3F60' }}>
         {title}
       </h4>
     </div>
     {isList ? (
-      <ul className="text-xs space-y-1" style={{ color: '#2C2C2C' }}>
+      <ul className="text-xs space-y-1 ml-6" style={{ color: '#2C2C2C' }}>
         {content.map((item, idx) => (
           <li key={idx} className="leading-relaxed">• {item}</li>
         ))}
       </ul>
     ) : (
-      <p className="text-xs leading-relaxed" style={{ color: '#2C2C2C' }}>
+      <p className="text-xs leading-relaxed ml-6" style={{ color: '#2C2C2C' }}>
         {content}
       </p>
     )}
@@ -308,120 +351,775 @@ const ActionButton = ({ primary = false, onClick, text, icon: Icon }) => {
 // Main Component
 const TopExperiencesSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const router = useRouter();
 
   const experiences = [
     {
       id: 1,
-      title: "Explore Ancient Medinas",
-      description: "Step into history as you wander Morocco's centuries-old medinas. Lose yourself in maze-like alleys, colorful souks, and the scent of fresh spices.",
-      image: "/medina.png",
-      tag: "Cultural",
-      bestFor: "Culture lovers, photographers, history buffs",
-      location: "Marrakech & Fez",
-      duration: "Half Day",
-      price: "$25",
-      rating: 4.8,
-      cta: "Explore Medinas",
-      icon: Camera,
-      details: {
-        gettingThere: "Found in cities like Marrakech, Fes, and Tetouan. Easily walkable, often near the old city center",
-        entryInfo: "Free to enter the medinas. Guided walking tours: €15–€30 per person. Customize your route with a local guide",
-        topSpots: ["Marrakech: Jemaa el-Fnaa, Bahia Palace, spice souks", "Fes: Tanneries, Al-Qarawiyyin library", "Tetouan: UNESCO-listed medina architecture"],
-        dining: "Nomad or Café des Épices (Marrakech), Ruined Garden (Fes)",
-        priceGuide: "Guided tours: €20–€30, Meals: €8–€20, Souvenir shopping: negotiable",
-        tips: ["Hire a guide to avoid getting lost", "Bring cash for markets", "Ask before taking photos of people", "Wear comfortable walking shoes"]
-      }
+      title: "Marrakesh: Agafay Desert Sunset, Camel Ride, and Dinner Show",
+      description:
+        "Explore the stunning landscapes of the Agafay Desert during a camel ride from Marrakech. Learn how argan oil is produced, sip tea at a Berber camp, enjoy live music and fire shows, and indulge in a traditional Moroccan dinner under the stars.",
+        image: "/experiences/1.jpg",
+      icon: Mountain,
+      tag: "Adventure",
+      bestFor: "Couples, sunset seekers, first-time visitors",
+      location: "Agafay Desert (from Marrakech)",
+      duration: "6 Hours",
+      price: "€21.98",
+      rating: 4.6,
+      reviews: 24809,
+      cta: "Book Desert Experience",
+      ctaLink:
+        "https://www.getyourguide.com/marrakesh-l208/dinner-under-the-stars-of-agafay-desert-sunset-camel-ride-t477070/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+  
+      highlights: [
+        "Live like a local with a Moroccan dinner at a desert camp",
+        "Take in a colorful sunset over the Agafay Desert dunes",
+        "Ride a camel through the golden landscapes",
+        "Enjoy Berber tea and traditional argan oil visit",
+        "Relax with fire shows and live music under the stars"
+      ],
+  
+      itinerary: [
+        "Pickup from Marrakech hotel or riad",
+        "Short stop at local argan oil cooperative",
+        "Camel ride through desert at sunset",
+        "Dinner served at Berber camp",
+        "Fire show and live traditional music",
+        "Return to Marrakech in the evening"
+      ],
+  
+      includes: [
+        "Hotel pickup and drop-off",
+        "Camel ride",
+        "Traditional Moroccan dinner",
+        "Tea at Berber camp",
+        "Music and fire show",
+        "Air-conditioned transportation"
+      ],
+  
+      notIncluded: ["Water", "Soda", "Tips"],
+  
+      notSuitableFor: [
+        "Pregnant women",
+        "People with back problems",
+        "People with reduced mobility (camel ride and terrain)"
+      ],
+  
+      whatToBring: [
+        "Warm jacket for the evening",
+        "Camera",
+        "Comfortable closed shoes",
+        "Cash for drinks or extras"
+      ],
+  
+      goodToKnow: [
+        "Kids can ride camels with an adult",
+        "Vegetarian and gluten-free meal options available",
+        "Pickup details sent via WhatsApp the day before the tour"
+      ]
     },
     {
       id: 2,
-      title: "Visit Enchanting Gardens",
-      description: "Uncover Morocco's quieter side in its secret gardens and royal courtyards. Enjoy moments of peace surrounded by fountains, mosaics, and blooming orange trees.",
-      image: "/majorele.png",
-      tag: "Romantic",
-      bestFor: "Couples, solo travelers, nature seekers",
-      location: "Marrakech",
-      duration: "2-3 Hours",
-      price: "$15",
+      title: "From Marrakech: Ouzoud Waterfalls Guided Hike and Boat Trip",
+      description:
+        "Embark on a full-day journey to the breathtaking Ouzoud Waterfalls. Hike through lush olive groves, discover Berber villages, enjoy a boat ride to the base of the falls, and see wild monkeys in their natural habitat.",
+        image: "/experiences/2.jpg",
+      icon: Droplets,
+      tag: "Nature",
+      bestFor: "Nature lovers, hikers, photographers",
+      location: "Ouzoud (from Marrakech)",
+      duration: "10 Hours",
+      price: "€19.00",
       rating: 4.7,
-      cta: "See Gardens",
-      icon: Star,
-      details: {
-        gettingThere: "Located within major cities like Marrakech and Rabat. Walk or short taxi from city center",
-        entryInfo: "Majorelle Garden (Marrakech): €12–€15, Andalusian Gardens (Rabat): Free, Menara Gardens: €5–€10",
-        topSpots: ["Exotic plants, fountains, tiled walkways", "Majorelle: vibrant blue & yellow hues", "Birds, turtles, and shaded benches"],
-        dining: "Jardin Majorelle Café (on-site), Café Clock (near Andalusian Gardens)",
-        priceGuide: "Entry: €0–€15, Café treats: €5–€10",
-        tips: ["Visit early for the best lighting", "Buy tickets online in advance", "Go in spring for peak blooms", "Combine with museum visit"]
-      }
+      reviews: 25294,
+      cta: "Book Ouzoud Trip",
+      ctaLink:
+        "https://www.getyourguide.com/marrakesh-l208/from-marrakech-ouzoud-waterfalls-guided-hike-and-boat-trip-t388884/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+  
+      highlights: [
+        "Admire the spectacular Ouzoud waterfalls",
+        "Join a scenic hike with a local guide",
+        "Get close to the falls with a boat ride",
+        "Spot wild monkeys along the way",
+        "Relax with round-trip transport and guide"
+      ],
+  
+      itinerary: [
+        "Pickup from Marrakech (7:40 AM)",
+        "2h drive to rest stop and coffee break",
+        "1h more to Ouzoud Waterfalls",
+        "4h hike, lunch break, and boat cruise",
+        "3h return journey to Marrakech"
+      ],
+  
+      includes: [
+        "Hotel/riad pickup and drop-off",
+        "Round-trip transportation by air-conditioned van",
+        "Bilingual driver",
+        "Live guide in Ouzoud",
+        "Boat ride at the falls"
+      ],
+  
+      notIncluded: [
+        "Lunch (approx. €10, paid locally in cash)"
+      ],
+  
+      notSuitableFor: [
+        "People with mobility impairments",
+        "Wheelchair users"
+      ],
+  
+      whatToBring: [
+        "Comfortable walking shoes",
+        "Sunglasses and hat",
+        "Snacks and bottled water",
+        "Sunscreen"
+      ],
+  
+      goodToKnow: [
+        "Choose between a shared or private tour",
+        "Expect moderate-level hiking with uneven terrain",
+        "Lunch is not included but guide will recommend options"
+      ]
     },
     {
       id: 3,
-      title: "Sunset Camel Ride Sahara",
-      description: "Watch the sun melt into the dunes on a camel trek through the golden desert. A once-in-a-lifetime experience under the stars.",
-      image: "/camelRide.png",
+      title: "Marrakech: Agafay Desert Quad & Camel Rides with Dinner Show",
+      description:
+        "Enjoy an action-packed day trip from Marrakech featuring quad biking, camel rides, and a Berber dinner show in the Agafay Desert. Ride through arid terrain and relax at a desert camp with music, food, and local culture.",
+        image: "/experiences/3.jpg",
+      icon: Car,
       tag: "Adventure",
-      bestFor: "Adventure seekers, first-time visitors",
-      location: "Merzouga",
-      duration: "Full Day",
-      price: "$120",
-      rating: 4.9,
-      cta: "Book Camel Trek",
-      icon: Mountain,
-      details: {
-        gettingThere: "Depart from Merzouga (Erg Chebbi) or Zagora. Reach via 4x4 or organized tour from Marrakech",
-        entryInfo: "Group camel ride: €35–€50, Overnight with tent & dinner: €80–€120 per person",
-        topSpots: ["1–2 hour camel trek at sunset", "Berber dinner & campfire music", "Stargazing in the desert"],
-        dining: "Tagine, mint tea, and bread baked in the sand",
-        priceGuide: "Day trip: from €35, Overnight luxury: up to €250",
-        tips: ["Bring a scarf for wind/dust", "Easy walking shoes or sandals", "Prepare for no Wi-Fi", "Pack light and warm clothes"]
-      }
+      bestFor: "Thrill seekers, groups, active travelers",
+      location: "Agafay Desert (from Marrakech)",
+      duration: "6 Hours",
+      price: "€17.50",
+      rating: 4.6,
+      reviews: 13042,
+      cta: "Book Quad & Camel Tour",
+      ctaLink:
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-agafay-desert-quad-camel-rides-with-dinner-show-t713703/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Ride a thrilling desert quad bike",
+        "Take a camel ride at sunset",
+        "Enjoy a 3-course dinner at a Berber camp",
+        "Watch live traditional entertainment",
+        "Explore the rocky terrain of the Agafay Desert"
+      ],
+    
+      itinerary: [
+        "Pickup from Marrakech hotel/riad",
+        "Drive to Lalla Takerkoust (quad base)",
+        "Briefing and safety equipment fitting",
+        "1-hour guided quad ride",
+        "Transfer to Agafay Desert",
+        "20-minute camel ride at sunset",
+        "Dinner, fire show, and Berber music",
+        "Return to Marrakech"
+      ],
+    
+      includes: [
+        "Hotel pickup and drop-off",
+        "Helmet and goggles for quad riding",
+        "Guided quad ride (1 hour)",
+        "Camel ride (20 minutes)",
+        "3-course Moroccan dinner",
+        "Live traditional show",
+        "Tea and water"
+      ],
+    
+      notIncluded: [
+        "Alcoholic beverages",
+        "Tips and gratuities"
+      ],
+    
+      notSuitableFor: [
+        "Pregnant women"
+      ],
+    
+      whatToBring: [
+        "Comfortable warm clothing",
+        "Sunglasses",
+        "Closed shoes",
+        "Valid ID (for quad insurance)"
+      ],
+    
+      goodToKnow: [
+        "Drivers must be at least 16 years old for quads",
+        "One quad per person; no switching drivers",
+        "You’ll be grouped with other travelers unless private option selected",
+        "Weather may affect quad routes — itinerary may adjust accordingly"
+      ]
     },
     {
       id: 4,
-      title: "Cook a Traditional Tagine",
-      description: "Get hands-on with Moroccan cuisine in a local kitchen. Shop at the souk, then cook with authentic spices and techniques.",
-      image: "/tajine.png",
-      tag: "Culinary",
-      bestFor: "Foodies, families, experiential travelers",
-      location: "Marrakech",
-      duration: "4 Hours",
-      price: "$45",
-      rating: 4.6,
-      cta: "Join Cooking Class",
-      icon: Utensils,
-      details: {
-        gettingThere: "Available in Marrakech, Fes, and rural villages. Short walk from riads or pick-up from accommodation",
-        entryInfo: "Half-day class: €35–€60. Includes souk visit, ingredients, and guided prep",
-        topSpots: ["Spice combinations and cultural significance", "How to make preserved lemons & mint tea", "Tagine techniques from local chefs"],
-        dining: "Starter, main (tagine), and dessert. Communal meal with hosts",
-        priceGuide: "Classes: €35–€60, Optional upgrades: private chef, wine pairing",
-        tips: ["Ask for a recipe handout", "Bring your phone to document", "Come hungry - it's a full meal", "Great chance to learn about culture"]
-      }
+      title: "Marrakesh Menara Airport (RAK): One-Way Private Transfer",
+      description:
+        "Enjoy a hassle-free, comfortable transfer between Marrakesh city and Menara Airport (RAK). Travel in an air-conditioned vehicle with a professional driver who will assist with luggage and ensure a smooth ride.",
+        image: "/experiences/4.jpg",
+      icon: Car,
+      tag: "Transport",
+      bestFor: "Solo travelers, families, business visitors",
+      location: "Marrakech Menara Airport or City Center",
+      duration: "20–30 Minutes",
+      price: "€14.22",
+      rating: 4.7,
+      reviews: 662,
+      cta: "Book Airport Transfer",
+      ctaLink:
+        "https://www.getyourguide.com/marrakesh-l208/marrakesh-menara-airport-rak-one-way-private-transfer-t613597/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Reliable private transfer between Marrakech airport and city",
+        "Avoid stress with professional pickup and drop-off",
+        "Travel in air-conditioned comfort with luggage help",
+        "Multilingual drivers and flexible scheduling",
+        "Wheelchair accessible and family friendly"
+      ],
+    
+      itinerary: [
+        "Pickup from airport arrivals or hotel/riad",
+        "Private drive to your destination (20–30 mins)",
+        "Drop-off with luggage assistance"
+      ],
+    
+      includes: [
+        "Private air-conditioned vehicle",
+        "Driver assistance with luggage",
+        "Multilingual driver (English, French, Arabic)",
+        "Flexible pickup/drop-off times"
+      ],
+    
+      notIncluded: [],
+    
+      notSuitableFor: [],
+    
+      whatToBring: [
+        "Flight information (for airport pickups)",
+        "Hotel name or address (for drop-offs)"
+      ],
+    
+      goodToKnow: [
+        "Book at least 4 hours before scheduled pickup",
+        "If your riad is inside the medina, pickup/drop-off may be at the closest accessible point",
+        "Free cancellation up to 24 hours in advance"
+      ]
     },
     {
       id: 5,
-      title: "Hike the Atlas Mountains",
-      description: "Escape the city and breathe in the clean air of the High Atlas. Pass Berber villages and rivers as you trek to panoramic views.",
-      image: "/atlas.png",
-      tag: "Active",
-      bestFor: "Hikers, photographers, nature lovers",
-      location: "High Atlas",
-      duration: "Full Day",
-      price: "$80",
+      title: "From Marrakech: Essaouira Full-Day Trip",
+      description:
+        "Escape Marrakech for a full-day coastal adventure in Essaouira. Discover the charming medina, stroll along the windy beach, explore the port, and see how local argan oil is made. A relaxing and cultural day trip perfect for all travelers.",
+        image: "/experiences/5.jpg",
+      icon: Car,
+      tag: "Coastal",
+      bestFor: "Culture seekers, solo travelers, relaxed explorers",
+      location: "Essaouira (from Marrakech)",
+      duration: "10 Hours",
+      price: "€29.00",
+      rating: 4.4,
+      reviews: 4165,
+      cta: "Book Essaouira Day Trip",
+      ctaLink:
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-to-essaouira-full-day-escape-t56046/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Discover the Atlantic coastal city of Essaouira",
+        "Admire the souks, port, beach, and blue-and-white architecture",
+        "Explore the medina at your own pace or with local guidance",
+        "Visit an argan oil cooperative on the way",
+        "Relax on a scenic drive through Morocco’s countryside"
+      ],
+    
+      itinerary: [
+        "Pickup from Marrakech accommodations",
+        "Scenic drive to Essaouira (approx. 3 hours)",
+        "Stop at café and argan oil cooperative",
+        "Free time to explore Essaouira's medina, ramparts, and beach",
+        "Lunch on your own (guide gives recommendations)",
+        "Drive back to Marrakech, arrive late afternoon"
+      ],
+    
+      includes: [
+        "Hotel pickup and drop-off",
+        "Air-conditioned transportation",
+        "Bilingual driver/guide (English/French)",
+        "Stop at argan oil cooperative"
+      ],
+    
+      notIncluded: [
+        "Meals and drinks",
+        "Personal expenses"
+      ],
+    
+      notSuitableFor: [
+        "People with mobility impairments",
+        "Wheelchair users"
+      ],
+    
+      whatToBring: [
+        "Comfortable walking shoes",
+        "Sun protection (hat/sunscreen)",
+        "Water and snacks",
+        "Windbreaker (Essaouira is breezy year-round)"
+      ],
+    
+      goodToKnow: [
+        "Pickup starts at 8:00 AM; exact time sent the day before",
+        "Expect a moderate walk in Essaouira’s medina",
+        "Lunch is not included — multiple cafés near the beach and port"
+      ]
+    },
+    {
+      id: 6,
+      title: "Agadir/Tamraght/Taghazout: Paradise Valley Atlas Tour",
+      description:
+        "Discover the lush oasis of Paradise Valley on this scenic tour from Agadir, Tamraght, or Taghazout. Enjoy a guided hike through the High Atlas Mountains, swim in natural pools, and unwind in a breathtaking natural setting.",
+        image: "/experiences/6.jpg",
+      icon: Car,
+      tag: "Nature",
+      bestFor: "Hikers, swimmers, nature lovers",
+      location: "Paradise Valley (from Agadir, Tamraght, Taghazout)",
+      duration: "5 Hours",
+      price: "€18.31",
+      rating: 4.3,
+      reviews: 266,
+      cta: "Book Paradise Valley Tour",
+      ctaLink:
+        "https://www.getyourguide.com/agadir-l1413/agadirtamraghttaghazout-paradise-valley-atlas-tour-t678479/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Stop at panoramic spots in the Atlas foothills",
+        "Explore Paradise Valley with a knowledgeable local guide",
+        "Swim in crystal-clear natural rock pools",
+        "Relax under the palm trees in a stunning mountain gorge",
+        "Enjoy hassle-free round-trip transport from your accommodation"
+      ],
+    
+      itinerary: [
+        "Pickup from Agadir, Tamraght, or Taghazout",
+        "Drive through the Atlas Mountains",
+        "Stop at scenic viewpoints and argan trees",
+        "Hike through Paradise Valley (30–40 mins)",
+        "Free time to swim, relax, and explore",
+        "Return drive to your original location"
+      ],
+    
+      includes: [
+        "Hotel pickup and drop-off",
+        "Air-conditioned transport",
+        "Local hiking guide",
+        "Time for swimming and relaxing"
+      ],
+    
+      notIncluded: [],
+    
+      notSuitableFor: [
+        "People with mobility impairments",
+        "Wheelchair users"
+      ],
+    
+      whatToBring: [
+        "Swimsuit and towel",
+        "Good walking shoes",
+        "Water bottle",
+        "Snacks or lunch",
+        "Sunscreen"
+      ],
+    
+      goodToKnow: [
+        "Pickup from Agadir: 8:15 AM, Tamraght: 8:45 AM, Taghazout: 9:00 AM",
+        "Tour may be canceled in poor weather conditions",
+        "Wear water-safe shoes for riverbank walking and rocky terrain"
+      ]
+    },
+    {
+      id: 7,
+      title: "Agadir/Taghazout: Quad Bike and Sandboarding Tour",
+      description:
+        "Embark on a thrilling half-day tour from Agadir or Taghazout that combines quad biking across desert trails with sandboarding on golden dunes. Experience the landscapes of Morocco’s southern coast in a unique and active way.",
+        image: "/experiences/7.jpg",
+      icon: Car,
+      tag: "Adventure",
+      bestFor: "Adventure seekers, friends, teens and adults",
+      location: "Agadir & Taghazout",
+      duration: "4 Hours",
+      price: "€38.11",
       rating: 4.8,
-      cta: "Plan a Hike",
-      icon: Mountain,
-      details: {
-        gettingThere: "Common base towns: Imlil, Tacheddirt, Oukaimeden. 1.5–2 hours by car from Marrakech",
-        entryInfo: "Day hike: free or €30–€60 with guide. Multi-day treks available for Mount Toubkal",
-        topSpots: ["Jbel Toubkal (4,167 m): North Africa's highest peak", "Waterfalls, walnut groves, Berber villages", "Unmatched panoramic views"],
-        dining: "Imlil guesthouses, Berber bread, tagine, local honey",
-        priceGuide: "Guided hike: €30–€90, Meals: €5–€15, Overnight refuge: €15–€40",
-        tips: ["Bring layers - temperature drops quickly", "Wear sun protection and hydrate", "Hiking poles recommended", "Be respectful of village customs"]
-      }
+      reviews: 423,
+      cta: "Book Quad & Sandboarding",
+      ctaLink:
+        "https://www.getyourguide.com/agadir-l1413/agadirtaghazout-quad-bike-and-sandboarding-desert-beach-t586206/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Ride a quad bike along the dunes and coastline",
+        "Experience fun sandboarding with ocean views",
+        "Capture stunning photos in a Moroccan desert setting",
+        "Explore the Sahara-like terrain near Tamri and Agadir",
+        "Perfect mix of adrenaline, nature, and culture"
+      ],
+    
+      itinerary: [
+        "Pickup from Agadir, Tamraght, or Taghazout hotel",
+        "Drive to Tamri sand dunes (approx. 40 min)",
+        "Safety briefing and helmet fitting",
+        "Quad bike ride through dunes and beach trails",
+        "Stop for sandboarding on the dunes",
+        "Photo and tea break",
+        "Return ride and transfer back to hotel"
+      ],
+    
+      includes: [
+        "Hotel pickup and drop-off",
+        "Quad bike rental",
+        "Helmet and goggles",
+        "Sandboard",
+        "Tea break"
+      ],
+    
+      notIncluded: [],
+    
+      notSuitableFor: [
+        "Pregnant women",
+        "Children under 6 (children 6–11 can ride as passenger)"
+      ],
+    
+      whatToBring: [
+        "Closed shoes",
+        "Comfortable clothing that can get dusty",
+        "Sunglasses",
+        "Water and sunscreen"
+      ],
+    
+      goodToKnow: [
+        "Children 6–11 can join as passengers behind adults",
+        "Quad bike is automatic and easy to drive",
+        "Experience operates daily, but may adjust for weather",
+        "Not recommended for people with spinal conditions"
+      ]
+    },
+    {
+      id: 8,
+      title: "Casablanca: Hassan II Mosque Premium Tour with Entry Ticket",
+      description:
+        "Explore Morocco’s most iconic religious landmark on a premium guided tour of the Hassan II Mosque in Casablanca. Admire intricate architecture, learn about Islamic art, and gain insight into Moroccan history.",
+        image: "/experiences/8.jpg",
+      icon: Car,
+      tag: "Cultural",
+      bestFor: "Architecture lovers, cultural travelers, first-time visitors",
+      location: "Casablanca",
+      duration: "45 Minutes",
+      price: "€17.00",
+      rating: 4.6,
+      reviews: 1336,
+      cta: "Book Mosque Tour",
+      ctaLink:
+        "https://www.getyourguide.com/casablanca-l244/casablanca-hassan-ii-mosque-premium-tour-with-entry-ticket-t343456/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Visit one of Morocco’s most iconic religious landmarks",
+        "Skip the ticket line and enjoy an official guided mosque tour",
+        "Marvel at intricate mosaics, carvings, and architecture",
+        "Learn about Moroccan culture and Islamic tradition",
+        "Choose hotel pickup or meet directly at the mosque"
+      ],
+    
+      itinerary: [
+        "Optional pickup from hotel or meet at Hassan II Mosque",
+        "Skip-the-line mosque entry",
+        "45-minute guided tour",
+        "Q&A with your certified local guide",
+        "Return to hotel or free time in the area"
+      ],
+    
+      includes: [
+        "Guided tour with licensed local guide",
+        "Entry ticket to Hassan II Mosque",
+        "Hotel pickup and drop-off (if selected)"
+      ],
+    
+      notIncluded: [
+        "Food and drinks",
+        "Personal expenses"
+      ],
+    
+      notSuitableFor: [],
+    
+      whatToBring: [
+        "Comfortable shoes",
+        "Modest clothing (arms and legs covered)",
+        "Headscarf for women (recommended)"
+      ],
+    
+      goodToKnow: [
+        "Photography is allowed inside the mosque",
+        "Tour is available in multiple languages (English, French, Spanish)",
+        "Shoes must be removed inside — plastic bags are provided"
+      ]
+    },
+    {
+      id: 9,
+      title: "Chefchaouen Day Trip from Fez (Shared Group Tour)",
+      description:
+        "Visit the stunning blue city of Chefchaouen on a full-day trip from Fez. Wander through vibrant alleys, take incredible photos, and explore the charm of Morocco’s most photogenic town in the Rif Mountains.",
+      image: "/experiences/9.png",
+      icon: Car,
+      tag: "Cultural",
+      bestFor: "Photographers, explorers, solo travelers",
+      location: "Chefchaouen (from Fez)",
+      duration: "12 Hours",
+      price: "€17.22",
+      rating: 4.7,
+      reviews: 412,
+      cta: "Book Chefchaouen Trip",
+      ctaLink:
+        "https://www.getyourguide.com/fes-l829/chefchaouen-day-trip-from-fez-shared-group-tour-t495614/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Discover 'The Blue City of Morocco' with a local guide",
+        "Capture breathtaking photos in narrow cobalt streets",
+        "Learn about the culture and history of Chefchaouen",
+        "Relax with round-trip transport from Fez",
+        "Comfortable shared air-conditioned vehicle"
+      ],
+    
+      itinerary: [
+        "Pickup from hotel/riad in Fez",
+        "Drive through scenic Rif Mountains (3.5–4 hours)",
+        "Guided tour of Chefchaouen",
+        "Free time for exploration, shopping, and lunch",
+        "Return trip to Fez in late afternoon"
+      ],
+    
+      includes: [
+        "Round-trip transportation Fez ⇄ Chefchaouen",
+        "English/French-speaking driver",
+        "Air-conditioned vehicle",
+        "Local city guide",
+        "Entrance fees"
+      ],
+    
+      notIncluded: [
+        "Meals and drinks",
+        "Tips for guide or driver"
+      ],
+    
+      notSuitableFor: [
+        "People prone to motion sickness (long drive)"
+      ],
+    
+      whatToBring: [
+        "Walking shoes",
+        "Camera",
+        "Hat and sunscreen",
+        "Water and snacks"
+      ],
+    
+      goodToKnow: [
+        "Travel time each way is approx. 4 hours",
+        "Guide will give a short orientation, then you’ll have free time",
+        "Chefchaouen is a pedestrian city — expect lots of walking"
+      ]
+    },
+    {
+      id: 10,
+      title: "Fes: Volubilis Roman Ruins, Moulay Idriss, & Meknes Day Trip",
+      description:
+        "Step back in time with a full-day tour from Fez to explore Morocco’s Roman ruins of Volubilis, the holy town of Moulay Idriss, and the imperial city of Meknes. Discover ancient architecture, history, and culture all in one scenic day.",
+        image: "/experiences/10.jpg",
+      icon: Car,
+      tag: "Cultural",
+      bestFor: "History buffs, architecture lovers, day trippers",
+      location: "Volubilis, Moulay Idriss, Meknes (from Fez)",
+      duration: "8 Hours",
+      price: "€14.85",
+      rating: 4.6,
+      reviews: 146,
+      cta: "Book History Day Trip",
+      ctaLink:
+        "https://www.getyourguide.com/fes-l829/fes-volubilis-roman-ruins-mouly-idriss-meknes-day-trip-t497285/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Explore the stunning Roman ruins of Volubilis",
+        "Visit the spiritual hilltop town of Moulay Idriss",
+        "Discover the gates, palaces, and souks of Meknes",
+        "Enjoy round-trip transport in a comfortable vehicle",
+        "Perfect full-day cultural experience from Fez"
+      ],
+    
+      itinerary: [
+        "Pickup from your hotel or riad in Fez",
+        "Drive to Volubilis (UNESCO Roman site)",
+        "Stop in Moulay Idriss for panoramic views",
+        "Explore Meknes: Bab Mansour, Lahdim Square, local medina",
+        "Return to Fez in the late afternoon"
+      ],
+    
+      includes: [
+        "Hotel/riad pickup and drop-off in Fez",
+        "Air-conditioned transport",
+        "English or French-speaking driver",
+        "Stop at Volubilis, Moulay Idriss, and Meknes"
+      ],
+    
+      notIncluded: [
+        "Volubilis entry fee (€7)",
+        "Meals and personal expenses"
+      ],
+    
+      notSuitableFor: [
+        "Wheelchair users",
+        "People with walking difficulties (Volubilis is uneven terrain)"
+      ],
+    
+      whatToBring: [
+        "Comfortable walking shoes",
+        "Sunscreen and hat",
+        "Water and snacks",
+        "Camera"
+      ],
+    
+      goodToKnow: [
+        "Volubilis ruins are not shaded — bring sun protection",
+        "Tour runs with a small group in a shared vehicle",
+        "Optional local guide at Volubilis (paid on-site)"
+      ]
+    },
+    {
+      id: 11,
+      title: "Round-Trip Transportation from Tangier to Chefchaouen",
+      description:
+        "Enjoy a stress-free day trip from Tangier to the magical Blue City of Chefchaouen. Travel through the Rif Mountains in a comfortable vehicle and enjoy free time to explore at your own pace.",
+        image: "/experiences/11.jpg",
+      icon: Car,
+      tag: "Transport",
+      bestFor: "Independent travelers, photographers, couples",
+      location: "Chefchaouen (from Tangier)",
+      duration: "10 Hours",
+      price: "€37.62",
+      rating: 4.6,
+      reviews: 28,
+      cta: "Book Tangier Transfer",
+      ctaLink:
+        "https://www.getyourguide.com/tangier-l835/round-trip-transportation-from-tangier-to-chefchaouen-t838404/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Discover the enchanting Blue City of Chefchaouen",
+        "Travel through the scenic Rif Mountains",
+        "Enjoy flexible free time to explore and take photos",
+        "Relax with round-trip transportation from Tangier",
+        "Perfect for independent travelers"
+      ],
+    
+      itinerary: [
+        "Pickup from your hotel or port in Tangier",
+        "Drive through Rif Mountain scenery (approx. 2.5 hours)",
+        "Free time to explore Chefchaouen (3–4 hours)",
+        "Optional lunch or guided visit (not included)",
+        "Return transfer to Tangier"
+      ],
+    
+      includes: [
+        "Round-trip transportation Tangier ⇄ Chefchaouen",
+        "Air-conditioned vehicle",
+        "Multilingual driver (English, French, Spanish, Arabic)"
+      ],
+    
+      notIncluded: [
+        "Meals and drinks",
+        "Guided tour in Chefchaouen",
+        "Entrance fees (if any)"
+      ],
+    
+      notSuitableFor: [
+        "Wheelchair users"
+      ],
+    
+      whatToBring: [
+        "Comfortable shoes",
+        "Camera",
+        "Snacks and water",
+        "Cash for souvenirs or meals"
+      ],
+    
+      goodToKnow: [
+        "Free cancellation up to 24 hours before departure",
+        "Duration may vary slightly due to traffic or group timing",
+        "Tour is transportation only — explore Chefchaouen independently"
+      ]
+    },
+    {
+      id: 12,
+      title: "Tangier: Sunset, Tea, Camel Ride, Cape Spartel and Caves",
+      description:
+        "Experience the magic of Tangier Beach at sunset with a camel ride, local mint tea, and visits to iconic Cape Spartel and the Caves of Hercules. A perfect half-day adventure combining nature, history, and fun.",
+        image: "/experiences/12.jpg",
+      icon: Car,
+      tag: "Adventure",
+      bestFor: "Couples, families, sunset lovers",
+      location: "Tangier",
+      duration: "3 Hours",
+      price: "€64.65",
+      rating: 4.9,
+      reviews: 211,
+      cta: "Book Camel Sunset Tour",
+      ctaLink:
+        "https://www.getyourguide.com/tangier-l835/tangier-sunset-tea-camel-ride-cape-spartel-and-caves-t837962/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    
+      highlights: [
+        "Ride camels along the Atlantic beach at golden hour",
+        "Sip traditional Moroccan mint tea in the open air",
+        "Visit the mythic Hercules Caves",
+        "See panoramic views from Cape Spartel",
+        "Small-group experience with hotel pickup included"
+      ],
+    
+      itinerary: [
+        "Pickup from hotel or port in Tangier",
+        "Visit Cape Spartel (photo stop)",
+        "Explore Hercules Caves",
+        "Camel ride on Achakar Beach at sunset",
+        "Mint tea and break with ocean view",
+        "Return to original pickup point"
+      ],
+    
+      includes: [
+        "Hotel pickup and drop-off",
+        "Camel ride at sunset",
+        "Mint tea",
+        "Hercules Caves and Cape Spartel visit",
+        "Professional driver/guide",
+        "All taxes and service charges"
+      ],
+    
+      notIncluded: [
+        "Personal expenses",
+        "Gratuities"
+      ],
+    
+      notSuitableFor: [
+        "Wheelchair users"
+      ],
+    
+      whatToBring: [
+        "Comfortable walking shoes",
+        "Warm layers for sunset breeze",
+        "Camera or smartphone",
+        "Cash for tips or souvenirs"
+      ],
+    
+      goodToKnow: [
+        "Camels are well-treated and ride lasts ~15–20 minutes",
+        "Tour is weather dependent; sunset visibility may vary",
+        "Modest clothing recommended when visiting caves"
+      ]
     }
+    
   ];
-
+  
+  
   return (
     <section className="relative py-20 overflow-hidden" style={{ backgroundColor: '#FDFDFD' }}>
       {/* Background Pattern */}
@@ -513,6 +1211,7 @@ const TopExperiencesSection = () => {
             Explore a curated collection of unforgettable Moroccan moments tailored to your style.
           </p>
           <motion.button
+           onClick={() => router.push('/experiences')}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"

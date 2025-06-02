@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Clock, Eye, BookOpen, Hash, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
 
 const LatestBlogSection = () => {
   const [hoveredPost, setHoveredPost] = useState(null);
@@ -287,7 +288,7 @@ const LatestBlogSection = () => {
                 </motion.button>
               ))}
             </div>
-
+           <Link href="/blogs">
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
@@ -298,6 +299,7 @@ const LatestBlogSection = () => {
             >
               Browse All Blog Posts
             </motion.button>
+            </Link>
           </div>
         </motion.div>
 

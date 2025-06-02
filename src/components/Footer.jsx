@@ -38,36 +38,36 @@ const EnhancedMoroccoFooter = () => {
 
   const footerLinks = {
     destinations: [
-      { name: 'Marrakech', href: '/destinations/marrakech', popular: true },
-      { name: 'Fes', href: '/destinations/fes', popular: true },
-      { name: 'Chefchaouen', href: '/destinations/chefchaouen', popular: true },
-      { name: 'Casablanca', href: '/destinations/casablanca' },
-      { name: 'Essaouira', href: '/destinations/essaouira' },
-      { name: 'Merzouga (Sahara)', href: '/destinations/merzouga', popular: true }
+      { name: 'Marrakech', href: '/', popular: true },
+      { name: 'Fes', href: '/', popular: true },
+      { name: 'Chefchaouen', href: '/', popular: true },
+      { name: 'Casablanca', href: '/' },
+      { name: 'Essaouira', href: '/' },
+      { name: 'Merzouga (Sahara)', href: '/', popular: true }
     ],
     resources: [
-      { name: 'Travel Guides', href: '/guides', icon: BookOpen },
-      { name: 'Safety Tips', href: '/safety', icon: Shield },
-      { name: 'Packing Lists', href: '/packing' },
-      { name: 'Cultural Guide', href: '/culture' },
-      { name: 'Budget Planning', href: '/budget' },
-      { name: 'Solo Female Travel', href: '/solo-female' }
+      { name: 'Travel Guides', href: '/guide', icon: BookOpen },
+      { name: 'Safety Tips', href: '/guide', icon: Shield },
+      { name: 'Packing Lists', href: '/guide' },
+      { name: 'Cultural Guide', href: '/guide' },
+      { name: 'Budget Planning', href: '/guide' },
+      { name: 'Solo Female Travel', href: '/guide' }
     ],
     company: [
       { name: 'About Us', href: '/about' },
-      { name: 'Our Story', href: '/story' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Affiliate Disclosure', href: '/affiliate' }
+      { name: 'Our Story', href: '/about' },
+      { name: 'Contact', href: '/about' },
+      { name: 'Privacy Policy', href: '/about' },
+      { name: 'Terms of Service', href: '/about' },
+      { name: 'Affiliate Disclosure', href: '/about' }
     ],
     support: [
-      { name: 'Help Center', href: '/help' },
-      { name: 'Trip Planning', href: '/planning' },
-      { name: 'Book a Consultation', href: '/consultation', highlight: true },
-      { name: 'Travel Insurance', href: '/insurance' },
-      { name: 'Emergency Contacts', href: '/emergency' },
-      { name: 'Refund Policy', href: '/refunds' }
+      { name: 'Help Center', href: '/guide' },
+      { name: 'Trip Planning', href: '/guide' },
+      { name: 'Book a Consultation', href: '/guide', highlight: true },
+      { name: 'Travel Insurance', href: '/guide' },
+      { name: 'Emergency Contacts', href: '/guide' },
+      { name: 'Refund Policy', href: '/guide' }
     ]
   };
 
@@ -179,7 +179,7 @@ const EnhancedMoroccoFooter = () => {
                 </div>
 
                 {/* Enhanced Stats with Hover Effects */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                {/* <div className="grid grid-cols-2 gap-4 mb-6">
                   {stats.map((stat, index) => {
                     const Icon = stat.icon;
                     return (
@@ -204,7 +204,7 @@ const EnhancedMoroccoFooter = () => {
                       </div>
                     );
                   })}
-                </div>
+                </div> */}
 
                 {/* Enhanced Social Links */}
                 <div className="space-y-4">
@@ -348,27 +348,27 @@ const EnhancedMoroccoFooter = () => {
           </div>
 
           {/* Enhanced Newsletter Section */}
-          <div className="mt-16 p-8 rounded-3xl bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 backdrop-blur-sm border border-white/10 relative overflow-hidden">
-            {/* Background decoration */}
+          {/* <div className="mt-16 p-8 rounded-3xl bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 backdrop-blur-sm border border-white/10 relative overflow-hidden">
+           
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5" />
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl" />
             
-            <div className="relative max-w-4xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="relative max-w-4xl mx-auto text-center"> */}
+              {/* <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                   Join Our Travel Community
                 </h3>
-              </div>
+              </div> */}
               
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
+              {/* <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
                 Get exclusive travel insights, hidden gems, and special offers delivered to your inbox. 
                 Join 50,000+ passionate travelers exploring Morocco!
-              </p>
+              </p> */}
 
-              {!isSubscribed ? (
+              {/* {!isSubscribed ? (
                 <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto mb-6">
                   <input
                     type="email"
@@ -395,9 +395,9 @@ const EnhancedMoroccoFooter = () => {
                   </div>
                   <span className="font-semibold text-xl">Welcome to the community!</span>
                 </div>
-              )}
+              )} */}
 
-              <div className="flex items-center justify-center gap-8 text-sm text-gray-400">
+              {/* <div className="flex items-center justify-center gap-8 text-sm text-gray-400">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4" />
                   <span>No spam, ever</span>
@@ -410,9 +410,9 @@ const EnhancedMoroccoFooter = () => {
                   <Users className="w-4 h-4" />
                   <span>50K+ subscribers</span>
                 </div>
-              </div>
-            </div>
-          </div>
+              </div> */}
+            {/* </div>
+          </div> */}
 
           {/* Enhanced Contact Info */}
           <div className="mt-12 pt-8 border-t border-white/10">

@@ -49,6 +49,11 @@ const MoroccoResponsiveNavbar = () => {
 
   const navigationItems = [
     {
+      label: 'About',
+      icon: Heart,
+      href: '/about'
+    },
+    {
       label: 'Destinations',
       icon: MapPin,
       href: '/',
@@ -64,32 +69,26 @@ const MoroccoResponsiveNavbar = () => {
     {
       label: 'Travel Guides',
       icon: BookOpen,
-      href: '/',
+      href: '/guide',
       dropdown: [
-        { name: 'Free Safety Guide', href: '/', icon: Shield, color: '#10B981' },
-        { name: 'Pocket Marrakesh', href: '/', icon: Camera, color: '#EF4444' },
-        { name: 'Morocco Planner', href: '/', icon: MapPin, color: '#6366F1' },
-        { name: 'Solo Female Travel', href: '/', icon: Users, color: '#EC4899' },
-        { name: 'Cultural Guide', href: '/', icon: Star, color: '#8B5CF6' },
-        { name: 'Food & Dining', href: '/', icon: Utensils, color: '#F59E0B' }
+        { name: 'Free Safety Guide', href: '/guide', icon: Shield, color: '#10B981' },
+        { name: 'Pocket Marrakesh', href: '/guide', icon: Camera, color: '#EF4444' },
+        { name: 'Morocco Planner', href: '/guide', icon: MapPin, color: '#6366F1' },
+        { name: 'Solo Female Travel', href: '/guide', icon: Users, color: '#EC4899' },
       ]
     },
     {
       label: 'Experiences',
       icon: Star,
-      href: '/',
+      href: '/experiences',
       badge: 'Popular'
     },
     {
-      label: 'Blog',
+      label: 'Blogs',
       icon: BookOpen,
-      href: '/'
+      href: '/blogs'
     },
-    {
-      label: 'About',
-      icon: Heart,
-      href: '/'
-    }
+   
   ];
 
   const toggleDropdown = (label) => {
@@ -177,7 +176,7 @@ const MoroccoResponsiveNavbar = () => {
                                 className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50/80 transition-all duration-300"
                                 whileHover={{ x: 5 }}
                               >
-                                <div 
+                                {/* <div 
                                   className="w-8 h-8 rounded-lg flex items-center justify-center"
                                   style={{ backgroundColor: `${dropdownItem.color}15` }}
                                 >
@@ -185,7 +184,7 @@ const MoroccoResponsiveNavbar = () => {
                                     className="w-4 h-4" 
                                     style={{ color: dropdownItem.color }} 
                                   />
-                                </div>
+                                </div> */}
                                 <div>
                                   <div className="font-medium">{dropdownItem.name}</div>
                                   {dropdownItem.name === 'Free Safety Guide' && (
@@ -209,7 +208,7 @@ const MoroccoResponsiveNavbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-4 py-2 rounded-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 flex items-center gap-2"
-                onClick={() => window.location.href = '/free-guide'}
+                onClick={() => window.location.href = '/guide'}
               >
                 <Download className="w-4 h-4" />
                 <span className="hidden lg:inline">Free Guide</span>
@@ -222,7 +221,7 @@ const MoroccoResponsiveNavbar = () => {
                 style={{ 
                   background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
                 }}
-                onClick={() => window.location.href = '/plan-trip'}
+                onClick={() => window.location.href = '/guide'}
               >
                 <Star className="w-4 h-4" />
                 Plan My Trip

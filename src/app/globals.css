@@ -1,2 +1,16 @@
 @import "tailwindcss";
 
+/* In your global CSS file */
+.leaflet-container {
+    z-index: 1;
+  }
+  
+  .leaflet-control-container {
+    z-index: 2;
+  }
+  
+  /* Custom marker styles */
+  .custom-marker {
+    background: transparent !important;
+    border: none !important;
+  }
