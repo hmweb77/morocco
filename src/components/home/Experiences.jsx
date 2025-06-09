@@ -62,243 +62,259 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
 };
 
 // Front Card Component
-const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }) => (
-  <div 
-    className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-    style={{ 
-      backgroundColor: '#F3E7D2',
-      backfaceVisibility: 'hidden'
-    }}
-  >
-    {/* Image Section */}
-    <div className="relative h-64 overflow-hidden">
-      <motion.img
-        src={experience.image}
-        alt={experience.title}
-        className="w-full h-full object-cover"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.6 }}
-      />
-      
-      {/* Tag Badge */}
-      <div 
-        className="absolute top-4 left-4 px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg"
-        style={{ backgroundColor: getTagColor(experience.tag) }}
-      >
-        {experience.tag}
-      </div>
+const CardFront = ({ experience, IconComponent, getTagColor, isHovered, onFlip }) => {
+  const router = useRouter();
 
-      {/* Rating */}
-      <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-black/20 backdrop-blur-sm">
-        <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
-        <span className="text-white text-sm font-medium">{experience.rating}</span>
-      </div>
+  const handleBookNow = () => {
+    const link = document.createElement('a');
+    link.href = experience.ctaLink;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-      {/* Hover Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6"
-      >
-        <div className="text-white space-y-2">
-          <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
-              <span>{experience.location}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{experience.duration}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <DollarSign className="w-4 h-4" />
-              <span>{experience.price}</span>
+  return (
+    <div 
+      className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+      style={{ 
+        backgroundColor: '#F3E7D2',
+        backfaceVisibility: 'hidden'
+      }}
+    >
+      {/* Image Section */}
+      <div className="relative h-64 overflow-hidden">
+        <motion.img
+          src={experience.image}
+          alt={experience.title}
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.6 }}
+        />
+        
+        {/* Tag Badge */}
+        <div 
+          className="absolute top-4 left-4 px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg"
+          style={{ backgroundColor: getTagColor(experience.tag) }}
+        >
+          {experience.tag}
+        </div>
+
+        {/* Rating */}
+        <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-black/20 backdrop-blur-sm">
+          <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
+          <span className="text-white text-sm font-medium">{experience.rating}</span>
+        </div>
+
+        {/* Hover Overlay */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6"
+        >
+          <div className="text-white space-y-2">
+            <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4" />
+                <span>{experience.location}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>{experience.duration}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <DollarSign className="w-4 h-4" />
+                <span>{experience.price}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
-    </div>
-
-    {/* Content Section */}
-    <div className="p-6">
-      <div className="flex items-start gap-3 mb-3">
-        {/* <div 
-          className="p-2 rounded-lg"
-          style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
-        >
-          <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
-        </div> */}
-        <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2 font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
-            {experience.title}
-          </h3>
-        </div>
+        </motion.div>
       </div>
 
-      <p className="text-sm mb-4 leading-relaxed line-clamp-3" style={{ color: '#2C2C2C' }}>
-        {experience.description}
-      </p>
-
-      <div className="mb-4">
-        <p className="text-sm font-medium mb-1" style={{ color: '#70977B' }}>
-          Best For:
-        </p>
-        <p className="text-sm" style={{ color: '#2C2C2C' }}>
-          {experience.bestFor}
-        </p>
-      </div>
-
-      {/* Reviews */}
-      <div className="flex items-center gap-2 mb-6">
-        <div className="flex items-center gap-1">
-          <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
-          <span className="text-sm font-medium" style={{ color: '#1C3F60' }}>{experience.rating}</span>
-        </div>
-        <span className="text-sm" style={{ color: '#70977B' }}>
-          ({experience.reviews.toLocaleString()} reviews)
-        </span>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="space-y-2">
-        <ActionButton
-          primary
-          onClick={() => {
-            if (typeof window !== 'undefined') {
-              window.open(experience.ctaLink, '_blank');
-            }
-          }}
-          
-          text={experience.cta}
-        />
-        <ActionButton
-          onClick={onFlip}
-          text="More Details"
-          icon={Info}
-        />
-      </div>
-    </div>
-  </div>
-);
-
-// Back Card Component
-const CardBack = ({ experience, IconComponent, onFlip }) => (
-  <div 
-    className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg"
-    style={{ 
-      backgroundColor: '#F3E7D2',
-      backfaceVisibility: 'hidden',
-      transform: 'rotateY(180deg)'
-    }}
-  >
-    <div className="h-full flex flex-col">
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto p-6">
-        {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <div 
+      {/* Content Section */}
+      <div className="p-6">
+        <div className="flex items-start gap-3 mb-3">
+          {/* <div 
             className="p-2 rounded-lg"
             style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
           >
             <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
+          </div> */}
+          <div className="flex-1">
+            <h3 className="text-xl font-bold mb-2 font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
+              {experience.title}
+            </h3>
           </div>
-          <h3 className="text-lg font-bold font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
-            {experience.title}
-          </h3>
         </div>
 
-        {/* Details Content */}
-        <div className="space-y-4">
-          {/* Highlights */}
-          <DetailSection
-            icon={Star}
-            title="Highlights"
-            content={experience.highlights}
-            isList
-            isHighlight
-          />
-          
-          {/* Itinerary */}
-          <DetailSection
-            icon={Calendar}
-            title="Itinerary"
-            content={experience.itinerary}
-            isList
-          />
-          
-          {/* What's Included */}
-          <DetailSection
-            icon={CheckCircle}
-            title="What's Included"
-            content={experience.includes}
-            isList
-            iconColor="#70977B"
-          />
-          
-          {/* Not Included */}
-          <DetailSection
-            icon={XCircle}
-            title="Not Included"
-            content={experience.notIncluded}
-            isList
-            iconColor="#A34128"
-          />
-          
-          {/* Not Suitable For */}
-          {experience.notSuitableFor && (
-            <DetailSection
-              icon={AlertCircle}
-              title="Not Suitable For"
-              content={experience.notSuitableFor}
-              isList
-              iconColor="#D38E63"
-            />
-          )}
-          
-          {/* What to Bring */}
-          <DetailSection
-            icon={Backpack}
-            title="What to Bring"
-            content={experience.whatToBring}
-            isList
-          />
-          
-          {/* Good to Know */}
-          <DetailSection
-            icon={Lightbulb}
-            title="Good to Know"
-            content={experience.goodToKnow}
-            isList
-            isHighlight
-          />
-        </div>
-      </div>
+        <p className="text-sm mb-4 leading-relaxed line-clamp-3" style={{ color: '#2C2C2C' }}>
+          {experience.description}
+        </p>
 
-      {/* Fixed Bottom Buttons */}
-      <div className="p-6 pt-4 border-t" style={{ borderColor: '#E8DCC6' }}>
-        <div className="space-y-3">
+        <div className="mb-4">
+          <p className="text-sm font-medium mb-1" style={{ color: '#70977B' }}>
+            Best For:
+          </p>
+          <p className="text-sm" style={{ color: '#2C2C2C' }}>
+            {experience.bestFor}
+          </p>
+        </div>
+
+        {/* Reviews */}
+        <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-1">
+            <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
+            <span className="text-sm font-medium" style={{ color: '#1C3F60' }}>{experience.rating}</span>
+          </div>
+          <span className="text-sm" style={{ color: '#70977B' }}>
+            ({experience.reviews.toLocaleString()} reviews)
+          </span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-2">
           <ActionButton
             primary
-    
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                window.open(experience.ctaLink, '_blank');
-              }
-            }}
-            
+            onClick={handleBookNow}
             text={experience.cta}
           />
           <ActionButton
             onClick={onFlip}
-            text="Back to Overview"
-            icon={ArrowLeft}
+            text="More Details"
+            icon={Info}
           />
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
+// Back Card Component
+const CardBack = ({ experience, IconComponent, onFlip }) => {
+  const router = useRouter();
+
+  const handleBookNow = () => {
+    const link = document.createElement('a');
+    link.href = experience.ctaLink;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <div 
+      className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg"
+      style={{ 
+        backgroundColor: '#F3E7D2',
+        backfaceVisibility: 'hidden',
+        transform: 'rotateY(180deg)'
+      }}
+    >
+      <div className="h-full flex flex-col">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-6">
+            <div 
+              className="p-2 rounded-lg"
+              style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
+            >
+              <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
+            </div>
+            <h3 className="text-lg font-bold font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
+              {experience.title}
+            </h3>
+          </div>
+
+          {/* Details Content */}
+          <div className="space-y-4">
+            {/* Highlights */}
+            <DetailSection
+              icon={Star}
+              title="Highlights"
+              content={experience.highlights}
+              isList
+              isHighlight
+            />
+            
+            {/* Itinerary */}
+            <DetailSection
+              icon={Calendar}
+              title="Itinerary"
+              content={experience.itinerary}
+              isList
+            />
+            
+            {/* What's Included */}
+            <DetailSection
+              icon={CheckCircle}
+              title="What's Included"
+              content={experience.includes}
+              isList
+              iconColor="#70977B"
+            />
+            
+            {/* Not Included */}
+            <DetailSection
+              icon={XCircle}
+              title="Not Included"
+              content={experience.notIncluded}
+              isList
+              iconColor="#A34128"
+            />
+            
+            {/* Not Suitable For */}
+            {experience.notSuitableFor && (
+              <DetailSection
+                icon={AlertCircle}
+                title="Not Suitable For"
+                content={experience.notSuitableFor}
+                isList
+                iconColor="#D38E63"
+              />
+            )}
+            
+            {/* What to Bring */}
+            <DetailSection
+              icon={Backpack}
+              title="What to Bring"
+              content={experience.whatToBring}
+              isList
+            />
+            
+            {/* Good to Know */}
+            <DetailSection
+              icon={Lightbulb}
+              title="Good to Know"
+              content={experience.goodToKnow}
+              isList
+              isHighlight
+            />
+          </div>
+        </div>
+
+        {/* Fixed Bottom Buttons */}
+        <div className="p-6 pt-4 border-t" style={{ borderColor: '#E8DCC6' }}>
+          <div className="space-y-3">
+            <ActionButton
+              primary
+              onClick={handleBookNow}
+              text={experience.cta}
+            />
+            <ActionButton
+              onClick={onFlip}
+              text="Back to Overview"
+              icon={ArrowLeft}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 // Reusable Detail Section Component
 const DetailSection = ({ icon: Icon, title, content, isList = false, isHighlight = false, iconColor }) => (
   <div>

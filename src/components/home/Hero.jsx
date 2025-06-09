@@ -131,7 +131,7 @@ const EnhancedMoroccoHeroSection = () => {
   className="mt-10 flex flex-col sm:flex-row items-center gap-4"
 >
   <motion.a
-    href="https://payhip.com/b/H51NF"
+   
     whileHover={{ scale: 1.05, y: -2 }}
     whileTap={{ scale: 0.98 }}
     className="group relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white font-semibold rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 overflow-hidden"
@@ -144,7 +144,7 @@ const EnhancedMoroccoHeroSection = () => {
   </motion.a>
 
   <motion.a
-    href="https://wa.me/yourwhatsapplink"
+   
     whileHover={{ scale: 1.05, y: -2 }}
     whileTap={{ scale: 0.98 }}
     className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 font-semibold rounded-full border-2 border-gray-300 hover:border-green-600 hover:bg-green-50 transition-all duration-300 shadow-lg"

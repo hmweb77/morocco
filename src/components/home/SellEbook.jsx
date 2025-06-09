@@ -1,9 +1,11 @@
 "use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { ShoppingCart, Star, Eye, Download, MapPin, User, Heart, Clock, BookOpen, Check, Plus, Minus } from 'lucide-react';
-import Link from 'next/link';
+
 const PremiumEbooksSection = () => {
+  const router = useRouter();
   const [cart, setCart] = useState([]);
   const [hoveredBook, setHoveredBook] = useState(null);
 
@@ -16,7 +18,7 @@ const PremiumEbooksSection = () => {
       price: 9.99,
       originalPrice: 12.99,
       currency: '€',
-      image: '/experiences/3.jpg',
+      image: "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
       badge: 'Most Popular',
       badgeColor: '#A34128',
       rating: 4.9,
@@ -38,7 +40,7 @@ const PremiumEbooksSection = () => {
       price: 14.99,
       originalPrice: 19.99,
       currency: '€',
-      image: '/experiences/3.jpg',
+      image: "/books/Beige and Blue Collage Travel Journal Book Cover.png",
       badge: 'Editor\'s Pick',
       badgeColor: '#3E8DC1',
       rating: 4.8,
@@ -60,7 +62,7 @@ const PremiumEbooksSection = () => {
       price: 12.99,
       originalPrice: 16.99,
       currency: '€',
-      image: '/experiences/3.jpg',
+      image: "/books/Copy of ebook cover  oussama.png",
       badge: 'New',
       badgeColor: '#70977B',
       rating: 4.9,
@@ -108,6 +110,21 @@ const PremiumEbooksSection = () => {
     );
   };
 
+  const handleBuyNow = (ebook) => {
+    // Add to cart for visual feedback
+    addToCart(ebook);
+    // Navigate to guide page
+    router.push('/guide');
+  };
+
+  const handlePreview = (ebook) => {
+    router.push('/guide');
+  };
+
+  const handleBuyBundle = () => {
+    router.push('/guide');
+  };
+
   const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const bundlePrice = 29.00;
@@ -133,14 +150,15 @@ const PremiumEbooksSection = () => {
             exit={{ opacity: 0, y: 100 }}
             className="fixed bottom-6 right-6 z-50"
           >
-            <div 
-              className="p-4 rounded-full shadow-2xl flex items-center gap-3 cursor-pointer"
+            <button
+              onClick={() => router.push('/guide')}
+              className="p-4 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 hover:scale-105"
               style={{ backgroundColor: '#A34128', color: '#FDFDFD' }}
             >
               <ShoppingCart className="w-6 h-6" />
               <span className="font-bold">{cartItemCount}</span>
               <span className="font-bold">€{cartTotal.toFixed(2)}</span>
-            </div>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -216,11 +234,11 @@ const PremiumEbooksSection = () => {
                 </div>
 
                 {/* Cover Image */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative w-full h-48 overflow-hidden rounded-t-xl">
                   <motion.img
                     src={ebook.image}
                     alt={ebook.title}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.8 }}
                   />
@@ -245,7 +263,6 @@ const PremiumEbooksSection = () => {
                   </div>
 
                   {/* Preview Hover Button */}
-                  <Link href="/guide">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ 
@@ -255,6 +272,7 @@ const PremiumEbooksSection = () => {
                     className="absolute inset-0 bg-black/40 flex items-center justify-center"
                   >
                     <button 
+                      onClick={() => handlePreview(ebook)}
                       className="px-6 py-3 rounded-full font-bold text-white shadow-xl transform hover:scale-105 transition-all duration-300"
                       style={{ backgroundColor: ebook.badgeColor }}
                     >
@@ -262,7 +280,6 @@ const PremiumEbooksSection = () => {
                       Quick Preview
                     </button>
                   </motion.div>
-                  </Link>
                 </div>
 
                 {/* Content */}
@@ -345,14 +362,8 @@ const PremiumEbooksSection = () => {
                   {/* Action Buttons */}
                   <div className="space-y-3">
                     {/* Primary CTA - Buy Now */}
-                    <Link href="/guide">
                     <motion.button
-                     onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.open('/guide');
-                      }
-                    }}
-                    
+                      onClick={() => handleBuyNow(ebook)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
@@ -364,17 +375,10 @@ const PremiumEbooksSection = () => {
                       <ShoppingCart className="w-5 h-5" />
                       Buy Now
                     </motion.button>
-                    </Link>
 
                     {/* Secondary CTA - Preview */}
-                    <Link href="/guide">
                     <motion.button
-                     onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.open('/guide');
-                      }
-                    }}
-                    
+                      onClick={() => handlePreview(ebook)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="w-full py-3 px-6 rounded-2xl font-semibold transition-all duration-300 border-2 flex items-center justify-center gap-2 hover:shadow-md"
@@ -393,7 +397,6 @@ const PremiumEbooksSection = () => {
                       <Eye className="w-5 h-5" />
                       Preview & Details
                     </motion.button>
-                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -445,9 +448,9 @@ const PremiumEbooksSection = () => {
             <p className="text-lg mb-6 opacity-90">
               Everything you need for the perfect Morocco adventure
             </p>
-            <Link href="/guide">
+            
             <motion.button
-                
+              onClick={handleBuyBundle}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               className="px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -458,7 +461,7 @@ const PremiumEbooksSection = () => {
             >
               Buy the Travel Bundle
             </motion.button>
-            </Link>
+            
             <p className="text-sm mt-4 opacity-75">
               Instant download. Yours forever.
             </p>

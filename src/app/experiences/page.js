@@ -1,14 +1,20 @@
-import ExperiencesPage from '@/components/experiences/ExperiencesComp'
-import EnhancedMoroccoFooter from '@/components/Footer'
-import MoroccoResponsiveNavbar from '@/components/Navbar'
-import React from 'react'
+'use client'; // 👈 Add this line to make it a Client Component
 
-export default function page() {
+import dynamic from 'next/dynamic';
+import EnhancedMoroccoFooter from '@/components/Footer';
+import MoroccoResponsiveNavbar from '@/components/Navbar';
+
+// ✅ Dynamic import with SSR disabled
+const ExperiencesPage = dynamic(() => import('@/components/experiences/ExperiencesComp'), {
+  ssr: false,
+});
+
+export default function Page() {
   return (
     <>
-    <MoroccoResponsiveNavbar></MoroccoResponsiveNavbar>
-    <ExperiencesPage></ExperiencesPage>
-   <EnhancedMoroccoFooter></EnhancedMoroccoFooter>
+      <MoroccoResponsiveNavbar />
+      <ExperiencesPage />
+      <EnhancedMoroccoFooter />
     </>
-  )
+  );
 }

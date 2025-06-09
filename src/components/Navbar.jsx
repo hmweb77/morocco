@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter, usePathname } from 'next/navigation';
 import { 
   Menu, 
   X, 
@@ -25,27 +26,72 @@ const MoroccoResponsiveNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // Handle scroll effect
+  // Handle scroll effect using Intersection Observer instead of window
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    // Create a sentinel element to detect scroll
+    const sentinel = document.createElement('div');
+    sentinel.style.position = 'absolute';
+    sentinel.style.top = '20px';
+    sentinel.style.height = '1px';
+    sentinel.style.width = '1px';
+    sentinel.style.pointerEvents = 'none';
+    document.body.appendChild(sentinel);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+      document.body.removeChild(sentinel);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+  }, [pathname]);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      setIsOpen(false);
-      setActiveDropdown(null);
+    const handleClickOutside = (event) => {
+      // Check if click is outside the navbar
+      const navbar = document.querySelector('[data-navbar]');
+      if (navbar && !navbar.contains(event.target)) {
+        setIsOpen(false);
+        setActiveDropdown(null);
+      }
     };
+    
     if (isOpen) {
       document.addEventListener('click', handleClickOutside);
     }
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const dropdownContainer = document.querySelector('[data-dropdown-container]');
+      if (dropdownContainer && !dropdownContainer.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    };
+    
+    if (activeDropdown) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [activeDropdown]);
 
   const navigationItems = [
     {
@@ -58,12 +104,12 @@ const MoroccoResponsiveNavbar = () => {
       icon: MapPin,
       href: '/',
       dropdown: [
-        { name: 'Marrakech', href: '/', icon: Camera, color: '#EF4444' },
-        { name: 'Fes', href: '/', icon: Star, color: '#6366F1' },
-        { name: 'Chefchaouen', href: '/', icon: Mountain, color: '#10B981' },
-        { name: 'Casablanca', href: '/', icon: Star, color: '#8B5CF6' },
-        { name: 'Essaouira', href: '/', icon: Heart, color: '#F59E0B' },
-        { name: 'Merzouga (Sahara)', href: '/', icon: Mountain, color: '#EC4899' }
+        { name: 'Marrakech', href: '/destinations/marrakech', icon: Camera, color: '#EF4444' },
+        { name: 'Fes', href: '/destinations/fes', icon: Star, color: '#6366F1' },
+        { name: 'Chefchaouen', href: '/destinations/chefchaouen', icon: Mountain, color: '#10B981' },
+        { name: 'Casablanca', href: '/destinations/casablanca', icon: Star, color: '#8B5CF6' },
+        { name: 'Essaouira', href: '/destinations/essaouira', icon: Heart, color: '#F59E0B' },
+        { name: 'Merzouga (Sahara)', href: '/destinations/merzouga', icon: Mountain, color: '#EC4899' }
       ]
     },
     {
@@ -71,10 +117,10 @@ const MoroccoResponsiveNavbar = () => {
       icon: BookOpen,
       href: '/guide',
       dropdown: [
-        { name: 'Free Safety Guide', href: '/guide', icon: Shield, color: '#10B981' },
-        { name: 'Pocket Marrakesh', href: '/guide', icon: Camera, color: '#EF4444' },
-        { name: 'Morocco Planner', href: '/guide', icon: MapPin, color: '#6366F1' },
-        { name: 'Solo Female Travel', href: '/guide', icon: Users, color: '#EC4899' },
+        { name: 'Free Safety Guide', href: '/guide/safety', icon: Shield, color: '#10B981' },
+        { name: 'Pocket Marrakesh', href: '/guide/marrakesh', icon: Camera, color: '#EF4444' },
+        { name: 'Morocco Planner', href: '/guide/planner', icon: MapPin, color: '#6366F1' },
+        { name: 'Solo Female Travel', href: '/guide/solo-female', icon: Users, color: '#EC4899' },
       ]
     },
     {
@@ -88,16 +134,29 @@ const MoroccoResponsiveNavbar = () => {
       icon: BookOpen,
       href: '/blogs'
     },
-   
   ];
 
   const toggleDropdown = (label) => {
     setActiveDropdown(activeDropdown === label ? null : label);
   };
 
+  const handleNavigation = (href) => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+    router.push(href);
+  };
+
+  const isActiveRoute = (href) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
+  };
+
   return (
     <>
       <nav 
+        data-navbar
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
             ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20' 
@@ -111,12 +170,7 @@ const MoroccoResponsiveNavbar = () => {
             <motion.div 
               className="flex items-center gap-3 cursor-pointer"
               whileHover={{ scale: 1.02 }}
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  window.location.href = '/';
-                }
-              }}
-              
+              onClick={() => handleNavigation('/')}
             >
               <div 
                 className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg"
@@ -133,25 +187,38 @@ const MoroccoResponsiveNavbar = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
+            <div className="hidden lg:flex items-center space-x-1" data-dropdown-container>
               {navigationItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = isActiveRoute(item.href);
+                
                 return (
                   <div key={item.label} className="relative">
                     <motion.button
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 font-medium relative"
+                      className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium relative ${
+                        isActive 
+                          ? 'text-orange-600 bg-orange-50' 
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
+                      }`}
                       whileHover={{ scale: 1.02 }}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         if (item.dropdown) {
                           toggleDropdown(item.label);
-                        } else if (typeof window !== 'undefined') {
-                          window.location.href = item.href;
+                        } else {
+                          handleNavigation(item.href);
                         }
                       }}
-                      
                     >
-                      {/* <Icon className="w-4 h-4" /> */}
                       <span>{item.label}</span>
+                      {item.badge && (
+                        <span 
+                          className="px-2 py-0.5 text-xs font-bold text-white rounded-full"
+                          style={{ backgroundColor: '#EF4444' }}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
                       {item.dropdown && (
                         <ChevronDown 
                           className={`w-4 h-4 transition-transform duration-300 ${
@@ -159,14 +226,6 @@ const MoroccoResponsiveNavbar = () => {
                           }`} 
                         />
                       )}
-                      {/* {item.badge && (
-                        <span 
-                          className="absolute -top-1 -right-1 px-2 py-0.5 text-xs font-bold text-white rounded-full shadow-lg"
-                          style={{ backgroundColor: '#EF4444' }}
-                        >
-                          {item.badge}
-                        </span>
-                      )} */}
                     </motion.button>
 
                     {/* Dropdown Menu */}
@@ -178,32 +237,43 @@ const MoroccoResponsiveNavbar = () => {
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
                           className="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200/50 py-2 z-50"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           {item.dropdown.map((dropdownItem) => {
                             const DropdownIcon = dropdownItem.icon;
+                            const isDropdownActive = isActiveRoute(dropdownItem.href);
+                            
                             return (
-                              <motion.a
+                              <motion.button
                                 key={dropdownItem.name}
-                                href={dropdownItem.href}
-                                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50/80 transition-all duration-300"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleNavigation(dropdownItem.href);
+                                }}
+                                className={`w-full flex items-center gap-3 px-4 py-3 transition-all duration-300 ${
+                                  isDropdownActive
+                                    ? 'text-orange-600 bg-orange-50'
+                                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50/80'
+                                }`}
                                 whileHover={{ x: 5 }}
                               >
-                                {/* <div 
-                                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                                <div 
+                                  className="w-6 h-6 rounded-md flex items-center justify-center"
                                   style={{ backgroundColor: `${dropdownItem.color}15` }}
                                 >
                                   <DropdownIcon 
-                                    className="w-4 h-4" 
+                                    className="w-3 h-3" 
                                     style={{ color: dropdownItem.color }} 
                                   />
-                                </div> */}
-                                <div>
+                                </div>
+                                <div className="text-left">
                                   <div className="font-medium">{dropdownItem.name}</div>
                                   {dropdownItem.name === 'Free Safety Guide' && (
                                     <div className="text-xs text-green-600 font-medium">FREE</div>
                                   )}
                                 </div>
-                              </motion.a>
+                              </motion.button>
                             );
                           })}
                         </motion.div>
@@ -220,12 +290,7 @@ const MoroccoResponsiveNavbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-4 py-2 rounded-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 flex items-center gap-2"
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.location.href = '/guide';
-                  }
-                }}
-                
+                onClick={() => handleNavigation('/guide')}
               >
                 <Download className="w-4 h-4" />
                 <span className="hidden lg:inline">Free Guide</span>
@@ -238,12 +303,7 @@ const MoroccoResponsiveNavbar = () => {
                 style={{ 
                   background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
                 }}
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.location.href = '/guide';
-                  }
-                }}
-                
+                onClick={() => handleNavigation('/guide')}
               >
                 <Star className="w-4 h-4" />
                 Plan My Trip
@@ -276,19 +336,14 @@ const MoroccoResponsiveNavbar = () => {
               className="lg:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/50"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="max-w-7xl mx-aut o px-4 sm:px-6 py-4 space-y-2">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
                 
                 {/* Mobile CTA */}
                 <div className="flex gap-2 mb-4">
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 px-4 py-3 rounded-xl font-medium text-gray-700 bg-gray-100/80 transition-all duration-300 flex items-center justify-center gap-2"
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.location.href = '/guide';
-                      }
-                    }}
-                    
+                    onClick={() => handleNavigation('/guide')}
                   >
                     <Download className="w-4 h-4" />
                     Free Guide
@@ -300,12 +355,7 @@ const MoroccoResponsiveNavbar = () => {
                     style={{ 
                       background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
                     }}
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.location.href = '/guide';
-                      }
-                    }}
-                    
+                    onClick={() => handleNavigation('/guide')}
                   >
                     <Star className="w-4 h-4" />
                     Plan Trip
@@ -315,22 +365,26 @@ const MoroccoResponsiveNavbar = () => {
                 {/* Mobile Navigation Items */}
                 {navigationItems.map((item) => {
                   const Icon = item.icon;
+                  const isActive = isActiveRoute(item.href);
+                  
                   return (
                     <div key={item.label}>
                       <motion.button
-                        className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 font-medium"
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 font-medium ${
+                          isActive 
+                            ? 'text-orange-600 bg-orange-50' 
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
+                        }`}
                         onClick={() => {
                           if (item.dropdown) {
                             toggleDropdown(item.label);
-                          } else if (typeof window !== 'undefined') {
-                            window.location.href = item.href;
+                          } else {
+                            handleNavigation(item.href);
                           }
                         }}
-                        
                         whileTap={{ scale: 0.98 }}
                       >
                         <div className="flex items-center gap-3">
-                          {/* <Icon className="w-5 h-5" /> */}
                           <span>{item.label}</span>
                           {item.badge && (
                             <span 
@@ -362,11 +416,17 @@ const MoroccoResponsiveNavbar = () => {
                           >
                             {item.dropdown.map((dropdownItem) => {
                               const DropdownIcon = dropdownItem.icon;
+                              const isDropdownActive = isActiveRoute(dropdownItem.href);
+                              
                               return (
-                                <motion.a
+                                <motion.button
                                   key={dropdownItem.name}
-                                  href={dropdownItem.href}
-                                  className="flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 rounded-lg transition-all duration-300"
+                                  onClick={() => handleNavigation(dropdownItem.href)}
+                                  className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 ${
+                                    isDropdownActive
+                                      ? 'text-orange-600 bg-orange-50'
+                                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50/80'
+                                  }`}
                                   whileTap={{ scale: 0.98 }}
                                 >
                                   <div 
@@ -380,9 +440,9 @@ const MoroccoResponsiveNavbar = () => {
                                   </div>
                                   <span className="text-sm">{dropdownItem.name}</span>
                                   {dropdownItem.name === 'Free Safety Guide' && (
-                                    <span className="text-xs text-green-600 font-bold">FREE</span>
+                                    <span className="text-xs text-green-600 font-bold ml-auto">FREE</span>
                                   )}
-                                </motion.a>
+                                </motion.button>
                               );
                             })}
                           </motion.div>

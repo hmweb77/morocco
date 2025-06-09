@@ -1,14 +1,20 @@
-import BlogsPage from '@/components/blogs/BlogsPage'
-import EnhancedMoroccoFooter from '@/components/Footer'
-import MoroccoResponsiveNavbar from '@/components/Navbar'
-import React from 'react'
+'use client';
 
-export default function page() {
+import dynamic from 'next/dynamic';
+import EnhancedMoroccoFooter from '@/components/Footer';
+import MoroccoResponsiveNavbar from '@/components/Navbar';
+
+// ✅ Dynamically import BlogsPage with SSR disabled
+const BlogsPage = dynamic(() => import('@/components/blogs/BlogsPage'), {
+  ssr: false,
+});
+
+export default function Page() {
   return (
     <>
-    <MoroccoResponsiveNavbar></MoroccoResponsiveNavbar>
-    <BlogsPage></BlogsPage>
-    <EnhancedMoroccoFooter></EnhancedMoroccoFooter>
+      <MoroccoResponsiveNavbar />
+      <BlogsPage />
+      <EnhancedMoroccoFooter />
     </>
-  )
+  );
 }

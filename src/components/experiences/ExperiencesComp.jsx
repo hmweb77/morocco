@@ -1,6 +1,7 @@
 "use client"
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { 
   MapPin, Clock, DollarSign, Users, Camera, Mountain, Utensils, Star, Info, ArrowLeft, Car, 
   Ticket, UtensilsCrossed, CreditCard, Lightbulb, Droplets, Calendar, CheckCircle, XCircle, 
@@ -205,7 +206,7 @@ const experiencesData = [
           goodToKnow: [
             "Drivers must be at least 16 years old for quads",
             "One quad per person; no switching drivers",
-            "You’ll be grouped with other travelers unless private option selected",
+            "You'll be grouped with other travelers unless private option selected",
             "Weather may affect quad routes — itinerary may adjust accordingly"
           ]
         },
@@ -286,7 +287,7 @@ const experiencesData = [
             "Admire the souks, port, beach, and blue-and-white architecture",
             "Explore the medina at your own pace or with local guidance",
             "Visit an argan oil cooperative on the way",
-            "Relax on a scenic drive through Morocco’s countryside"
+            "Relax on a scenic drive through Morocco's countryside"
           ],
         
           itinerary: [
@@ -324,7 +325,7 @@ const experiencesData = [
         
           goodToKnow: [
             "Pickup starts at 8:00 AM; exact time sent the day before",
-            "Expect a moderate walk in Essaouira’s medina",
+            "Expect a moderate walk in Essaouira's medina",
             "Lunch is not included — multiple cafés near the beach and port"
           ]
         },
@@ -395,7 +396,7 @@ const experiencesData = [
           id: 7,
           title: "Agadir/Taghazout: Quad Bike and Sandboarding Tour",
           description:
-            "Embark on a thrilling half-day tour from Agadir or Taghazout that combines quad biking across desert trails with sandboarding on golden dunes. Experience the landscapes of Morocco’s southern coast in a unique and active way.",
+            "Embark on a thrilling half-day tour from Agadir or Taghazout that combines quad biking across desert trails with sandboarding on golden dunes. Experience the landscapes of Morocco's southern coast in a unique and active way.",
             image: "/experiences/7.jpg",
           icon: Car,
           tag: "Adventure",
@@ -460,7 +461,7 @@ const experiencesData = [
           id: 8,
           title: "Casablanca: Hassan II Mosque Premium Tour with Entry Ticket",
           description:
-            "Explore Morocco’s most iconic religious landmark on a premium guided tour of the Hassan II Mosque in Casablanca. Admire intricate architecture, learn about Islamic art, and gain insight into Moroccan history.",
+            "Explore Morocco's most iconic religious landmark on a premium guided tour of the Hassan II Mosque in Casablanca. Admire intricate architecture, learn about Islamic art, and gain insight into Moroccan history.",
             image: "/experiences/8.jpg",
           icon: Car,
           tag: "Cultural",
@@ -475,7 +476,7 @@ const experiencesData = [
             "https://www.getyourguide.com/casablanca-l244/casablanca-hassan-ii-mosque-premium-tour-with-entry-ticket-t343456/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
         
           highlights: [
-            "Visit one of Morocco’s most iconic religious landmarks",
+            "Visit one of Morocco's most iconic religious landmarks",
             "Skip the ticket line and enjoy an official guided mosque tour",
             "Marvel at intricate mosaics, carvings, and architecture",
             "Learn about Moroccan culture and Islamic tradition",
@@ -519,7 +520,7 @@ const experiencesData = [
           id: 9,
           title: "Chefchaouen Day Trip from Fez (Shared Group Tour)",
           description:
-            "Visit the stunning blue city of Chefchaouen on a full-day trip from Fez. Wander through vibrant alleys, take incredible photos, and explore the charm of Morocco’s most photogenic town in the Rif Mountains.",
+            "Visit the stunning blue city of Chefchaouen on a full-day trip from Fez. Wander through vibrant alleys, take incredible photos, and explore the charm of Morocco's most photogenic town in the Rif Mountains.",
           image: "/experiences/9.png",
           icon: Car,
           tag: "Cultural",
@@ -575,7 +576,7 @@ const experiencesData = [
         
           goodToKnow: [
             "Travel time each way is approx. 4 hours",
-            "Guide will give a short orientation, then you’ll have free time",
+            "Guide will give a short orientation, then you'll have free time",
             "Chefchaouen is a pedestrian city — expect lots of walking"
           ]
         },
@@ -583,7 +584,7 @@ const experiencesData = [
           id: 10,
           title: "Fes: Volubilis Roman Ruins, Moulay Idriss, & Meknes Day Trip",
           description:
-            "Step back in time with a full-day tour from Fez to explore Morocco’s Roman ruins of Volubilis, the holy town of Moulay Idriss, and the imperial city of Meknes. Discover ancient architecture, history, and culture all in one scenic day.",
+            "Step back in time with a full-day tour from Fez to explore Morocco's Roman ruins of Volubilis, the holy town of Moulay Idriss, and the imperial city of Meknes. Discover ancient architecture, history, and culture all in one scenic day.",
             image: "/experiences/10.jpg",
           icon: Car,
           tag: "Cultural",
@@ -809,6 +810,16 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
 
   const toggleFlip = () => setIsFlipped(!isFlipped);
 
+  const handleBookNow = () => {
+    const link = document.createElement('a');
+    link.href = experience.ctaLink;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -907,12 +918,6 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
           {/* Content Section */}
           <div className="p-6">
             <div className="flex items-start gap-3 mb-3">
-              {/* <div 
-                className="p-2 rounded-lg"
-                style={{ backgroundColor: 'rgba(62, 141, 193, 0.1)' }}
-              >
-                <IconComponent className="w-5 h-5" style={{ color: '#3E8DC1' }} />
-              </div> */}
               <div className="flex-1">
                 <h3 className="text-xl font-bold mb-2 font-serif line-clamp-2" style={{ color: '#1C3F60' }}>
                   {experience.title}
@@ -926,12 +931,8 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
 
             <div className="mb-4 space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span style={{ color: '#70977B' }}>Difficulty:</span>
-                <span style={{ color: '#2C2C2C' }}>{experience.difficulty}</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span style={{ color: '#70977B' }}>Group Size:</span>
-                <span style={{ color: '#2C2C2C' }}>{experience.groupSize}</span>
+                <span style={{ color: '#70977B' }}>Best For:</span>
+                <span style={{ color: '#2C2C2C' }}>{experience.bestFor}</span>
               </div>
             </div>
 
@@ -951,12 +952,7 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                    if (typeof window !== 'undefined') {
-                      window.open(experience.ctaLink, '_blank');
-                    }
-                  }}
-                  
+                onClick={handleBookNow}
                 className="w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
                 style={{ 
                   backgroundColor: '#A34128',
@@ -995,7 +991,7 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
           </div>
         </div>
 
-        {/* Back Side - Same as your original but simplified for space */}
+        {/* Back Side */}
         <div 
           className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg"
           style={{ 
@@ -1038,12 +1034,7 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    if (typeof window !== 'undefined') {
-                      window.open(experience.ctaLink, '_blank');
-                    }
-                  }}
-                  
+                  onClick={handleBookNow}
                   className="w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
                   style={{ 
                     backgroundColor: '#A34128',
@@ -1083,6 +1074,9 @@ const FlipCard = ({ experience, index, onHover, isHovered }) => {
 
 // Main Experiences Page Component
 const ExperiencesPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [hoveredCard, setHoveredCard] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -1096,6 +1090,47 @@ const ExperiencesPage = () => {
   const [sortBy, setSortBy] = useState('popular'); // 'popular', 'price-low', 'price-high', 'rating', 'duration'
   
   const itemsPerPage = 9;
+
+  // Initialize state from URL parameters
+  useEffect(() => {
+    const search = searchParams.get('search');
+    const category = searchParams.get('category');
+    const tag = searchParams.get('tag');
+    const duration = searchParams.get('duration');
+    const difficulty = searchParams.get('difficulty');
+    const priceRange = searchParams.get('priceRange');
+    const view = searchParams.get('view');
+    const page = searchParams.get('page');
+    const sort = searchParams.get('sort');
+
+    if (search) setSearchTerm(search);
+    if (category) setSelectedCategory(category);
+    if (tag) setSelectedTag(tag);
+    if (duration) setSelectedDuration(duration);
+    if (difficulty) setSelectedDifficulty(difficulty);
+    if (priceRange) setSelectedPriceRange(priceRange);
+    if (view && (view === 'grid' || view === 'list')) setViewMode(view);
+    if (page) setCurrentPage(parseInt(page));
+    if (sort) setSortBy(sort);
+  }, [searchParams]);
+
+  // Update URL parameters
+  const updateUrlParams = (params) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    
+    Object.entries(params).forEach(([key, value]) => {
+      if (value && value !== 'all' && value !== 'All' && value !== 1 && value !== 'grid' && value !== 'popular') {
+        current.set(key, value);
+      } else {
+        current.delete(key);
+      }
+    });
+
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    
+    router.push(`/experiences${query}`, { scroll: false });
+  };
 
   // Filter and search logic
   const filteredExperiences = useMemo(() => {
@@ -1172,6 +1207,41 @@ const ExperiencesPage = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentExperiences = filteredExperiences.slice(startIndex, startIndex + itemsPerPage);
 
+  // Handler functions
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+    updateUrlParams({
+      search: value || null,
+      category: selectedCategory === 'all' ? null : selectedCategory,
+      tag: selectedTag === 'All' ? null : selectedTag,
+      duration: selectedDuration === 'All' ? null : selectedDuration,
+      difficulty: selectedDifficulty === 'All' ? null : selectedDifficulty,
+      priceRange: selectedPriceRange === 'All' ? null : selectedPriceRange,
+      view: viewMode === 'grid' ? null : viewMode,
+      sort: sortBy === 'popular' ? null : sortBy,
+      page: null
+    });
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    updateUrlParams({
+      search: searchTerm || null,
+      category: selectedCategory === 'all' ? null : selectedCategory,
+      tag: selectedTag === 'All' ? null : selectedTag,
+      duration: selectedDuration === 'All' ? null : selectedDuration,
+      difficulty: selectedDifficulty === 'All' ? null : selectedDifficulty,
+      priceRange: selectedPriceRange === 'All' ? null : selectedPriceRange,
+      view: viewMode === 'grid' ? null : viewMode,
+      sort: sortBy === 'popular' ? null : sortBy,
+      page: page === 1 ? null : page.toString()
+    });
+    
+    // Scroll to top
+    router.push('#top', { scroll: true });
+  };
+
   // Clear all filters
   const clearAllFilters = () => {
     setSearchTerm('');
@@ -1181,10 +1251,11 @@ const ExperiencesPage = () => {
     setSelectedDifficulty('All');
     setSelectedPriceRange('All');
     setCurrentPage(1);
+    router.push('/experiences', { scroll: false });
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FDFDFD' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#FDFDFD' }} id="top">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden" style={{ backgroundColor: '#1C3F60' }}>
         <div className="absolute inset-0 opacity-10">
@@ -1250,7 +1321,7 @@ const ExperiencesPage = () => {
                 type="text"
                 placeholder="Search experiences, locations, or activities..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 text-lg"
                 style={{ 
                   borderColor: '#E8DCC6',
@@ -1268,229 +1339,6 @@ const ExperiencesPage = () => {
               />
             </div>
           </div>
-
-          {/* Quick Category Filters */}
-          {/* <div className="mb-6">
-            <div className="flex flex-wrap justify-center gap-4">
-              {categories.map((category) => {
-                const IconComponent = category.icon;
-                const isActive = selectedCategory === category.id;
-                
-                return (
-                  <motion.button
-                    key={category.id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 border-2 ${
-                      isActive ? 'shadow-lg' : 'shadow-sm hover:shadow-md'
-                    }`}
-                    style={{
-                      backgroundColor: isActive ? '#3E8DC1' : '#FDFDFD',
-                      color: isActive ? '#FDFDFD' : '#1C3F60',
-                      borderColor: isActive ? '#3E8DC1' : '#E8DCC6'
-                    }}
-                  >
-                    <IconComponent className="w-4 h-4" />
-                    <span className="text-sm font-medium">{category.name}</span>
-                  </motion.button>
-                );
-              })}
-            </div>
-          </div> */}
-
-          {/* Advanced Filters Toggle */}
-          {/* <div className="flex flex-wrap items-center justify-between gap-4"> */}
-            {/* <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300"
-              style={{
-                backgroundColor: showFilters ? '#3E8DC1' : '#FDFDFD',
-                color: showFilters ? '#FDFDFD' : '#1C3F60',
-                borderColor: '#E8DCC6'
-              }}
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              <span>Advanced Filters</span>
-              <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-            </motion.button> */}
-
-            {/* <div className="flex items-center gap-4"> */}
-              {/* View Mode Toggle */}
-              {/* <div className="flex bg-white rounded-lg border" style={{ borderColor: '#E8DCC6' }}>
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-l-lg transition-colors ${
-                    viewMode === 'grid' ? 'bg-blue-500 text-white' : 'text-gray-600'
-                  }`}
-                  style={{
-                    backgroundColor: viewMode === 'grid' ? '#3E8DC1' : 'transparent',
-                    color: viewMode === 'grid' ? '#FDFDFD' : '#70977B'
-                  }}
-                >
-                  <Grid className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-r-lg transition-colors ${
-                    viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-gray-600'
-                  }`}
-                  style={{
-                    backgroundColor: viewMode === 'list' ? '#3E8DC1' : 'transparent',
-                    color: viewMode === 'list' ? '#FDFDFD' : '#70977B'
-                  }}
-                >
-                  <List className="w-4 h-4" />
-                </button>
-              </div> */}
-
-              {/* Sort Dropdown */}
-              {/* <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 rounded-lg border transition-all duration-300"
-                style={{
-                  backgroundColor: '#FDFDFD',
-                  borderColor: '#E8DCC6',
-                  color: '#1C3F60'
-                }}
-              >
-                <option value="popular">Most Popular</option>
-                <option value="rating">Highest Rated</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="duration">Duration</option>
-              </select> */}
-            {/* </div>
-          </div> */}
-
-          {/* Advanced Filters Panel */}
-          {/* <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="mt-6 p-6 rounded-2xl"
-                style={{ backgroundColor: '#FDFDFD', border: '2px solid #E8DCC6' }}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#1C3F60' }}>
-                      Experience Type
-                    </label>
-                    <select
-                      value={selectedTag}
-                      onChange={(e) => setSelectedTag(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border"
-                      style={{
-                        backgroundColor: '#F8F9FA',
-                        borderColor: '#E8DCC6',
-                        color: '#1C3F60'
-                      }}
-                    >
-                      {tags.map(tag => (
-                        <option key={tag} value={tag}>{tag}</option>
-                      ))}
-                    </select>
-                  </div>
-
-         
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#1C3F60' }}>
-                      Duration
-                    </label>
-                    <select
-                      value={selectedDuration}
-                      onChange={(e) => setSelectedDuration(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border"
-                      style={{
-                        backgroundColor: '#F8F9FA',
-                        borderColor: '#E8DCC6',
-                        color: '#1C3F60'
-                      }}
-                    >
-                      {durations.map(duration => (
-                        <option key={duration} value={duration}>{duration}</option>
-                      ))}
-                    </select>
-                  </div>
-
-            
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#1C3F60' }}>
-                      Difficulty Level
-                    </label>
-                    <select
-                      value={selectedDifficulty}
-                      onChange={(e) => setSelectedDifficulty(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border"
-                      style={{
-                        backgroundColor: '#F8F9FA',
-                        borderColor: '#E8DCC6',
-                        color: '#1C3F60'
-                      }}
-                    >
-                      {difficulties.map(difficulty => (
-                        <option key={difficulty} value={difficulty}>{difficulty}</option>
-                      ))}
-                    </select>
-                  </div>
-
-            
-                  <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#1C3F60' }}>
-                      Price Range
-                    </label>
-                    <select
-                      value={selectedPriceRange}
-                      onChange={(e) => setSelectedPriceRange(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border"
-                      style={{
-                        backgroundColor: '#F8F9FA',
-                        borderColor: '#E8DCC6',
-                        color: '#1C3F60'
-                      }}
-                    >
-                      {priceRanges.map(range => (
-                        <option key={range} value={range}>{range}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-           
-                <div className="mt-6 flex justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={clearAllFilters}
-                    className="flex items-center gap-2 px-6 py-2 rounded-lg border transition-all duration-300"
-                    style={{
-                      backgroundColor: 'transparent',
-                      color: '#A34128',
-                      borderColor: '#A34128'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = '#A34128';
-                      e.target.style.color = '#FDFDFD';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = '#A34128';
-                    }}
-                  >
-                    <X className="w-4 h-4" />
-                    Clear All Filters
-                  </motion.button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence> */}
         </div>
       </section>
 
@@ -1534,7 +1382,7 @@ const ExperiencesPage = () => {
                 No experiences match your criteria
               </h3>
               <p className="text-lg mb-6" style={{ color: '#70977B' }}>
-                Try adjusting your filters or search terms to find more options.
+                Try adjusting your search terms to find more options.
               </p>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -1543,123 +1391,25 @@ const ExperiencesPage = () => {
                 className="px-6 py-3 rounded-lg font-semibold transition-all duration-300"
                 style={{ backgroundColor: '#3E8DC1', color: '#FDFDFD' }}
               >
-                Clear All Filters
+                Clear Search
               </motion.button>
             </motion.div>
           ) : (
             <>
               {/* Grid View */}
-              {viewMode === 'grid' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                  <AnimatePresence mode="popLayout">
-                    {currentExperiences.map((experience, index) => (
-                      <FlipCard
-                        key={experience.id}
-                        experience={experience}
-                        index={index}
-                        onHover={setHoveredCard}
-                        isHovered={hoveredCard === experience.id}
-                      />
-                    ))}
-                  </AnimatePresence>
-                </div>
-              )}
-
-              {/* List View */}
-              {viewMode === 'list' && (
-                <div className="space-y-6 mb-12">
-                  <AnimatePresence mode="popLayout">
-                    {currentExperiences.map((experience, index) => (
-                      <motion.div
-                        key={experience.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                        className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                        style={{ backgroundColor: '#F3E7D2' }}
-                      >
-                        {/* Image */}
-                        <div className="md:w-1/3">
-                          <div className="relative h-64 md:h-48 rounded-xl overflow-hidden">
-                            <img
-                              src={experience.image}
-                              alt={experience.title}
-                              className="w-full h-full object-cover"
-                            />
-                            <div 
-                              className="absolute top-4 left-4 px-3 py-1 rounded-full text-white text-sm font-medium"
-                              style={{ backgroundColor: '#3E8DC1' }}
-                            >
-                              {experience.tag}
-                            </div>
-                            <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-black/20 backdrop-blur-sm">
-                              <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
-                              <span className="text-white text-sm">{experience.rating}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="md:w-2/3 flex flex-col justify-between">
-                          <div>
-                            <h3 className="text-xl font-bold mb-2 font-serif" style={{ color: '#1C3F60' }}>
-                              {experience.title}
-                            </h3>
-                            <p className="text-sm mb-4 leading-relaxed" style={{ color: '#2C2C2C' }}>
-                              {experience.description}
-                            </p>
-                            
-                            <div className="flex flex-wrap gap-4 mb-4 text-sm">
-                              <div className="flex items-center gap-1" style={{ color: '#70977B' }}>
-                                <MapPin className="w-4 h-4" />
-                                <span>{experience.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1" style={{ color: '#70977B' }}>
-                                <Clock className="w-4 h-4" />
-                                <span>{experience.duration}</span>
-                              </div>
-                              <div className="flex items-center gap-1" style={{ color: '#70977B' }}>
-                                <Users className="w-4 h-4" />
-                                <span>{experience.groupSize}</span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                              <div className="text-2xl font-bold" style={{ color: '#A34128' }}>
-                                {experience.price}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Star className="w-4 h-4 fill-current" style={{ color: '#F9C75E' }} />
-                                <span className="text-sm font-medium" style={{ color: '#1C3F60' }}>
-                                  {experience.rating} ({experience.reviews.toLocaleString()})
-                                </span>
-                              </div>
-                            </div>
-                            
-                            <motion.button
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              onClick={() => {
-                                if (typeof window !== 'undefined') {
-                                  window.open(experience.ctaLink, '_blank');
-                                }
-                              }}
-                              
-                              className="px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                              style={{ backgroundColor: '#A34128', color: '#FDFDFD' }}
-                            >
-                              Book Now
-                            </motion.button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
-              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <AnimatePresence mode="popLayout">
+                  {currentExperiences.map((experience, index) => (
+                    <FlipCard
+                      key={experience.id}
+                      experience={experience}
+                      index={index}
+                      onHover={setHoveredCard}
+                      isHovered={hoveredCard === experience.id}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
 
               {/* Pagination */}
               {totalPages > 1 && (
@@ -1667,7 +1417,7 @@ const ExperiencesPage = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
                     className="p-2 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ 
@@ -1683,7 +1433,7 @@ const ExperiencesPage = () => {
                       key={page}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => setCurrentPage(page)}
+                      onClick={() => handlePageChange(page)}
                       className="w-10 h-10 rounded-lg font-medium transition-all duration-300"
                       style={{
                         backgroundColor: currentPage === page ? '#3E8DC1' : '#F8F9FA',
@@ -1698,7 +1448,7 @@ const ExperiencesPage = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
                     className="p-2 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ 
@@ -1737,6 +1487,7 @@ const ExperiencesPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => router.push('/guide')}
                 className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                 style={{ backgroundColor: '#A34128', color: '#FDFDFD' }}
                 onMouseEnter={(e) => {
@@ -1752,6 +1503,7 @@ const ExperiencesPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => router.push('/guide')}
                 className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl border-2"
                 style={{ 
                   backgroundColor: 'transparent', 

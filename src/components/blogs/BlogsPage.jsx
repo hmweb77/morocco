@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
@@ -19,6 +20,9 @@ import {
 } from 'lucide-react';
 
 const BlogPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -26,6 +30,19 @@ const BlogPage = () => {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   const blogsPerPage = 6;
+
+  // Initialize state from URL parameters
+  useEffect(() => {
+    const page = searchParams.get('page');
+    const search = searchParams.get('search');
+    const category = searchParams.get('category');
+    const view = searchParams.get('view');
+
+    if (page) setCurrentPage(parseInt(page));
+    if (search) setSearchTerm(search);
+    if (category) setSelectedCategory(category);
+    if (view && (view === 'grid' || view === 'list')) setViewMode(view);
+  }, [searchParams]);
 
   // Sample blog data - replace with your actual data
   const blogs = [
@@ -153,6 +170,24 @@ const BlogPage = () => {
 
   const categories = ['All', ...new Set(blogs.map(blog => blog.category))];
 
+  // Update URL parameters
+  const updateUrlParams = (params) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    
+    Object.entries(params).forEach(([key, value]) => {
+      if (value && value !== 'All' && value !== 1 && value !== 'grid') {
+        current.set(key, value);
+      } else {
+        current.delete(key);
+      }
+    });
+
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    
+    router.push(`${query}`, { scroll: false });
+  };
+
   // Filter blogs based on search and category
   useEffect(() => {
     let filtered = blogs;
@@ -161,7 +196,7 @@ const BlogPage = () => {
       filtered = filtered.filter(blog => blog.category === selectedCategory);
     }
 
-    if (searchTerm) {
+    if (searchTerm.trim()) {
       filtered = filtered.filter(blog =>
         blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -181,9 +216,47 @@ const BlogPage = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    updateUrlParams({ 
+      page: page === 1 ? null : page.toString(),
+      search: searchTerm || null,
+      category: selectedCategory === 'All' ? null : selectedCategory,
+      view: viewMode === 'grid' ? null : viewMode
+    });
+    
+    // Scroll to top using router
+    router.push(`#top`, { scroll: true });
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+    updateUrlParams({ 
+      search: value || null,
+      category: selectedCategory === 'All' ? null : selectedCategory,
+      view: viewMode === 'grid' ? null : viewMode,
+      page: null
+    });
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+    updateUrlParams({ 
+      category: category === 'All' ? null : category,
+      search: searchTerm || null,
+      view: viewMode === 'grid' ? null : viewMode,
+      page: null
+    });
+  };
+
+  const handleViewModeChange = (mode) => {
+    setViewMode(mode);
+    updateUrlParams({ 
+      view: mode === 'grid' ? null : mode,
+      search: searchTerm || null,
+      category: selectedCategory === 'All' ? null : selectedCategory,
+      page: currentPage === 1 ? null : currentPage.toString()
+    });
   };
   
   const formatDate = (dateString) => {
@@ -210,7 +283,7 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" id="top">
       {/* Hero Section */}
       <section className="bg-[#1C3F5F] text-white py-20">
         <div className="max-w-7xl mx-auto px-4">
@@ -275,7 +348,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                 type="text"
                 placeholder="Search articles..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
@@ -285,7 +358,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => handleCategoryChange(category)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     selectedCategory === category
                       ? 'bg-orange-500 text-white shadow-lg'
@@ -300,7 +373,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
             {/* View Mode Toggle */}
             <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
               <button
-                onClick={() => setViewMode('grid')}
+                onClick={() => handleViewModeChange('grid')}
                 className={`p-2 rounded-md transition-all duration-200 ${
                   viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
                 }`}
@@ -308,7 +381,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                 <Grid className="h-4 w-4" />
               </button>
               <button
-                onClick={() => setViewMode('list')}
+                onClick={() => handleViewModeChange('list')}
                 className={`p-2 rounded-md transition-all duration-200 ${
                   viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
                 }`}
