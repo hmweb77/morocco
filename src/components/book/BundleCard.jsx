@@ -11,7 +11,7 @@ import {
 // Bundle Card Component
 const BundleCard = ({ ebooks, onBuyBundle }) => {
     const totalOriginalPrice = ebooks.reduce((sum, ebook) => sum + ebook.originalPrice, 0);
-    const bundlePrice = totalOriginalPrice * 0.5; // 50% discount
+    const bundlePrice = totalOriginalPrice * 0.35; // 50% discount
     const savings = totalOriginalPrice - bundlePrice;
   
     return (
@@ -56,7 +56,7 @@ const BundleCard = ({ ebooks, onBuyBundle }) => {
   
           {/* Description */}
           <p className="text-lg mb-6 opacity-90 leading-relaxed">
-            Get all three digital guides and save €{savings.toFixed(2)}! Everything you need for the perfect Moroccan adventure — from city exploration to trip planning and solo travel safety.
+            Get both guides and save €{savings.toFixed(2)}! Everything you need for the perfect Moroccan adventure — from city exploration to trip planning and solo travel safety.
           </p>
   
           {/* Bundle Contents */}

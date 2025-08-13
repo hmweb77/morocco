@@ -17,18 +17,18 @@ const ebooksData = [
     category: "CITY GUIDE",
     description: "A bold, hyper-local guide to Marrakesh's buzzing medina, food culture, rooftop hideouts, and secret gems.",
     fullDescription: "Discover Marrakesh like never before with our comprehensive insider guide. From hidden riads and secret gardens to the best street food vendors and traditional hammams, this guide reveals the authentic soul of the Red City. Perfect for travelers who want to experience Marrakesh beyond the tourist trail.",
-    image: "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
-    originalPrice: 12.99,
-    salePrice: 9.99,
-    discount: 23,
+    image: "/books/stripe-image-1.jpeg",
+    originalPrice: 9.99,
+    salePrice: 4.99,
+    discount: 50,
     rating: 4.9,
     reviews: 1271,
-    pages: "45p",
+    pages: "25p",
     badge: "Most Popular",
     badgeColor: "#A34128",
     features: [
       "Local restaurant recommendations",
-      "Interactive 1-day itinerary", 
+      "Interactive 10-day itinerary",
       "No-tourist-trap walks",
       "Hidden gems locations",
       "Cultural etiquette guide",
@@ -43,73 +43,28 @@ const ebooksData = [
       "Emergency contact information"
     ],
     previewImages: [
-      "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
-      "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-      "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
-      "/books/Copy of ebook cover  oussama.png",
+      "/books/marrakech1.png",
+      "/books/marrakech2.png",
+      "/books/marrakech3.png",
+      "/books/marrakech4.png"
     ],
-    author: "Sarah Mitchell",
-    lastUpdated: "2024",
-    languages: ["English", "French"],
-    format: "PDF + Interactive Map"
+    languages: ["English"],
+    format: "PDF"
   },
   {
     id: 2,
-    title: "The Morocco Planner – 7-Day & 10-Day Itineraries",
-    subtitle: "Complete trip planning made simple",
-    category: "TRIP PLANNING",
-    description: "Struggling to plan your route? We've done the work for you. This visual travel planner gives you road-tested routes through Morocco's most iconic and offbeat locations.",
-    fullDescription: "Take the guesswork out of planning your Moroccan adventure with our meticulously crafted itineraries. Whether you have a week or ten days, these tested routes ensure you experience the best of Morocco while avoiding common travel mistakes. Includes detailed daily schedules, accommodation recommendations, and backup plans for weather delays.",
-    image: "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-    originalPrice: 18.99,
-    salePrice: 14.99,
-    discount: 21,
-    rating: 4.8,
-    reviews: 2033,
-    pages: "68p",
-    badge: "Editor's Pick",
-    badgeColor: "#3E8DC1",
-    features: [
-      "7 & 10-day complete itineraries",
-      "Built-in budget calculator",
-      "Daily maps and directions",
-      "Transportation & logistics",
-      "Accommodation recommendations",
-      "Weather contingency plans"
-    ],
-    highlights: [
-      "Flexible day-by-day schedules",
-      "Cost breakdown per activity",
-      "Alternative route options",
-      "Seasonal travel tips",
-      "Local contact information",
-      "Packing checklists included"
-    ],
-    previewImages: [
-      "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-      "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
-      "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-      "/books/Copy of ebook cover  oussama.png",
-    ],
-    author: "Ahmed El-Fassi",
-    lastUpdated: "2024",
-    languages: ["English", "French", "Spanish"],
-    format: "PDF + Excel Budget Tracker"
-  },
-  {
-    id: 3,
     title: "Solo Female Travel in Morocco",
     subtitle: "Travel with confidence and safety",
     category: "SAFETY & CULTURE",
     description: "Candid, empowering, and practical — this guide helps women navigate Morocco with confidence, safety, and soul.",
-    fullDescription: "Written by experienced female travelers, this comprehensive guide addresses the unique considerations for women traveling solo in Morocco. From cultural sensitivities and appropriate dress codes to safety strategies and empowering experiences, this guide ensures you can explore Morocco with confidence while respecting local customs.",
-    image: "/books/Copy of ebook cover  oussama.png",
-    originalPrice: 16.99,
-    salePrice: 12.99,
-    discount: 24,
+    fullDescription: "Written by experienced female travelers, this comprehensive guide addresses the unique considerations for women traveling solo in Morocco. From cultural sensitivities and appropriate dress codes to safety strategies and empowering experiences, this guide ensures you can explore Morocco with confidence while respecting local customs. Inside, you'll find destination highlights, female-friendly accommodations, solo dining tips, scams to avoid, cultural etiquette, and empowering real-life stories.",
+    image: "/books/stripe-image-2.jpeg",
+    originalPrice: 9.99,
+    salePrice: 4.99,
+    discount: 50,
     rating: 4.9,
     reviews: 891,
-    pages: "52p",
+    pages: "40p",
     badge: "New",
     badgeColor: "#70977B",
     features: [
@@ -118,7 +73,9 @@ const ebooksData = [
       "Cultural etiquette essentials",
       "Female-led experiences",
       "Safety protocols and tips",
-      "Local women's perspectives"
+      "Local women's perspectives",
+      "Destination highlights",
+      "Packing checklist for women"
     ],
     highlights: [
       "Confidence-building strategies",
@@ -129,10 +86,10 @@ const ebooksData = [
       "Real traveler testimonials"
     ],
     previewImages: [
-      "/books/Copy of ebook cover  oussama.png",
-      "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-      "/books/Copy of ebook cover  oussama.png",
-      "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
+      "/books/female1.png",
+      "/books/female2.png",
+      "/books/female3.png",
+      "/books/female4.png"
     ],
     author: "Fatima Zahra & Lisa Thompson",
     lastUpdated: "2024",
@@ -140,6 +97,7 @@ const ebooksData = [
     format: "PDF + Audio Guide"
   }
 ];
+
 
 
 
@@ -246,7 +204,7 @@ const EbooksPage = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Individual eBooks */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             {ebooksData.map((ebook, index) => (
               <EbookCard
                 key={ebook.id}
