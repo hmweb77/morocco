@@ -1,15 +1,15 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter, usePathname } from 'next/navigation';
-import { 
-  Menu, 
-  X, 
-  Compass, 
-  MapPin, 
-  BookOpen, 
-  Star, 
-  Download, 
+"use client";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
+
+import {
+  Menu,
+  X,
+  MapPin,
+  BookOpen,
+  Star,
+  Download,
   Mail,
   ChevronDown,
   ExternalLink,
@@ -17,10 +17,9 @@ import {
   Heart,
   Camera,
   Mountain,
-  Utensils,
   Users,
-  ArrowRight
-} from 'lucide-react';
+  ArrowRight,
+} from "lucide-react";
 
 const MoroccoResponsiveNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,12 +31,12 @@ const MoroccoResponsiveNavbar = () => {
   // Handle scroll effect using Intersection Observer instead of window
   useEffect(() => {
     // Create a sentinel element to detect scroll
-    const sentinel = document.createElement('div');
-    sentinel.style.position = 'absolute';
-    sentinel.style.top = '20px';
-    sentinel.style.height = '1px';
-    sentinel.style.width = '1px';
-    sentinel.style.pointerEvents = 'none';
+    const sentinel = document.createElement("div");
+    sentinel.style.position = "absolute";
+    sentinel.style.top = "20px";
+    sentinel.style.height = "1px";
+    sentinel.style.width = "1px";
+    sentinel.style.pointerEvents = "none";
     document.body.appendChild(sentinel);
 
     const observer = new IntersectionObserver(
@@ -65,74 +64,121 @@ const MoroccoResponsiveNavbar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if click is outside the navbar
-      const navbar = document.querySelector('[data-navbar]');
+      const navbar = document.querySelector("[data-navbar]");
       if (navbar && !navbar.contains(event.target)) {
         setIsOpen(false);
         setActiveDropdown(null);
       }
     };
-    
+
     if (isOpen) {
-      document.addEventListener('click', handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
     }
-    return () => document.removeEventListener('click', handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const dropdownContainer = document.querySelector('[data-dropdown-container]');
+      const dropdownContainer = document.querySelector(
+        "[data-dropdown-container]"
+      );
       if (dropdownContainer && !dropdownContainer.contains(event.target)) {
         setActiveDropdown(null);
       }
     };
-    
+
     if (activeDropdown) {
-      document.addEventListener('click', handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
     }
-    return () => document.removeEventListener('click', handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [activeDropdown]);
 
   const navigationItems = [
     {
-      label: 'About',
+      label: "About",
       icon: Heart,
-      href: '/about'
+      href: "/about",
     },
     {
-      label: 'Destinations',
+      label: "Destinations",
       icon: MapPin,
-      href: '/',
+      href: "/",
       dropdown: [
-        { name: 'Marrakech', href: '/destinations/marrakech', icon: Camera, color: '#EF4444' },
-        { name: 'Fes', href: '/destinations/fes', icon: Star, color: '#6366F1' },
-        { name: 'Chefchaouen', href: '/destinations/chefchaouen', icon: Mountain, color: '#10B981' },
-        { name: 'Casablanca', href: '/destinations/casablanca', icon: Star, color: '#8B5CF6' },
-        { name: 'Essaouira', href: '/destinations/essaouira', icon: Heart, color: '#F59E0B' },
-        { name: 'Merzouga (Sahara)', href: '/destinations/merzouga', icon: Mountain, color: '#EC4899' }
-      ]
+        {
+          name: "Marrakech",
+          href: "/destinations",
+          icon: Camera,
+          color: "#EF4444",
+        },
+        { name: "Fes", href: "/destinations", icon: Star, color: "#6366F1" },
+        {
+          name: "Chefchaouen",
+          href: "/destinations",
+          icon: Mountain,
+          color: "#10B981",
+        },
+        {
+          name: "Casablanca",
+          href: "/destinations",
+          icon: Star,
+          color: "#8B5CF6",
+        },
+        {
+          name: "Essaouira",
+          href: "/destinations",
+          icon: Heart,
+          color: "#F59E0B",
+        },
+        {
+          name: "Merzouga (Sahara)",
+          href: "/destinations",
+          icon: Mountain,
+          color: "#EC4899",
+        },
+      ],
     },
     {
-      label: 'Travel Guides',
+      label: "Travel Guides",
       icon: BookOpen,
-      href: '/guide',
+      href: "/guide",
       dropdown: [
-        { name: 'Free Safety Guide', href: '/guide/safety', icon: Shield, color: '#10B981' },
-        { name: 'Pocket Marrakesh', href: '/guide/marrakesh', icon: Camera, color: '#EF4444' },
-        { name: 'Morocco Planner', href: '/guide/planner', icon: MapPin, color: '#6366F1' },
-        { name: 'Solo Female Travel', href: '/guide/solo-female', icon: Users, color: '#EC4899' },
-      ]
+        {
+          name: "Free Safety Guide",
+          href: "/guide",
+          icon: Shield,
+          color: "#10B981",
+        },
+        {
+          name: "Pocket Marrakesh",
+          href: "/guide",
+          icon: Camera,
+          color: "#EF4444",
+        },
+        {
+          name: "Morocco Planner",
+          href: "/guide",
+          icon: MapPin,
+          color: "#6366F1",
+        },
+        {
+          name: "Solo Female Travel",
+          href: "/guide",
+          icon: Users,
+          color: "#EC4899",
+        },
+      ],
     },
     {
-      label: 'Experiences',
+      label: "Experiences",
       icon: Star,
-      href: '/experiences',
-      badge: 'Popular'
+      href: "/experiences",
+      badge: "Popular",
     },
     {
-      label: 'Blogs',
+      label: "Blogs",
       icon: BookOpen,
-      href: '/blogs'
+      href: "/blogs",
     },
   ];
 
@@ -147,58 +193,57 @@ const MoroccoResponsiveNavbar = () => {
   };
 
   const isActiveRoute = (href) => {
-    if (href === '/') {
-      return pathname === '/';
+    if (href === "/") {
+      return pathname === "/";
     }
     return pathname.startsWith(href);
   };
 
   return (
     <>
-      <nav 
+      <nav
         data-navbar
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20' 
-            : 'bg-white/90 backdrop-blur-sm'
+          isScrolled
+            ? "bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/20"
+            : "bg-white/90 backdrop-blur-sm"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            
-            {/* Logo */}
-            <motion.div 
-              className="flex items-center gap-3 cursor-pointer"
-              whileHover={{ scale: 1.02 }}
-              onClick={() => handleNavigation('/')}
-            >
-              <div 
-                className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)' }}
-              >
-                <Compass className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl md:text-2xl font-bold font-serif text-gray-900">
-                  Moroccan Advisor
-                </h1>
-                <p className="text-xs text-gray-600 -mt-1">Your Trusted Travel Guide</p>
-              </div>
-            </motion.div>
+           {/* Logo */}
+<motion.div
+  className="flex items-center gap-3 cursor-pointer"
+  whileHover={{ scale: 1.02 }}
+  onClick={() => handleNavigation("/")}
+>
+  <div className="hidden sm:block">
+    <h1 className="text-lg md:text-xl font-bold font-serif leading-tight">
+      <span className="text-green-600">Moroccan</span>{" "}
+      <span className="text-red-700">Advisor</span>
+    </h1>
+    <p className="text-xs text-gray-600 -mt-0.5">
+      Your Trusted Travel Guide
+    </p>
+  </div>
+</motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1" data-dropdown-container>
+            <div
+              className="hidden lg:flex items-center space-x-1"
+              data-dropdown-container
+            >
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = isActiveRoute(item.href);
-                
+
                 return (
                   <div key={item.label} className="relative">
                     <motion.button
                       className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium relative ${
-                        isActive 
-                          ? 'text-orange-600 bg-orange-50' 
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
+                        isActive
+                          ? "text-orange-600 bg-orange-50"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
                       }`}
                       whileHover={{ scale: 1.02 }}
                       onClick={(e) => {
@@ -212,18 +257,18 @@ const MoroccoResponsiveNavbar = () => {
                     >
                       <span>{item.label}</span>
                       {item.badge && (
-                        <span 
+                        <span
                           className="px-2 py-0.5 text-xs font-bold text-white rounded-full"
-                          style={{ backgroundColor: '#EF4444' }}
+                          style={{ backgroundColor: "#EF4444" }}
                         >
                           {item.badge}
                         </span>
                       )}
                       {item.dropdown && (
-                        <ChevronDown 
+                        <ChevronDown
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            activeDropdown === item.label ? 'rotate-180' : ''
-                          }`} 
+                            activeDropdown === item.label ? "rotate-180" : ""
+                          }`}
                         />
                       )}
                     </motion.button>
@@ -241,8 +286,10 @@ const MoroccoResponsiveNavbar = () => {
                         >
                           {item.dropdown.map((dropdownItem) => {
                             const DropdownIcon = dropdownItem.icon;
-                            const isDropdownActive = isActiveRoute(dropdownItem.href);
-                            
+                            const isDropdownActive = isActiveRoute(
+                              dropdownItem.href
+                            );
+
                             return (
                               <motion.button
                                 key={dropdownItem.name}
@@ -253,24 +300,31 @@ const MoroccoResponsiveNavbar = () => {
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 transition-all duration-300 ${
                                   isDropdownActive
-                                    ? 'text-orange-600 bg-orange-50'
-                                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50/80'
+                                    ? "text-orange-600 bg-orange-50"
+                                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-50/80"
                                 }`}
                                 whileHover={{ x: 5 }}
                               >
-                                <div 
+                                <div
                                   className="w-6 h-6 rounded-md flex items-center justify-center"
-                                  style={{ backgroundColor: `${dropdownItem.color}15` }}
+                                  style={{
+                                    backgroundColor: `${dropdownItem.color}15`,
+                                  }}
                                 >
-                                  <DropdownIcon 
-                                    className="w-3 h-3" 
-                                    style={{ color: dropdownItem.color }} 
+                                  <DropdownIcon
+                                    className="w-3 h-3"
+                                    style={{ color: dropdownItem.color }}
                                   />
                                 </div>
                                 <div className="text-left">
-                                  <div className="font-medium">{dropdownItem.name}</div>
-                                  {dropdownItem.name === 'Free Safety Guide' && (
-                                    <div className="text-xs text-green-600 font-medium">FREE</div>
+                                  <div className="font-medium">
+                                    {dropdownItem.name}
+                                  </div>
+                                  {dropdownItem.name ===
+                                    "Free Safety Guide" && (
+                                    <div className="text-xs text-green-600 font-medium">
+                                      FREE
+                                    </div>
                                   )}
                                 </div>
                               </motion.button>
@@ -290,20 +344,21 @@ const MoroccoResponsiveNavbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-4 py-2 rounded-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 flex items-center gap-2"
-                onClick={() => handleNavigation('/guide')}
+                onClick={() => handleNavigation("/guide")}
               >
                 <Download className="w-4 h-4" />
                 <span className="hidden lg:inline">Free Guide</span>
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-2.5 rounded-xl font-bold text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-                style={{ 
-                  background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
+                style={{
+                  background:
+                    "linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)",
                 }}
-                onClick={() => handleNavigation('/guide')}
+                onClick={() => handleNavigation("/guide")}
               >
                 <Star className="w-4 h-4" />
                 Plan My Trip
@@ -320,7 +375,11 @@ const MoroccoResponsiveNavbar = () => {
               }}
               whileTap={{ scale: 0.95 }}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </motion.button>
           </div>
         </div>
@@ -330,32 +389,32 @@ const MoroccoResponsiveNavbar = () => {
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="lg:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/50"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
-                
                 {/* Mobile CTA */}
                 <div className="flex gap-2 mb-4">
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 px-4 py-3 rounded-xl font-medium text-gray-700 bg-gray-100/80 transition-all duration-300 flex items-center justify-center gap-2"
-                    onClick={() => handleNavigation('/guide')}
+                    onClick={() => handleNavigation("/guide")}
                   >
                     <Download className="w-4 h-4" />
                     Free Guide
                   </motion.button>
-                  
+
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 px-4 py-3 rounded-xl font-bold text-white shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-                    style={{ 
-                      background: 'linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)' 
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)",
                     }}
-                    onClick={() => handleNavigation('/guide')}
+                    onClick={() => handleNavigation("/guide")}
                   >
                     <Star className="w-4 h-4" />
                     Plan Trip
@@ -366,14 +425,14 @@ const MoroccoResponsiveNavbar = () => {
                 {navigationItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = isActiveRoute(item.href);
-                  
+
                   return (
                     <div key={item.label}>
                       <motion.button
                         className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 font-medium ${
-                          isActive 
-                            ? 'text-orange-600 bg-orange-50' 
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
+                          isActive
+                            ? "text-orange-600 bg-orange-50"
+                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
                         }`}
                         onClick={() => {
                           if (item.dropdown) {
@@ -387,19 +446,19 @@ const MoroccoResponsiveNavbar = () => {
                         <div className="flex items-center gap-3">
                           <span>{item.label}</span>
                           {item.badge && (
-                            <span 
+                            <span
                               className="px-2 py-0.5 text-xs font-bold text-white rounded-full"
-                              style={{ backgroundColor: '#EF4444' }}
+                              style={{ backgroundColor: "#EF4444" }}
                             >
                               {item.badge}
                             </span>
                           )}
                         </div>
                         {item.dropdown && (
-                          <ChevronDown 
+                          <ChevronDown
                             className={`w-4 h-4 transition-transform duration-300 ${
-                              activeDropdown === item.label ? 'rotate-180' : ''
-                            }`} 
+                              activeDropdown === item.label ? "rotate-180" : ""
+                            }`}
                           />
                         )}
                       </motion.button>
@@ -409,38 +468,49 @@ const MoroccoResponsiveNavbar = () => {
                         {item.dropdown && activeDropdown === item.label && (
                           <motion.div
                             initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
+                            animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
                             className="ml-4 mt-2 space-y-1"
                           >
                             {item.dropdown.map((dropdownItem) => {
                               const DropdownIcon = dropdownItem.icon;
-                              const isDropdownActive = isActiveRoute(dropdownItem.href);
-                              
+                              const isDropdownActive = isActiveRoute(
+                                dropdownItem.href
+                              );
+
                               return (
                                 <motion.button
                                   key={dropdownItem.name}
-                                  onClick={() => handleNavigation(dropdownItem.href)}
+                                  onClick={() =>
+                                    handleNavigation(dropdownItem.href)
+                                  }
                                   className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 ${
                                     isDropdownActive
-                                      ? 'text-orange-600 bg-orange-50'
-                                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50/80'
+                                      ? "text-orange-600 bg-orange-50"
+                                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50/80"
                                   }`}
                                   whileTap={{ scale: 0.98 }}
                                 >
-                                  <div 
+                                  <div
                                     className="w-6 h-6 rounded-md flex items-center justify-center"
-                                    style={{ backgroundColor: `${dropdownItem.color}15` }}
+                                    style={{
+                                      backgroundColor: `${dropdownItem.color}15`,
+                                    }}
                                   >
-                                    <DropdownIcon 
-                                      className="w-3 h-3" 
-                                      style={{ color: dropdownItem.color }} 
+                                    <DropdownIcon
+                                      className="w-3 h-3"
+                                      style={{ color: dropdownItem.color }}
                                     />
                                   </div>
-                                  <span className="text-sm">{dropdownItem.name}</span>
-                                  {dropdownItem.name === 'Free Safety Guide' && (
-                                    <span className="text-xs text-green-600 font-bold ml-auto">FREE</span>
+                                  <span className="text-sm">
+                                    {dropdownItem.name}
+                                  </span>
+                                  {dropdownItem.name ===
+                                    "Free Safety Guide" && (
+                                    <span className="text-xs text-green-600 font-bold ml-auto">
+                                      FREE
+                                    </span>
                                   )}
                                 </motion.button>
                               );

@@ -233,21 +233,25 @@ const PremiumEbooksSection = () => {
                   {ebook.badge}
                 </div>
 
-                {/* Cover Image */}
-                <div className="relative w-full h-48 overflow-hidden rounded-t-xl">
+                {/* Cover Image - Updated to show full image */}
+                <div className="relative w-full overflow-hidden rounded-t-xl">
                   <motion.img
                     src={ebook.image}
                     alt={ebook.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
+                    className="w-full h-auto object-contain"
+                    whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.8 }}
+                    style={{
+                      maxHeight: '400px',
+                      objectFit: 'contain'
+                    }}
                   />
                   
-                  {/* Gradient Overlay */}
+                  {/* Gradient Overlay - Positioned at bottom */}
                   <div 
-                    className="absolute inset-0"
+                    className="absolute bottom-0 left-0 right-0 h-20"
                     style={{
-                      background: `linear-gradient(135deg, ${ebook.badgeColor}20, transparent 60%)`
+                      background: `linear-gradient(to top, ${ebook.badgeColor}20, transparent)`
                     }}
                   />
                   
