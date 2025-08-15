@@ -49,7 +49,12 @@ const ebooksData = [
       "/books/marrakech4.png"
     ],
     languages: ["English"],
-    format: "PDF"
+    format: "PDF",
+     // Stripe Integration
+     stripePriceId: "price_1RvcFhHV3EX6m1vfBFokvpeW", // Replace with your actual Stripe Price ID
+     stripePaymentLink: "https://buy.stripe.com/6oU3cvgWl04EeOq2ZK6J201", // Replace with your actual Stripe payment link
+     supabaseBucket: "marrakech-trip",
+     supabaseFilePath: "travel book marrakech.pdf"
   },
   {
     id: 2,
@@ -94,7 +99,12 @@ const ebooksData = [
     author: "Fatima Zahra & Lisa Thompson",
     lastUpdated: "2024",
     languages: ["English", "French"],
-    format: "PDF + Audio Guide"
+    format: "PDF + Audio Guide",
+    // Stripe Integration
+    stripePriceId: "price_1RvjApHV3EX6m1vfWLbCl21B", // Replace with your actual Stripe Price ID
+    stripePaymentLink: "https://buy.stripe.com/aFa00j21r18I5dQ0RC6J202", // Replace with your actual Stripe payment link
+    supabaseBucket: "female-traveler",
+    supabaseFilePath: "women-guide.pdf"
   }
 ];
 
@@ -408,7 +418,7 @@ const EbooksPage = () => {
               },
               {
                 question: "Do you offer refunds?",
-                answer: "We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase, contact us for a full refund."
+                answer: "No we don't offer refund but we offer a 30-day Support. If you need more informations, contact us"
               }
             ].map((faq, index) => (
               <motion.div
@@ -486,7 +496,7 @@ const EbooksPage = () => {
             <div className="flex items-center justify-center gap-8 mt-8 text-sm opacity-80 text-white">
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4" />
-                <span>30-Day Guarantee</span>
+                <span>30-Day Support</span>
               </div>
               <div className="flex items-center gap-2">
                 <Download className="w-4 h-4" />

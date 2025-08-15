@@ -155,12 +155,7 @@ const MoroccoResponsiveNavbar = () => {
           icon: Camera,
           color: "#EF4444",
         },
-        {
-          name: "Morocco Planner",
-          href: "/guide",
-          icon: MapPin,
-          color: "#6366F1",
-        },
+        
         {
           name: "Solo Female Travel",
           href: "/guide",
@@ -340,15 +335,7 @@ const MoroccoResponsiveNavbar = () => {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 py-2 rounded-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 transition-all duration-300 flex items-center gap-2"
-                onClick={() => handleNavigation("/guide")}
-              >
-                <Download className="w-4 h-4" />
-                <span className="hidden lg:inline">Free Guide</span>
-              </motion.button>
+              
 
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -398,14 +385,7 @@ const MoroccoResponsiveNavbar = () => {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
                 {/* Mobile CTA */}
                 <div className="flex gap-2 mb-4">
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 px-4 py-3 rounded-xl font-medium text-gray-700 bg-gray-100/80 transition-all duration-300 flex items-center justify-center gap-2"
-                    onClick={() => handleNavigation("/guide")}
-                  >
-                    <Download className="w-4 h-4" />
-                    Free Guide
-                  </motion.button>
+                  
 
                   <motion.button
                     whileTap={{ scale: 0.95 }}

@@ -15,68 +15,53 @@ const PremiumEbooksSection = () => {
       title: 'Pocket Marrakesh – Insider City Guide',
       subtitle: 'Your hyper-local guide to the Red City',
       description: 'A bold, hyper-local guide to Marrakesh\'s buzzing medina, food culture, rooftop hideouts, and secret gems.',
-      price: 9.99,
-      originalPrice: 12.99,
+      price: 4.99,
+      originalPrice: 9.99,
       currency: '€',
-      image: "/books/Poster Voyage Affiche Montage Photo Élégant Beige et Noir.png",
+      image: '/books/marrakech1.png',
       badge: 'Most Popular',
       badgeColor: '#A34128',
       rating: 4.9,
-      reviews: 127,
+      reviews: 1271,
       features: [
-        'Local restaurant and rooftop picks',
-        'Interactive 1-day, 2-day, and 3-day plans',
-        '"No-tourist-trap" walking tours',
-        'Hidden gems & local secrets'
+        'Local restaurant recommendations',
+        'Interactive 10-day itinerary',
+        'No-tourist-trap walks',
+        'Hidden gems locations',
+        'Cultural etiquette guide',
+        'Safety tips for solo travelers'
       ],
-      pages: 45,
+      pages: 25,
       category: 'City Guide'
-    },
-    {
-      id: 'morocco-planner',
-      title: 'The Morocco Planner – 7-Day & 10-Day Itineraries',
-      subtitle: 'Complete trip planning made simple',
-      description: 'Struggling to plan your route? We\'ve done the work for you. This visual travel planner gives you road-tested routes through Morocco\'s most iconic and offbeat locations.',
-      price: 14.99,
-      originalPrice: 19.99,
-      currency: '€',
-      image: "/books/Beige and Blue Collage Travel Journal Book Cover.png",
-      badge: 'Editor\'s Pick',
-      badgeColor: '#3E8DC1',
-      rating: 4.8,
-      reviews: 203,
-      features: [
-        '7 & 10-day itinerary options',
-        'Built-in budget calculator',
-        'Daily map views & booking links',
-        'Transportation & timing guides'
-      ],
-      pages: 68,
-      category: 'Trip Planning'
     },
     {
       id: 'solo-female-travel',
       title: 'Solo Female Travel in Morocco',
       subtitle: 'Travel with confidence and safety',
       description: 'Candid, empowering, and practical — this guide helps women navigate Morocco with confidence, safety, and soul.',
-      price: 12.99,
-      originalPrice: 16.99,
+      price: 4.99,
+      originalPrice: 9.99,
       currency: '€',
-      image: "/books/Copy of ebook cover  oussama.png",
+      image: '/books/female1.png',
       badge: 'New',
       badgeColor: '#70977B',
       rating: 4.9,
-      reviews: 89,
+      reviews: 891,
       features: [
-        'Dress guide by region',
-        'Cultural etiquette cheat sheet',
+        'Dress guide for different regions',
         'Solo-friendly accommodations',
-        'Female-led experiences & tours'
+        'Cultural etiquette essentials',
+        'Female-led experiences',
+        'Safety protocols and tips',
+        'Local women\'s perspectives',
+        'Destination highlights',
+        'Packing checklist for women'
       ],
-      pages: 52,
+      pages: 40,
       category: 'Safety & Culture'
     }
   ];
+  
 
   const addToCart = (ebook) => {
     setCart(prev => {
@@ -127,7 +112,7 @@ const PremiumEbooksSection = () => {
 
   const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
-  const bundlePrice = 29.00;
+  const bundlePrice = 6.99;
   const totalPrice = ebooks.reduce((sum, book) => sum + book.price, 0);
   const savings = totalPrice - bundlePrice;
 
@@ -205,7 +190,7 @@ const PremiumEbooksSection = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
           {ebooks.map((ebook, index) => (
             <motion.div
               key={ebook.id}
@@ -434,7 +419,7 @@ const PremiumEbooksSection = () => {
             </div>
 
             <h3 className="text-3xl font-bold mb-4 font-serif">
-              Get All 3 Guides
+              Get Both Guides
             </h3>
             
             <div className="flex items-center justify-center gap-4 mb-6">
@@ -487,7 +472,7 @@ const PremiumEbooksSection = () => {
             </div>
             <div className="flex items-center gap-2">
               <Heart className="w-4 h-4" />
-              <span>30-Day Guarantee</span>
+              <span>30-Day Support</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
