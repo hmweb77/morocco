@@ -49,7 +49,7 @@ const ebooksData = [
       "/books/marrakech4.png"
     ],
     languages: ["English"],
-    format: "PDF",
+    format: "PDFr",
      // Stripe Integration
      stripePriceId: "price_1RvcFhHV3EX6m1vfBFokvpeW", // Replace with your actual Stripe Price ID
      stripePaymentLink: "https://buy.stripe.com/6oU3cvgWl04EeOq2ZK6J201", // Replace with your actual Stripe payment link
