@@ -41,7 +41,7 @@ const PRICE_TO_FILE = {
   },
   "price_1RvjApHV3EX6m1vfWLbCl21B": {
     bucket: "female-traveler", 
-    path: "women-guide.pdf",
+    path: "female traveler.pdf",
     title: "Solo Female Travel in Morocco",
   }
 };

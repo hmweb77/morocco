@@ -19,7 +19,7 @@ const ebooksData = [
     fullDescription: "Discover Marrakesh like never before with our comprehensive insider guide. From hidden riads and secret gardens to the best street food vendors and traditional hammams, this guide reveals the authentic soul of the Red City. Perfect for travelers who want to experience Marrakesh beyond the tourist trail.",
     image: "/books/stripe-image-1.jpeg",
     originalPrice: 9.99,
-    salePrice: 4.99,
+    salePrice: 4.90,
     discount: 50,
     rating: 4.9,
     reviews: 1271,
@@ -65,7 +65,7 @@ const ebooksData = [
     fullDescription: "Written by experienced female travelers, this comprehensive guide addresses the unique considerations for women traveling solo in Morocco. From cultural sensitivities and appropriate dress codes to safety strategies and empowering experiences, this guide ensures you can explore Morocco with confidence while respecting local customs. Inside, you'll find destination highlights, female-friendly accommodations, solo dining tips, scams to avoid, cultural etiquette, and empowering real-life stories.",
     image: "/books/stripe-image-2.jpeg",
     originalPrice: 9.99,
-    salePrice: 4.99,
+    salePrice: 4.90,
     discount: 50,
     rating: 4.9,
     reviews: 891,
@@ -104,7 +104,7 @@ const ebooksData = [
     stripePriceId: "price_1RvjApHV3EX6m1vfWLbCl21B", // Replace with your actual Stripe Price ID
     stripePaymentLink: "https://buy.stripe.com/aFa00j21r18I5dQ0RC6J202", // Replace with your actual Stripe payment link
     supabaseBucket: "female-traveler",
-    supabaseFilePath: "women-guide.pdf"
+    supabaseFilePath: "female traveler.pdf"
   }
 ];
 

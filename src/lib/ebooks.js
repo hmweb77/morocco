@@ -13,14 +13,14 @@ export const PRICE_TO_FILE = {
   
   "price_1RvjApHV3EX6m1vfWLbCl21B": {
     bucket: "female-traveler", 
-    path: "women-guide.pdf",
+    path: "female traveler.pdf",
     title: "Solo Female Travel in Morocco",
     description: "Travel with confidence and safety",
     category: "safety-culture"
   },
 
   // Bundle Product - Update with your actual bundle Price ID
-  "price_bundle_complete_morocco": {
+  "price_1Rvm17HV3EX6m1vfjObZHI0P": {
     bucket: "marrakech-trip",
     path: "travel book marrakech.pdf",
     title: "Complete Morocco Travel Bundle",
@@ -30,7 +30,7 @@ export const PRICE_TO_FILE = {
     additionalFiles: [
       {
         bucket: "female-traveler",
-        path: "women-guide.pdf", 
+        path: "female traveler.pdf", 
         title: "Solo Female Travel in Morocco",
         description: "Bonus guide included in bundle"
       }

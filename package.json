@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:setup": "node scripts/test-setup.js"
+    "test:setup": "node ./src/scripts/test-setup.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
