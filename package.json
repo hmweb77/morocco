@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:setup": "node scripts/test-setup.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
+    "dotenv": "^17.2.1",
     "framer-motion": "^12.12.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
