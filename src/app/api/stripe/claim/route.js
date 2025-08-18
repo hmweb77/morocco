@@ -2,6 +2,7 @@
 import Stripe from "stripe";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { PRICE_TO_FILE } from "@/lib/ebooks";
+import { sendEbookDeliveryEmail } from "@/lib/brevo";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { 
   apiVersion: "2024-06-20" 
@@ -96,13 +97,42 @@ export async function GET(req) {
 
     console.log("Successfully generated", links.length, "download links");
 
-    // 4) Return download links with customer info
+    // 4) Prepare customer info for email
+    const customerInfo = {
+      email: session.customer_details?.email,
+      name: session.customer_details?.name,
+      sessionId: session_id
+    };
+
+    // 5) Send email with download links
+    if (customerInfo.email) {
+      console.log("Sending email to:", customerInfo.email);
+      
+      try {
+        const emailResult = await sendEbookDeliveryEmail(customerInfo, links);
+        
+        if (emailResult.success) {
+          console.log("Email sent successfully:", emailResult.messageId);
+        } else {
+          console.error("Email sending failed:", emailResult.error);
+          // Don't fail the entire request if email fails
+        }
+      } catch (emailError) {
+        console.error("Email sending error:", emailError);
+        // Continue with the response even if email fails
+      }
+    } else {
+      console.log("No customer email found, skipping email");
+    }
+
+    // 6) Return download links with customer info
     const response = {
       links,
-      customerEmail: session.customer_details?.email,
-      customerName: session.customer_details?.name,
+      customerEmail: customerInfo.email,
+      customerName: customerInfo.name,
       sessionId: session_id,
-      message: "Download links generated successfully"
+      message: "Download links generated successfully",
+      emailSent: !!customerInfo.email
     };
 
     return new Response(JSON.stringify(response), {
@@ -118,6 +148,8 @@ export async function GET(req) {
       errorMessage = "Invalid payment session";
     } else if (error.message?.includes('Supabase')) {
       errorMessage = "File access error";
+    } else if (error.message?.includes('Brevo') || error.message?.includes('email')) {
+      errorMessage = "Email delivery error";
     }
 
     return new Response(JSON.stringify({ 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Discover Morocco Authentically – Local Guides & Travel Tips ",
-  description: "Plan your trip to Morocco like a local. Explore insider travel guides, authentic experiences, expert tips and downloadable eBooks for cities. Avoid tourist traps, uncover hidden gems, and travel smarter with Morocco Advisor.",
+  description: "Plan your trip to Morocco like a local. Explore insider travel guides, authentic experiences, expert tips and downloadable eBooks for cities   . Avoid tourist traps, uncover hidden gems, and travel smarter with Morocco Advisor.",
 };
 
 export default function RootLayout({ children }) {
