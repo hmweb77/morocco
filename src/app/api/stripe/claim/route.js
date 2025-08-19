@@ -1,8 +1,8 @@
-// src/app/api/stripe/claim/route.js
+// Fixed claim route - src/app/api/stripe/claim/route.js
 import Stripe from "stripe";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { PRICE_TO_FILE } from "@/lib/ebooks";
-import { sendEbookDeliveryEmail } from "@/lib/brevo";
+import { sendDownloadEmail } from "@/lib/brevoService"; // Fixed import
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { 
   apiVersion: "2024-06-20" 
@@ -109,7 +109,12 @@ export async function GET(req) {
       console.log("Sending email to:", customerInfo.email);
       
       try {
-        const emailResult = await sendEbookDeliveryEmail(customerInfo, links);
+        const emailResult = await sendDownloadEmail({
+          customerEmail: customerInfo.email,
+          customerName: customerInfo.name,
+          downloadLinks: links,
+          sessionId: session_id
+        });
         
         if (emailResult.success) {
           console.log("Email sent successfully:", emailResult.messageId);

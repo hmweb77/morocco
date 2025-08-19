@@ -1,9 +1,8 @@
-// Step 4: Update webhook to send email - src/app/api/stripe/webhooks/route.js
+// Fixed webhook route - src/app/api/stripe/webhooks/route.js
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { PRICE_TO_FILE } from '@/lib/ebooks';
-import { sendDownloadEmail } from '@/lib/brevoService';
-
+import { sendDownloadEmail } from '@/lib/brevoService'; // Fixed import
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-06-20',
@@ -160,43 +159,3 @@ async function createSignedUrl(fileConfig) {
     return null;
   }
 }
-
-// Step 5: Test webhook endpoint - src/scripts/test-webhook.js
-const testWebhook = async () => {
-  const testEvent = {
-    id: 'evt_test_webhook',
-    object: 'event',
-    api_version: '2024-06-20',
-    created: Math.floor(Date.now() / 1000),
-    data: {
-      object: {
-        id: 'cs_test_session',
-        object: 'checkout.session',
-        customer_details: {
-          email: 'test@example.com',
-          name: 'Test User'
-        },
-        payment_status: 'paid'
-      }
-    },
-    type: 'checkout.session.completed'
-  };
-
-  try {
-    const response = await fetch('http://localhost:3000/api/stripe/webhooks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'stripe-signature': 'test_signature'
-      },
-      body: JSON.stringify(testEvent)
-    });
-
-    console.log('Webhook test response:', await response.text());
-  } catch (error) {
-    console.error('Webhook test failed:', error);
-  }
-};
-
-// Uncomment to test:
-// testWebhook();
