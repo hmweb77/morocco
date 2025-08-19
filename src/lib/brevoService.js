@@ -207,9 +207,10 @@ Have an amazing trip! 🇲🇦✨
 
 // Step 4: Update webhook to send email - src/app/api/stripe/webhooks/route.js
 import Stripe from 'stripe';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
-import { PRICE_TO_FILE } from '@/lib/ebooks';
-import { sendDownloadEmail } from '@/lib/brevoService';
+import { supabaseAdmin } from '../lib/supabaseAdmin';
+import { PRICE_TO_FILE } from '../lib/ebooks';
+import { sendDownloadEmail } from '../lib/brevoService';
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-06-20',
