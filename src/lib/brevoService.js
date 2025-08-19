@@ -23,7 +23,7 @@ export async function sendDownloadEmail({ customerEmail, customerName, downloadL
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.to = [{ email: customerEmail, name: customerName || 'Valued Customer' }];
     sendSmtpEmail.sender = { 
-      email: 'hello@moroccanadvisor.com', 
+      email: 'contact@hmwebs.com', 
       name: 'Moroccan Advisor' 
     };
     sendSmtpEmail.subject = '🎉 Your Morocco Travel Guides Are Ready!';
@@ -145,7 +145,7 @@ function generateEmailHTML({ customerName, downloadLinks, sessionId }) {
                   <p style="color: #70977B; margin: 0 0 16px 0; font-size: 14px;">
                     Having trouble downloading or questions about your trip?
                   </p>
-                  <a href="mailto:hello@moroccanadvisor.com" 
+                  <a href="mailto:contact@hmwebs.com" 
                      style="background: #3E8DC1; color: white; padding: 12px 24px; 
                             text-decoration: none; border-radius: 8px; font-weight: bold;">
                     Contact Support
@@ -198,7 +198,7 @@ ${downloadLinksText}
 3. Follow our safety tips for an authentic experience
 
 ❓ NEED HELP?
-Email us at hello@moroccanadvisor.com
+Email us at contact@hmwebs.com
 
 Thank you for choosing Moroccan Advisor!
 Have an amazing trip! 🇲🇦✨
