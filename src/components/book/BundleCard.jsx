@@ -14,9 +14,45 @@ const BundleCard = ({ ebooks, onBuyBundle }) => {
   // Replace with your actual Stripe payment link for the bundle
   const bundleStripePaymentLink = "https://buy.stripe.com/cNi14ndK918IeOqasc6J203";
 
-  const handleBundlePurchase = () => {
-    // Redirect to Stripe payment link for bundle
-    window.location.href = bundleStripePaymentLink;
+  const createCheckoutSession = async (priceId) => {
+    try {
+      const response = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: priceId,
+          quantity: 1,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session');
+      }
+  
+      return data;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      throw error;
+    }
+  };
+
+  const handleBundlePurchase = async () => {
+    try {
+      // Use your bundle price ID - update this with your actual bundle price ID
+      const bundlePriceId = "price_1Rvm17HV3EX6m1vfjObZHI0P"; // From your ebooks.js
+      
+      const { url } = await createCheckoutSession(bundlePriceId);
+      
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      alert('Failed to start checkout. Please try again.');
+    }
   };
 
   return (

@@ -86,7 +86,7 @@ function generateEmailHTML({ customerName, downloadLinks, sessionId }) {
                     🎉 Thank You for Your Purchase!
                   </h1>
                   <p style="color: #F3E7D2; margin: 0; font-size: 16px;">
-                    Hi ${customerName || 'Traveler'}! Your Morocco travel guides are ready to download.
+                    Hi Traveler! Your Morocco travel guides are ready to download.
                   </p>
                 </td>
               </tr>

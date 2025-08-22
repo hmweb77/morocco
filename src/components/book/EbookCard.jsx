@@ -11,16 +11,56 @@ const EbookCard = ({ ebook, index, onPreview, onPurchase }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handlePurchase = async () => {
-    setIsProcessing(true);
-    try {
-      // Redirect to Stripe payment link
-      window.location.href = ebook.stripePaymentLink;
-    } catch (error) {
-      console.error('Error redirecting to payment:', error);
-      setIsProcessing(false);
+  // Add this function at the top of your EbookCard component
+const createCheckoutSession = async (priceId) => {
+  try {
+    const response = await fetch('/api/stripe/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        priceId: priceId,
+        quantity: 1,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to create checkout session');
     }
-  };
+
+    return data;
+  } catch (error) {
+    console.error('Checkout error:', error);
+    throw error;
+  }
+};
+const handlePurchase = async () => {
+  setIsProcessing(true);
+  try {
+    // Create checkout session via your API
+    const { url } = await createCheckoutSession(ebook.stripePriceId);
+    
+    // Redirect to Stripe Checkout
+    window.location.href = url;
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    alert('Failed to start checkout. Please try again.');
+    setIsProcessing(false);
+  }
+};
+  // const handlePurchase = async () => {
+  //   setIsProcessing(true);
+  //   try {
+  //     // Redirect to Stripe payment link
+  //     window.location.href = ebook.stripePaymentLink;
+  //   } catch (error) {
+  //     console.error('Error redirecting to payment:', error);
+  //     setIsProcessing(false);
+  //   }
+  // };
 
   return (
     <motion.div
