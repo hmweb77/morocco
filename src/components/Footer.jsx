@@ -424,7 +424,7 @@ const EnhancedMoroccoFooter = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">Email us</p>
-                    <a href="mailto:hello@moroccanadvisor.com" className="text-white hover:text-blue-400 transition-colors font-medium">
+                    <a href="mailto:contact@hmwebs.com" className="text-white hover:text-blue-400 transition-colors font-medium">
                       hello@moroccanadvisor.com
                     </a>
                   </div>
