@@ -228,7 +228,7 @@ const handlePurchase = async () => {
             ) : (
               <>
                 <CreditCard className="w-5 h-5" />
-                Buy Now with Stripe
+                Buy Now
                 <ExternalLink className="w-4 h-4" />
               </>
             )}

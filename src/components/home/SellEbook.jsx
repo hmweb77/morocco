@@ -2,12 +2,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { ShoppingCart, Star, Eye, Download, MapPin, User, Heart, Clock, BookOpen, Check, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Star, Eye, Download, MapPin, User, Heart, Clock, BookOpen, Check, Plus, Minus, CreditCard, ExternalLink } from 'lucide-react';
 
 const PremiumEbooksSection = () => {
   const router = useRouter();
   const [cart, setCart] = useState([]);
   const [hoveredBook, setHoveredBook] = useState(null);
+  const [loadingStates, setLoadingStates] = useState({}); // Track loading state per book
 
   const ebooks = [
     {
@@ -32,7 +33,9 @@ const PremiumEbooksSection = () => {
         'Safety tips for solo travelers'
       ],
       pages: 25,
-      category: 'City Guide'
+      category: 'City Guide',
+      // Stripe Price ID
+      stripePriceId: "price_1RvcFhHV3EX6m1vfBFokvpeW"
     },
     {
       id: 'solo-female-travel',
@@ -58,10 +61,75 @@ const PremiumEbooksSection = () => {
         'Packing checklist for women'
       ],
       pages: 40,
-      category: 'Safety & Culture'
+      category: 'Safety & Culture',
+      // Stripe Price ID
+      stripePriceId: "price_1RvjApHV3EX6m1vfWLbCl21B"
     }
   ];
-  
+
+  // Create Stripe checkout session
+  const createCheckoutSession = async (priceId) => {
+    try {
+      const response = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: priceId,
+          quantity: 1,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      throw error;
+    }
+  };
+
+  // Handle individual book purchase
+  const handleBuyNow = async (ebook) => {
+    setLoadingStates(prev => ({ ...prev, [ebook.id]: true }));
+    
+    try {
+      const { url } = await createCheckoutSession(ebook.stripePriceId);
+      
+      // Add to cart for visual feedback (optional)
+      addToCart(ebook);
+      
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      alert('Failed to start checkout. Please try again.');
+      setLoadingStates(prev => ({ ...prev, [ebook.id]: false }));
+    }
+  };
+
+  // Handle bundle purchase
+  const handleBuyBundle = async () => {
+    setLoadingStates(prev => ({ ...prev, 'bundle': true }));
+    
+    try {
+      // Use your bundle price ID from ebooks.js
+      const bundlePriceId = "price_1Rvm17HV3EX6m1vfjObZHI0P";
+      const { url } = await createCheckoutSession(bundlePriceId);
+      
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (error) {
+      console.error('Error creating bundle checkout session:', error);
+      alert('Failed to start checkout. Please try again.');
+      setLoadingStates(prev => ({ ...prev, 'bundle': false }));
+    }
+  };
 
   const addToCart = (ebook) => {
     setCart(prev => {
@@ -95,18 +163,7 @@ const PremiumEbooksSection = () => {
     );
   };
 
-  const handleBuyNow = (ebook) => {
-    // Add to cart for visual feedback
-    addToCart(ebook);
-    // Navigate to guide page
-    router.push('/guide');
-  };
-
   const handlePreview = (ebook) => {
-    router.push('/guide');
-  };
-
-  const handleBuyBundle = () => {
     router.push('/guide');
   };
 
@@ -343,26 +400,37 @@ const PremiumEbooksSection = () => {
                           color: '#FDFDFD'
                         }}
                       >
-                        23% OFF
+                        50% OFF
                       </div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
                   <div className="space-y-3">
-                    {/* Primary CTA - Buy Now */}
+                    {/* Primary CTA - Buy Now with Stripe */}
                     <motion.button
                       onClick={() => handleBuyNow(ebook)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                      disabled={loadingStates[ebook.id]}
+                      whileHover={{ scale: loadingStates[ebook.id] ? 1 : 1.02 }}
+                      whileTap={{ scale: loadingStates[ebook.id] ? 1 : 0.98 }}
+                      className="w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                       style={{ 
                         backgroundColor: ebook.badgeColor,
                         color: '#FDFDFD'
                       }}
                     >
-                      <ShoppingCart className="w-5 h-5" />
-                      Buy Now
+                      {loadingStates[ebook.id] ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <CreditCard className="w-5 h-5" />
+                          Buy Now
+                          <ExternalLink className="w-4 h-4" />
+                        </>
+                      )}
                     </motion.button>
 
                     {/* Secondary CTA - Preview */}
@@ -386,6 +454,16 @@ const PremiumEbooksSection = () => {
                       <Eye className="w-5 h-5" />
                       Preview & Details
                     </motion.button>
+                  </div>
+
+                  {/* Security Badge */}
+                  <div className="mt-4 pt-4 border-t border-gray-200/50">
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                      <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                      <span>Secure payment by Stripe</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -429,7 +507,7 @@ const PremiumEbooksSection = () => {
               <div className="text-left">
                 <div className="text-sm line-through opacity-75">€{totalPrice.toFixed(2)}</div>
                 <div className="text-sm font-bold" style={{ color: '#F9C75E' }}>
-                  Save €{savings.toFixed(2)} (20%)
+                  Save €{savings.toFixed(2)} (30%)
                 </div>
               </div>
             </div>
@@ -440,15 +518,27 @@ const PremiumEbooksSection = () => {
             
             <motion.button
               onClick={handleBuyBundle}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              disabled={loadingStates['bundle']}
+              whileHover={{ scale: loadingStates['bundle'] ? 1 : 1.05, y: loadingStates['bundle'] ? 0 : -2 }}
+              whileTap={{ scale: loadingStates['bundle'] ? 1 : 0.98 }}
+              className="px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
               style={{ 
                 backgroundColor: '#F9C75E',
                 color: '#1C3F60'
               }}
             >
-              Buy the Travel Bundle
+              {loadingStates['bundle'] ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  Processing Bundle...
+                </>
+              ) : (
+                <>
+                  <CreditCard className="w-5 h-5" />
+                  Buy Bundle
+                  <ExternalLink className="w-4 h-4" />
+                </>
+              )}
             </motion.button>
             
             <p className="text-sm mt-4 opacity-75">

@@ -1,3 +1,4 @@
+// src/components/blogs/BlogsPage.jsx
 "use client"
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -18,6 +19,8 @@ import {
   Share2,
   ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
+import { blogPosts } from '@/lib/blogsData.js';
 
 const BlogPage = () => {
   const router = useRouter();
@@ -44,131 +47,8 @@ const BlogPage = () => {
     if (view && (view === 'grid' || view === 'list')) setViewMode(view);
   }, [searchParams]);
 
-  // Sample blog data - replace with your actual data
-  const blogs = [
-    {
-      id: 1,
-      title: "Hidden Gems of Marrakech: Beyond the Main Square",
-      excerpt: "Discover the secret corners of Marrakech that most tourists never see. From hidden riads to local artisan workshops...",
-      content: "Full blog content here...",
-      author: "Youssef El Mansouri",
-      publishDate: "2024-05-15",
-      readTime: "8 min read",
-      category: "Travel Tips",
-      tags: ["Marrakech", "Hidden Gems", "Local Culture"],
-      image: "/experiences/11.jpg",
-      views: 1240,
-      likes: 89,
-      featured: true
-    },
-    {
-      id: 2,
-      title: "The Art of Moroccan Hospitality: Tea Culture Explained",
-      excerpt: "Understanding the deep-rooted traditions of Moroccan mint tea and the rituals that bring families together...",
-      content: "Full blog content here...",
-      author: "Aicha Benali",
-      publishDate: "2024-05-12",
-      readTime: "6 min read",
-      category: "Culture",
-      tags: ["Tea Culture", "Traditions", "Hospitality"],
-      image: "/experiences/11.jpg",
-      views: 980,
-      likes: 67,
-      featured: false
-    },
-    {
-      id: 3,
-      title: "Sahara Desert Adventures: What to Pack and Expect",
-      excerpt: "Your complete guide to desert camping, camel trekking, and stargazing in the magnificent Sahara...",
-      content: "Full blog content here...",
-      author: "Omar Tahiri",
-      publishDate: "2024-05-10",
-      readTime: "12 min read",
-      category: "Adventure",
-      tags: ["Sahara", "Desert", "Adventure", "Packing"],
-      image: "/experiences/11.jpg",
-      views: 1560,
-      likes: 124,
-      featured: true
-    },
-    {
-      id: 4,
-      title: "Atlas Mountains Hiking: Best Trails for Every Level",
-      excerpt: "From gentle walks to challenging peaks, explore the diverse hiking opportunities in Morocco's Atlas Mountains...",
-      content: "Full blog content here...",
-      author: "Omar Tahiri",
-      publishDate: "2024-05-08",
-      readTime: "10 min read",
-      category: "Adventure",
-      tags: ["Atlas Mountains", "Hiking", "Trekking"],
-      image: "/experiences/11.jpg",
-      views: 892,
-      likes: 76,
-      featured: false
-    },
-    {
-      id: 5,
-      title: "Moroccan Cuisine: A Journey Through Regional Flavors",
-      excerpt: "Explore the diverse culinary landscape of Morocco, from coastal seafood to mountain tagines...",
-      content: "Full blog content here...",
-      author: "Aicha Benali",
-      publishDate: "2024-05-05",
-      readTime: "9 min read",
-      category: "Food & Cuisine",
-      tags: ["Cuisine", "Food", "Regional", "Cooking"],
-      image: "/experiences/11.jpg",
-      views: 1120,
-      likes: 95,
-      featured: false
-    },
-    {
-      id: 6,
-      title: "Fez Medina: Navigating the World's Largest Car-Free Urban Area",
-      excerpt: "Master the art of exploring Fez's ancient medina with insider tips and cultural insights...",
-      content: "Full blog content here...",
-      author: "Youssef El Mansouri",
-      publishDate: "2024-05-03",
-      readTime: "7 min read",
-      category: "Travel Tips",
-      tags: ["Fez", "Medina", "Navigation", "Culture"],
-      image: "/experiences/11.jpg",
-      views: 756,
-      likes: 54,
-      featured: false
-    },
-    {
-      id: 7,
-      title: "Moroccan Festivals: When Culture Comes Alive",
-      excerpt: "Experience Morocco's vibrant festival calendar and learn when to visit for the most authentic celebrations...",
-      content: "Full blog content here...",
-      author: "Aicha Benali",
-      publishDate: "2024-05-01",
-      readTime: "11 min read",
-      category: "Culture",
-      tags: ["Festivals", "Celebrations", "Culture", "Events"],
-      image: "/experiences/11.jpg",
-      views: 654,
-      likes: 48,
-      featured: false
-    },
-    {
-      id: 8,
-      title: "Sustainable Tourism in Morocco: Travel Responsibly",
-      excerpt: "How to minimize your environmental impact while maximizing your cultural experience in Morocco...",
-      content: "Full blog content here...",
-      author: "Omar Tahiri",
-      publishDate: "2024-04-28",
-      readTime: "8 min read",
-      category: "Sustainable Travel",
-      tags: ["Sustainability", "Responsible Travel", "Environment"],
-      image: "/experiences/11.jpg",
-      views: 445,
-      likes: 39,
-      featured: false
-    }
-  ];
-
-  const categories = ['All', ...new Set(blogs.map(blog => blog.category))];
+  // Get unique categories from blog posts
+  const categories = ['All', ...new Set(blogPosts.map(blog => blog.category))];
 
   // Update URL parameters
   const updateUrlParams = (params) => {
@@ -190,7 +70,7 @@ const BlogPage = () => {
 
   // Filter blogs based on search and category
   useEffect(() => {
-    let filtered = blogs;
+    let filtered = blogPosts;
 
     if (selectedCategory !== 'All') {
       filtered = filtered.filter(blog => blog.category === selectedCategory);
@@ -223,8 +103,8 @@ const BlogPage = () => {
       view: viewMode === 'grid' ? null : viewMode
     });
     
-    // Scroll to top using router
-    router.push(`#top`, { scroll: true });
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSearchChange = (value) => {
@@ -267,6 +147,19 @@ const BlogPage = () => {
     });
   };
 
+  const getTagColor = (tag) => {
+    const colors = {
+      Safety: '#EF4444',
+      'Travel Tips': '#10B981',
+      Culture: '#6366F1',
+      Food: '#F59E0B',
+      Adventure: '#8B5CF6',
+      Budget: '#EC4899',
+      Morocco: '#1F2937'
+    };
+    return colors[tag] || '#6B7280';
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -294,11 +187,10 @@ const BlogPage = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-8">
-            Story-Driven & Immersive
+              Story-Driven & Immersive
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
-            Discover Morocco Through Local Eyes
-From hidden medina secrets to Sahara stargazing, explore authentic stories and insider guides that transform travelers into storytellers of Morocco's timeless magic.
+              Discover Morocco Through Local Eyes - From hidden medina secrets to Sahara stargazing, explore authentic stories and insider guides that transform travelers into storytellers of Morocco's timeless magic.
             </p>
             
             {/* Stats Section */}
@@ -309,7 +201,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                <div className="text-4xl md:text-5xl font-bold mb-2">25+</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">{blogPosts.length}+</div>
                 <div className="text-gray-400 text-lg">Authentic Stories</div>
               </motion.div>
               
@@ -447,13 +339,18 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                   <div className={`p-6 ${viewMode === 'list' ? 'md:w-2/3 flex flex-col justify-between' : ''}`}>
                     <div>
                       {/* Category Tag */}
-                      <span className="inline-block bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium mb-3">
+                      <span 
+                        className="inline-block text-white px-3 py-1 rounded-full text-sm font-medium mb-3"
+                        style={{ backgroundColor: getTagColor(blog.category) }}
+                      >
                         {blog.category}
                       </span>
 
                       {/* Title */}
                       <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-orange-600 transition-colors duration-200 line-clamp-2">
-                        {blog.title}
+                        <Link href={`/blogs/${blog.slug}`}>
+                          {blog.title}
+                        </Link>
                       </h3>
 
                       {/* Excerpt */}
@@ -493,7 +390,7 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                       <div className="flex items-center space-x-4 text-sm text-gray-500">
                         <div className="flex items-center">
                           <Eye className="h-4 w-4 mr-1" />
-                          {blog.views}
+                          {blog.views.toLocaleString()}
                         </div>
                         <div className="flex items-center">
                           <Heart className="h-4 w-4 mr-1" />
@@ -501,10 +398,13 @@ From hidden medina secrets to Sahara stargazing, explore authentic stories and i
                         </div>
                       </div>
                       
-                      <button className="flex items-center text-orange-600 hover:text-orange-700 font-medium transition-colors duration-200">
+                      <Link 
+                        href={`/blogs/${blog.slug}`}
+                        className="flex items-center text-orange-600 hover:text-orange-700 font-medium transition-colors duration-200"
+                      >
                         Read More
                         <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </motion.article>

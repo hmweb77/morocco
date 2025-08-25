@@ -104,7 +104,7 @@ const EnhancedMoroccoHeroSection = () => {
               from local experts.
             </motion.p>
             {/* Search Bar */}
-<motion.div
+{/* <motion.div
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, delay: 1 }}
@@ -120,7 +120,7 @@ const EnhancedMoroccoHeroSection = () => {
       Search
     </button>
   </div>
-</motion.div>
+</motion.div> */}
 
 
             {/* CTA Buttons */}

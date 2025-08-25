@@ -762,387 +762,387 @@ const TopExperiencesSection = () => {
         "Wear water-safe shoes for riverbank walking and rocky terrain"
       ]
     },
-    {
-      id: 7,
-      title: "Agadir/Taghazout: Quad Bike and Sandboarding Tour",
-      description:
-        "Embark on a thrilling half-day tour from Agadir or Taghazout that combines quad biking across desert trails with sandboarding on golden dunes. Experience the landscapes of Morocco’s southern coast in a unique and active way.",
-        image: "/experiences/7.jpg",
-      icon: Car,
-      tag: "Adventure",
-      bestFor: "Adventure seekers, friends, teens and adults",
-      location: "Agadir & Taghazout",
-      duration: "4 Hours",
-      price: "€38.11",
-      rating: 4.8,
-      reviews: 423,
-      cta: "Book Quad & Sandboarding",
-      ctaLink:
-        "https://www.getyourguide.com/agadir-l1413/agadirtaghazout-quad-bike-and-sandboarding-desert-beach-t586206/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    // {
+    //   id: 7,
+    //   title: "Agadir/Taghazout: Quad Bike and Sandboarding Tour",
+    //   description:
+    //     "Embark on a thrilling half-day tour from Agadir or Taghazout that combines quad biking across desert trails with sandboarding on golden dunes. Experience the landscapes of Morocco’s southern coast in a unique and active way.",
+    //     image: "/experiences/7.jpg",
+    //   icon: Car,
+    //   tag: "Adventure",
+    //   bestFor: "Adventure seekers, friends, teens and adults",
+    //   location: "Agadir & Taghazout",
+    //   duration: "4 Hours",
+    //   price: "€38.11",
+    //   rating: 4.8,
+    //   reviews: 423,
+    //   cta: "Book Quad & Sandboarding",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/agadir-l1413/agadirtaghazout-quad-bike-and-sandboarding-desert-beach-t586206/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Ride a quad bike along the dunes and coastline",
-        "Experience fun sandboarding with ocean views",
-        "Capture stunning photos in a Moroccan desert setting",
-        "Explore the Sahara-like terrain near Tamri and Agadir",
-        "Perfect mix of adrenaline, nature, and culture"
-      ],
+    //   highlights: [
+    //     "Ride a quad bike along the dunes and coastline",
+    //     "Experience fun sandboarding with ocean views",
+    //     "Capture stunning photos in a Moroccan desert setting",
+    //     "Explore the Sahara-like terrain near Tamri and Agadir",
+    //     "Perfect mix of adrenaline, nature, and culture"
+    //   ],
     
-      itinerary: [
-        "Pickup from Agadir, Tamraght, or Taghazout hotel",
-        "Drive to Tamri sand dunes (approx. 40 min)",
-        "Safety briefing and helmet fitting",
-        "Quad bike ride through dunes and beach trails",
-        "Stop for sandboarding on the dunes",
-        "Photo and tea break",
-        "Return ride and transfer back to hotel"
-      ],
+    //   itinerary: [
+    //     "Pickup from Agadir, Tamraght, or Taghazout hotel",
+    //     "Drive to Tamri sand dunes (approx. 40 min)",
+    //     "Safety briefing and helmet fitting",
+    //     "Quad bike ride through dunes and beach trails",
+    //     "Stop for sandboarding on the dunes",
+    //     "Photo and tea break",
+    //     "Return ride and transfer back to hotel"
+    //   ],
     
-      includes: [
-        "Hotel pickup and drop-off",
-        "Quad bike rental",
-        "Helmet and goggles",
-        "Sandboard",
-        "Tea break"
-      ],
+    //   includes: [
+    //     "Hotel pickup and drop-off",
+    //     "Quad bike rental",
+    //     "Helmet and goggles",
+    //     "Sandboard",
+    //     "Tea break"
+    //   ],
     
-      notIncluded: [],
+    //   notIncluded: [],
     
-      notSuitableFor: [
-        "Pregnant women",
-        "Children under 6 (children 6–11 can ride as passenger)"
-      ],
+    //   notSuitableFor: [
+    //     "Pregnant women",
+    //     "Children under 6 (children 6–11 can ride as passenger)"
+    //   ],
     
-      whatToBring: [
-        "Closed shoes",
-        "Comfortable clothing that can get dusty",
-        "Sunglasses",
-        "Water and sunscreen"
-      ],
+    //   whatToBring: [
+    //     "Closed shoes",
+    //     "Comfortable clothing that can get dusty",
+    //     "Sunglasses",
+    //     "Water and sunscreen"
+    //   ],
     
-      goodToKnow: [
-        "Children 6–11 can join as passengers behind adults",
-        "Quad bike is automatic and easy to drive",
-        "Experience operates daily, but may adjust for weather",
-        "Not recommended for people with spinal conditions"
-      ]
-    },
-    {
-      id: 8,
-      title: "Casablanca: Hassan II Mosque Premium Tour with Entry Ticket",
-      description:
-        "Explore Morocco’s most iconic religious landmark on a premium guided tour of the Hassan II Mosque in Casablanca. Admire intricate architecture, learn about Islamic art, and gain insight into Moroccan history.",
-        image: "/experiences/8.jpg",
-      icon: Car,
-      tag: "Cultural",
-      bestFor: "Architecture lovers, cultural travelers, first-time visitors",
-      location: "Casablanca",
-      duration: "45 Minutes",
-      price: "€17.00",
-      rating: 4.6,
-      reviews: 1336,
-      cta: "Book Mosque Tour",
-      ctaLink:
-        "https://www.getyourguide.com/casablanca-l244/casablanca-hassan-ii-mosque-premium-tour-with-entry-ticket-t343456/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    //   goodToKnow: [
+    //     "Children 6–11 can join as passengers behind adults",
+    //     "Quad bike is automatic and easy to drive",
+    //     "Experience operates daily, but may adjust for weather",
+    //     "Not recommended for people with spinal conditions"
+    //   ]
+    // },
+    // {
+    //   id: 8,
+    //   title: "Casablanca: Hassan II Mosque Premium Tour with Entry Ticket",
+    //   description:
+    //     "Explore Morocco’s most iconic religious landmark on a premium guided tour of the Hassan II Mosque in Casablanca. Admire intricate architecture, learn about Islamic art, and gain insight into Moroccan history.",
+    //     image: "/experiences/8.jpg",
+    //   icon: Car,
+    //   tag: "Cultural",
+    //   bestFor: "Architecture lovers, cultural travelers, first-time visitors",
+    //   location: "Casablanca",
+    //   duration: "45 Minutes",
+    //   price: "€17.00",
+    //   rating: 4.6,
+    //   reviews: 1336,
+    //   cta: "Book Mosque Tour",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/casablanca-l244/casablanca-hassan-ii-mosque-premium-tour-with-entry-ticket-t343456/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Visit one of Morocco’s most iconic religious landmarks",
-        "Skip the ticket line and enjoy an official guided mosque tour",
-        "Marvel at intricate mosaics, carvings, and architecture",
-        "Learn about Moroccan culture and Islamic tradition",
-        "Choose hotel pickup or meet directly at the mosque"
-      ],
+    //   highlights: [
+    //     "Visit one of Morocco’s most iconic religious landmarks",
+    //     "Skip the ticket line and enjoy an official guided mosque tour",
+    //     "Marvel at intricate mosaics, carvings, and architecture",
+    //     "Learn about Moroccan culture and Islamic tradition",
+    //     "Choose hotel pickup or meet directly at the mosque"
+    //   ],
     
-      itinerary: [
-        "Optional pickup from hotel or meet at Hassan II Mosque",
-        "Skip-the-line mosque entry",
-        "45-minute guided tour",
-        "Q&A with your certified local guide",
-        "Return to hotel or free time in the area"
-      ],
+    //   itinerary: [
+    //     "Optional pickup from hotel or meet at Hassan II Mosque",
+    //     "Skip-the-line mosque entry",
+    //     "45-minute guided tour",
+    //     "Q&A with your certified local guide",
+    //     "Return to hotel or free time in the area"
+    //   ],
     
-      includes: [
-        "Guided tour with licensed local guide",
-        "Entry ticket to Hassan II Mosque",
-        "Hotel pickup and drop-off (if selected)"
-      ],
+    //   includes: [
+    //     "Guided tour with licensed local guide",
+    //     "Entry ticket to Hassan II Mosque",
+    //     "Hotel pickup and drop-off (if selected)"
+    //   ],
     
-      notIncluded: [
-        "Food and drinks",
-        "Personal expenses"
-      ],
+    //   notIncluded: [
+    //     "Food and drinks",
+    //     "Personal expenses"
+    //   ],
     
-      notSuitableFor: [],
+    //   notSuitableFor: [],
     
-      whatToBring: [
-        "Comfortable shoes",
-        "Modest clothing (arms and legs covered)",
-        "Headscarf for women (recommended)"
-      ],
+    //   whatToBring: [
+    //     "Comfortable shoes",
+    //     "Modest clothing (arms and legs covered)",
+    //     "Headscarf for women (recommended)"
+    //   ],
     
-      goodToKnow: [
-        "Photography is allowed inside the mosque",
-        "Tour is available in multiple languages (English, French, Spanish)",
-        "Shoes must be removed inside — plastic bags are provided"
-      ]
-    },
-    {
-      id: 9,
-      title: "Chefchaouen Day Trip from Fez (Shared Group Tour)",
-      description:
-        "Visit the stunning blue city of Chefchaouen on a full-day trip from Fez. Wander through vibrant alleys, take incredible photos, and explore the charm of Morocco’s most photogenic town in the Rif Mountains.",
-      image: "/experiences/9.png",
-      icon: Car,
-      tag: "Cultural",
-      bestFor: "Photographers, explorers, solo travelers",
-      location: "Chefchaouen (from Fez)",
-      duration: "12 Hours",
-      price: "€17.22",
-      rating: 4.7,
-      reviews: 412,
-      cta: "Book Chefchaouen Trip",
-      ctaLink:
-        "https://www.getyourguide.com/fes-l829/chefchaouen-day-trip-from-fez-shared-group-tour-t495614/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    //   goodToKnow: [
+    //     "Photography is allowed inside the mosque",
+    //     "Tour is available in multiple languages (English, French, Spanish)",
+    //     "Shoes must be removed inside — plastic bags are provided"
+    //   ]
+    // },
+    // {
+    //   id: 9,
+    //   title: "Chefchaouen Day Trip from Fez (Shared Group Tour)",
+    //   description:
+    //     "Visit the stunning blue city of Chefchaouen on a full-day trip from Fez. Wander through vibrant alleys, take incredible photos, and explore the charm of Morocco’s most photogenic town in the Rif Mountains.",
+    //   image: "/experiences/9.png",
+    //   icon: Car,
+    //   tag: "Cultural",
+    //   bestFor: "Photographers, explorers, solo travelers",
+    //   location: "Chefchaouen (from Fez)",
+    //   duration: "12 Hours",
+    //   price: "€17.22",
+    //   rating: 4.7,
+    //   reviews: 412,
+    //   cta: "Book Chefchaouen Trip",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/fes-l829/chefchaouen-day-trip-from-fez-shared-group-tour-t495614/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Discover 'The Blue City of Morocco' with a local guide",
-        "Capture breathtaking photos in narrow cobalt streets",
-        "Learn about the culture and history of Chefchaouen",
-        "Relax with round-trip transport from Fez",
-        "Comfortable shared air-conditioned vehicle"
-      ],
+    //   highlights: [
+    //     "Discover 'The Blue City of Morocco' with a local guide",
+    //     "Capture breathtaking photos in narrow cobalt streets",
+    //     "Learn about the culture and history of Chefchaouen",
+    //     "Relax with round-trip transport from Fez",
+    //     "Comfortable shared air-conditioned vehicle"
+    //   ],
     
-      itinerary: [
-        "Pickup from hotel/riad in Fez",
-        "Drive through scenic Rif Mountains (3.5–4 hours)",
-        "Guided tour of Chefchaouen",
-        "Free time for exploration, shopping, and lunch",
-        "Return trip to Fez in late afternoon"
-      ],
+    //   itinerary: [
+    //     "Pickup from hotel/riad in Fez",
+    //     "Drive through scenic Rif Mountains (3.5–4 hours)",
+    //     "Guided tour of Chefchaouen",
+    //     "Free time for exploration, shopping, and lunch",
+    //     "Return trip to Fez in late afternoon"
+    //   ],
     
-      includes: [
-        "Round-trip transportation Fez ⇄ Chefchaouen",
-        "English/French-speaking driver",
-        "Air-conditioned vehicle",
-        "Local city guide",
-        "Entrance fees"
-      ],
+    //   includes: [
+    //     "Round-trip transportation Fez ⇄ Chefchaouen",
+    //     "English/French-speaking driver",
+    //     "Air-conditioned vehicle",
+    //     "Local city guide",
+    //     "Entrance fees"
+    //   ],
     
-      notIncluded: [
-        "Meals and drinks",
-        "Tips for guide or driver"
-      ],
+    //   notIncluded: [
+    //     "Meals and drinks",
+    //     "Tips for guide or driver"
+    //   ],
     
-      notSuitableFor: [
-        "People prone to motion sickness (long drive)"
-      ],
+    //   notSuitableFor: [
+    //     "People prone to motion sickness (long drive)"
+    //   ],
     
-      whatToBring: [
-        "Walking shoes",
-        "Camera",
-        "Hat and sunscreen",
-        "Water and snacks"
-      ],
+    //   whatToBring: [
+    //     "Walking shoes",
+    //     "Camera",
+    //     "Hat and sunscreen",
+    //     "Water and snacks"
+    //   ],
     
-      goodToKnow: [
-        "Travel time each way is approx. 4 hours",
-        "Guide will give a short orientation, then you’ll have free time",
-        "Chefchaouen is a pedestrian city — expect lots of walking"
-      ]
-    },
-    {
-      id: 10,
-      title: "Fes: Volubilis Roman Ruins, Moulay Idriss, & Meknes Day Trip",
-      description:
-        "Step back in time with a full-day tour from Fez to explore Morocco’s Roman ruins of Volubilis, the holy town of Moulay Idriss, and the imperial city of Meknes. Discover ancient architecture, history, and culture all in one scenic day.",
-        image: "/experiences/10.jpg",
-      icon: Car,
-      tag: "Cultural",
-      bestFor: "History buffs, architecture lovers, day trippers",
-      location: "Volubilis, Moulay Idriss, Meknes (from Fez)",
-      duration: "8 Hours",
-      price: "€14.85",
-      rating: 4.6,
-      reviews: 146,
-      cta: "Book History Day Trip",
-      ctaLink:
-        "https://www.getyourguide.com/fes-l829/fes-volubilis-roman-ruins-mouly-idriss-meknes-day-trip-t497285/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    //   goodToKnow: [
+    //     "Travel time each way is approx. 4 hours",
+    //     "Guide will give a short orientation, then you’ll have free time",
+    //     "Chefchaouen is a pedestrian city — expect lots of walking"
+    //   ]
+    // },
+    // {
+    //   id: 10,
+    //   title: "Fes: Volubilis Roman Ruins, Moulay Idriss, & Meknes Day Trip",
+    //   description:
+    //     "Step back in time with a full-day tour from Fez to explore Morocco’s Roman ruins of Volubilis, the holy town of Moulay Idriss, and the imperial city of Meknes. Discover ancient architecture, history, and culture all in one scenic day.",
+    //     image: "/experiences/10.jpg",
+    //   icon: Car,
+    //   tag: "Cultural",
+    //   bestFor: "History buffs, architecture lovers, day trippers",
+    //   location: "Volubilis, Moulay Idriss, Meknes (from Fez)",
+    //   duration: "8 Hours",
+    //   price: "€14.85",
+    //   rating: 4.6,
+    //   reviews: 146,
+    //   cta: "Book History Day Trip",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/fes-l829/fes-volubilis-roman-ruins-mouly-idriss-meknes-day-trip-t497285/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Explore the stunning Roman ruins of Volubilis",
-        "Visit the spiritual hilltop town of Moulay Idriss",
-        "Discover the gates, palaces, and souks of Meknes",
-        "Enjoy round-trip transport in a comfortable vehicle",
-        "Perfect full-day cultural experience from Fez"
-      ],
+    //   highlights: [
+    //     "Explore the stunning Roman ruins of Volubilis",
+    //     "Visit the spiritual hilltop town of Moulay Idriss",
+    //     "Discover the gates, palaces, and souks of Meknes",
+    //     "Enjoy round-trip transport in a comfortable vehicle",
+    //     "Perfect full-day cultural experience from Fez"
+    //   ],
     
-      itinerary: [
-        "Pickup from your hotel or riad in Fez",
-        "Drive to Volubilis (UNESCO Roman site)",
-        "Stop in Moulay Idriss for panoramic views",
-        "Explore Meknes: Bab Mansour, Lahdim Square, local medina",
-        "Return to Fez in the late afternoon"
-      ],
+    //   itinerary: [
+    //     "Pickup from your hotel or riad in Fez",
+    //     "Drive to Volubilis (UNESCO Roman site)",
+    //     "Stop in Moulay Idriss for panoramic views",
+    //     "Explore Meknes: Bab Mansour, Lahdim Square, local medina",
+    //     "Return to Fez in the late afternoon"
+    //   ],
     
-      includes: [
-        "Hotel/riad pickup and drop-off in Fez",
-        "Air-conditioned transport",
-        "English or French-speaking driver",
-        "Stop at Volubilis, Moulay Idriss, and Meknes"
-      ],
+    //   includes: [
+    //     "Hotel/riad pickup and drop-off in Fez",
+    //     "Air-conditioned transport",
+    //     "English or French-speaking driver",
+    //     "Stop at Volubilis, Moulay Idriss, and Meknes"
+    //   ],
     
-      notIncluded: [
-        "Volubilis entry fee (€7)",
-        "Meals and personal expenses"
-      ],
+    //   notIncluded: [
+    //     "Volubilis entry fee (€7)",
+    //     "Meals and personal expenses"
+    //   ],
     
-      notSuitableFor: [
-        "Wheelchair users",
-        "People with walking difficulties (Volubilis is uneven terrain)"
-      ],
+    //   notSuitableFor: [
+    //     "Wheelchair users",
+    //     "People with walking difficulties (Volubilis is uneven terrain)"
+    //   ],
     
-      whatToBring: [
-        "Comfortable walking shoes",
-        "Sunscreen and hat",
-        "Water and snacks",
-        "Camera"
-      ],
+    //   whatToBring: [
+    //     "Comfortable walking shoes",
+    //     "Sunscreen and hat",
+    //     "Water and snacks",
+    //     "Camera"
+    //   ],
     
-      goodToKnow: [
-        "Volubilis ruins are not shaded — bring sun protection",
-        "Tour runs with a small group in a shared vehicle",
-        "Optional local guide at Volubilis (paid on-site)"
-      ]
-    },
-    {
-      id: 11,
-      title: "Round-Trip Transportation from Tangier to Chefchaouen",
-      description:
-        "Enjoy a stress-free day trip from Tangier to the magical Blue City of Chefchaouen. Travel through the Rif Mountains in a comfortable vehicle and enjoy free time to explore at your own pace.",
-        image: "/experiences/11.jpg",
-      icon: Car,
-      tag: "Transport",
-      bestFor: "Independent travelers, photographers, couples",
-      location: "Chefchaouen (from Tangier)",
-      duration: "10 Hours",
-      price: "€37.62",
-      rating: 4.6,
-      reviews: 28,
-      cta: "Book Tangier Transfer",
-      ctaLink:
-        "https://www.getyourguide.com/tangier-l835/round-trip-transportation-from-tangier-to-chefchaouen-t838404/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    //   goodToKnow: [
+    //     "Volubilis ruins are not shaded — bring sun protection",
+    //     "Tour runs with a small group in a shared vehicle",
+    //     "Optional local guide at Volubilis (paid on-site)"
+    //   ]
+    // },
+    // {
+    //   id: 11,
+    //   title: "Round-Trip Transportation from Tangier to Chefchaouen",
+    //   description:
+    //     "Enjoy a stress-free day trip from Tangier to the magical Blue City of Chefchaouen. Travel through the Rif Mountains in a comfortable vehicle and enjoy free time to explore at your own pace.",
+    //     image: "/experiences/11.jpg",
+    //   icon: Car,
+    //   tag: "Transport",
+    //   bestFor: "Independent travelers, photographers, couples",
+    //   location: "Chefchaouen (from Tangier)",
+    //   duration: "10 Hours",
+    //   price: "€37.62",
+    //   rating: 4.6,
+    //   reviews: 28,
+    //   cta: "Book Tangier Transfer",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/tangier-l835/round-trip-transportation-from-tangier-to-chefchaouen-t838404/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Discover the enchanting Blue City of Chefchaouen",
-        "Travel through the scenic Rif Mountains",
-        "Enjoy flexible free time to explore and take photos",
-        "Relax with round-trip transportation from Tangier",
-        "Perfect for independent travelers"
-      ],
+    //   highlights: [
+    //     "Discover the enchanting Blue City of Chefchaouen",
+    //     "Travel through the scenic Rif Mountains",
+    //     "Enjoy flexible free time to explore and take photos",
+    //     "Relax with round-trip transportation from Tangier",
+    //     "Perfect for independent travelers"
+    //   ],
     
-      itinerary: [
-        "Pickup from your hotel or port in Tangier",
-        "Drive through Rif Mountain scenery (approx. 2.5 hours)",
-        "Free time to explore Chefchaouen (3–4 hours)",
-        "Optional lunch or guided visit (not included)",
-        "Return transfer to Tangier"
-      ],
+    //   itinerary: [
+    //     "Pickup from your hotel or port in Tangier",
+    //     "Drive through Rif Mountain scenery (approx. 2.5 hours)",
+    //     "Free time to explore Chefchaouen (3–4 hours)",
+    //     "Optional lunch or guided visit (not included)",
+    //     "Return transfer to Tangier"
+    //   ],
     
-      includes: [
-        "Round-trip transportation Tangier ⇄ Chefchaouen",
-        "Air-conditioned vehicle",
-        "Multilingual driver (English, French, Spanish, Arabic)"
-      ],
+    //   includes: [
+    //     "Round-trip transportation Tangier ⇄ Chefchaouen",
+    //     "Air-conditioned vehicle",
+    //     "Multilingual driver (English, French, Spanish, Arabic)"
+    //   ],
     
-      notIncluded: [
-        "Meals and drinks",
-        "Guided tour in Chefchaouen",
-        "Entrance fees (if any)"
-      ],
+    //   notIncluded: [
+    //     "Meals and drinks",
+    //     "Guided tour in Chefchaouen",
+    //     "Entrance fees (if any)"
+    //   ],
     
-      notSuitableFor: [
-        "Wheelchair users"
-      ],
+    //   notSuitableFor: [
+    //     "Wheelchair users"
+    //   ],
     
-      whatToBring: [
-        "Comfortable shoes",
-        "Camera",
-        "Snacks and water",
-        "Cash for souvenirs or meals"
-      ],
+    //   whatToBring: [
+    //     "Comfortable shoes",
+    //     "Camera",
+    //     "Snacks and water",
+    //     "Cash for souvenirs or meals"
+    //   ],
     
-      goodToKnow: [
-        "Free cancellation up to 24 hours before departure",
-        "Duration may vary slightly due to traffic or group timing",
-        "Tour is transportation only — explore Chefchaouen independently"
-      ]
-    },
-    {
-      id: 12,
-      title: "Tangier: Sunset, Tea, Camel Ride, Cape Spartel and Caves",
-      description:
-        "Experience the magic of Tangier Beach at sunset with a camel ride, local mint tea, and visits to iconic Cape Spartel and the Caves of Hercules. A perfect half-day adventure combining nature, history, and fun.",
-        image: "/experiences/12.jpg",
-      icon: Car,
-      tag: "Adventure",
-      bestFor: "Couples, families, sunset lovers",
-      location: "Tangier",
-      duration: "3 Hours",
-      price: "€64.65",
-      rating: 4.9,
-      reviews: 211,
-      cta: "Book Camel Sunset Tour",
-      ctaLink:
-        "https://www.getyourguide.com/tangier-l835/tangier-sunset-tea-camel-ride-cape-spartel-and-caves-t837962/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
+    //   goodToKnow: [
+    //     "Free cancellation up to 24 hours before departure",
+    //     "Duration may vary slightly due to traffic or group timing",
+    //     "Tour is transportation only — explore Chefchaouen independently"
+    //   ]
+    // },
+    // {
+    //   id: 12,
+    //   title: "Tangier: Sunset, Tea, Camel Ride, Cape Spartel and Caves",
+    //   description:
+    //     "Experience the magic of Tangier Beach at sunset with a camel ride, local mint tea, and visits to iconic Cape Spartel and the Caves of Hercules. A perfect half-day adventure combining nature, history, and fun.",
+    //     image: "/experiences/12.jpg",
+    //   icon: Car,
+    //   tag: "Adventure",
+    //   bestFor: "Couples, families, sunset lovers",
+    //   location: "Tangier",
+    //   duration: "3 Hours",
+    //   price: "€64.65",
+    //   rating: 4.9,
+    //   reviews: 211,
+    //   cta: "Book Camel Sunset Tour",
+    //   ctaLink:
+    //     "https://www.getyourguide.com/tangier-l835/tangier-sunset-tea-camel-ride-cape-spartel-and-caves-t837962/?partner_id=G4BBMBG&currency=EUR&travel_agent=1&cmp=share_to_earn",
     
-      highlights: [
-        "Ride camels along the Atlantic beach at golden hour",
-        "Sip traditional Moroccan mint tea in the open air",
-        "Visit the mythic Hercules Caves",
-        "See panoramic views from Cape Spartel",
-        "Small-group experience with hotel pickup included"
-      ],
+    //   highlights: [
+    //     "Ride camels along the Atlantic beach at golden hour",
+    //     "Sip traditional Moroccan mint tea in the open air",
+    //     "Visit the mythic Hercules Caves",
+    //     "See panoramic views from Cape Spartel",
+    //     "Small-group experience with hotel pickup included"
+    //   ],
     
-      itinerary: [
-        "Pickup from hotel or port in Tangier",
-        "Visit Cape Spartel (photo stop)",
-        "Explore Hercules Caves",
-        "Camel ride on Achakar Beach at sunset",
-        "Mint tea and break with ocean view",
-        "Return to original pickup point"
-      ],
+    //   itinerary: [
+    //     "Pickup from hotel or port in Tangier",
+    //     "Visit Cape Spartel (photo stop)",
+    //     "Explore Hercules Caves",
+    //     "Camel ride on Achakar Beach at sunset",
+    //     "Mint tea and break with ocean view",
+    //     "Return to original pickup point"
+    //   ],
     
-      includes: [
-        "Hotel pickup and drop-off",
-        "Camel ride at sunset",
-        "Mint tea",
-        "Hercules Caves and Cape Spartel visit",
-        "Professional driver/guide",
-        "All taxes and service charges"
-      ],
+    //   includes: [
+    //     "Hotel pickup and drop-off",
+    //     "Camel ride at sunset",
+    //     "Mint tea",
+    //     "Hercules Caves and Cape Spartel visit",
+    //     "Professional driver/guide",
+    //     "All taxes and service charges"
+    //   ],
     
-      notIncluded: [
-        "Personal expenses",
-        "Gratuities"
-      ],
+    //   notIncluded: [
+    //     "Personal expenses",
+    //     "Gratuities"
+    //   ],
     
-      notSuitableFor: [
-        "Wheelchair users"
-      ],
+    //   notSuitableFor: [
+    //     "Wheelchair users"
+    //   ],
     
-      whatToBring: [
-        "Comfortable walking shoes",
-        "Warm layers for sunset breeze",
-        "Camera or smartphone",
-        "Cash for tips or souvenirs"
-      ],
+    //   whatToBring: [
+    //     "Comfortable walking shoes",
+    //     "Warm layers for sunset breeze",
+    //     "Camera or smartphone",
+    //     "Cash for tips or souvenirs"
+    //   ],
     
-      goodToKnow: [
-        "Camels are well-treated and ride lasts ~15–20 minutes",
-        "Tour is weather dependent; sunset visibility may vary",
-        "Modest clothing recommended when visiting caves"
-      ]
-    }
+    //   goodToKnow: [
+    //     "Camels are well-treated and ride lasts ~15–20 minutes",
+    //     "Tour is weather dependent; sunset visibility may vary",
+    //     "Modest clothing recommended when visiting caves"
+    //   ]
+    // }
     
   ];
   
