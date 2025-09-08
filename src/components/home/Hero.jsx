@@ -142,18 +142,19 @@ const EnhancedMoroccoHeroSection = () => {
       <span>Plan Your Trip with Our Free Guide</span>
     </div>
   </motion.a>
-
   <motion.a
-   
-    whileHover={{ scale: 1.05, y: -2 }}
-    whileTap={{ scale: 0.98 }}
-    className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 font-semibold rounded-full border-2 border-gray-300 hover:border-green-600 hover:bg-green-50 transition-all duration-300 shadow-lg"
-  >
-    <div className="flex items-center gap-2">
-      <MessageCircle className="w-5 h-5 text-green-600" />
-      <span>Chat with a Local Expert</span>
-    </div>
-  </motion.a>
+  href="https://wa.me/+212708140617?text=Hello%2C%20I%27d%20like%20to%20chat%20with%20a%20local%20expert"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.05, y: -2 }}
+  whileTap={{ scale: 0.98 }}
+  className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 font-semibold rounded-full border-2 border-gray-300 hover:border-green-600 hover:bg-green-50 transition-all duration-300 shadow-lg"
+>
+  <div className="flex items-center gap-2">
+    <MessageCircle className="w-5 h-5 text-green-600" />
+    <span>Chat with a Local Expert</span>
+  </div>
+</motion.a>
 </motion.div>
 
 

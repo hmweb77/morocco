@@ -227,12 +227,12 @@ const EbooksPage = () => {
           </div>
 
           {/* Bundle Section */}
-          <div className="max-w-4xl mx-auto">
+          {/* <div className="max-w-4xl mx-auto">
             <BundleCard 
               ebooks={ebooksData}
               onBuyBundle={handleBuyBundle}
             />
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -443,7 +443,7 @@ const EbooksPage = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20" style={{ backgroundColor: '#1C3F60' }}>
+      {/* <section className="py-20" style={{ backgroundColor: '#1C3F60' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -509,7 +509,7 @@ const EbooksPage = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Preview Modal */}
       <PreviewModal

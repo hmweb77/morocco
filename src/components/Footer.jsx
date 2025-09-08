@@ -25,7 +25,8 @@ const EnhancedMoroccoFooter = () => {
       { name: 'Travel Guides', href: '/guide' },
       { name: 'Experiences', href: '/experiences' },
       { name: 'Blog', href: '/blogs' },
-      { name: 'About Us', href: '/about' }
+      { name: 'About Us', href: '/about' },
+      { name: 'Privacy & Terms', href: '/privacy' }
     ]
   };
 
@@ -37,20 +38,10 @@ const EnhancedMoroccoFooter = () => {
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
-                style={{ 
-                  background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)'
-                }}
-              >
-                <Compass className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold font-serif">
-                  Moroccan Advisor
-                </h3>
-                <p className="text-sm text-blue-400 font-medium">Your Trusted Travel Guide</p>
-              </div>
+            <h1 className="text-lg md:text-xl font-bold font-serif leading-tight">
+      <span className="text-green-600">Moroccan</span>{" "}
+      <span className="text-red-700">Advisor</span>
+    </h1>
             </div>
 
             <p className="text-gray-300 leading-relaxed">
@@ -104,8 +95,8 @@ const EnhancedMoroccoFooter = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="w-4 h-4 text-blue-400" />
-                  <a href="mailto:hello@moroccanadvisor.com" className="text-gray-300 hover:text-white transition-colors">
-                    hello@moroccanadvisor.com
+                  <a href="mailto:contact@moroccanadvisor.com" className="text-gray-300 hover:text-white transition-colors">
+                  contact@moroccanadvisor.com
                   </a>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
@@ -120,41 +111,15 @@ const EnhancedMoroccoFooter = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-4 pt-4 border-t border-gray-700">
+          <div className="flex items-center ">
             <div className="text-sm text-gray-400 flex items-center gap-2">
-              © 2024 Moroccan Advisor. All rights reserved. Made with{' '}
-              <Heart className="w-4 h-4 text-red-400" /> for travelers by travelers.
-            </div>
-            
-            <div className="flex items-center gap-6 text-sm">
-              <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                Terms of Service
-              </Link>
+              © 2024 Moroccan Advisor. All rights reserved. Made with <Heart className="w-4 h-4 text-red-400" /> for travelers by travelers.
             </div>
           </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="mt-8 pt-6 border-t border-gray-700/50">
-          <div className="flex items-center justify-center gap-8 text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-400" />
-              <span>Trusted by 2,847+ Travelers</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Download className="w-4 h-4 text-blue-400" />
-              <span>Instant Download Guides</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 text-red-400" />
-              <span>4.9/5 Average Rating</span>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </footer>
   );

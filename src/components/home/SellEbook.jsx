@@ -472,7 +472,7 @@ const PremiumEbooksSection = () => {
         </div>
 
         {/* Bundle Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -482,9 +482,9 @@ const PremiumEbooksSection = () => {
             background: 'linear-gradient(135deg, #1C3F60 0%, #3E8DC1 100%)',
             color: '#FDFDFD'
           }}
-        >
+        > */}
           {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
+          {/* <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
               backgroundImage: `radial-gradient(circle at 20% 50%, rgba(249, 199, 94, 0.3) 0%, transparent 50%)`,
             }} />
@@ -545,7 +545,7 @@ const PremiumEbooksSection = () => {
               Instant download. Yours forever.
             </p>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Trust Indicators */}
         <motion.div

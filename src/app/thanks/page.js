@@ -159,7 +159,7 @@ export default function Thanks() {
 
             <div className="mt-6 p-4 bg-blue-50 rounded-lg text-sm text-blue-800">
               <p><strong>Need help?</strong></p>
-              <p>Contact us at <a href="mailto:contact@hmwebs.com" className="underline">hello@moroccanadvisor.com</a> with your order details.</p>
+              <p>Contact us at <a href="mailto:contact@hmwebs.com" className="underline">contact@moroccanadvisor.com</a> with your order details.</p>
             </div>
           </motion.div>
         </div>

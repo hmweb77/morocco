@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 
 import {
   Menu,
@@ -212,15 +213,11 @@ const MoroccoResponsiveNavbar = () => {
   whileHover={{ scale: 1.02 }}
   onClick={() => handleNavigation("/")}
 >
-  <div className="hidden sm:block">
+  {/* <Image src="/blog/LogoMorAdv.png" alt="logo" width={60} height={50} /> */}
     <h1 className="text-lg md:text-xl font-bold font-serif leading-tight">
       <span className="text-green-600">Moroccan</span>{" "}
       <span className="text-red-700">Advisor</span>
     </h1>
-    <p className="text-xs text-gray-600 -mt-0.5">
-      Your Trusted Travel Guide
-    </p>
-  </div>
 </motion.div>
 
             {/* Desktop Navigation */}
@@ -505,7 +502,7 @@ const MoroccoResponsiveNavbar = () => {
                 {/* Mobile Contact */}
                 <div className="pt-4 mt-4 border-t border-gray-200/50">
                   <motion.a
-                    href="mailto:hello@moroccanadvisor.com"
+                    href="mailto:contact@moroccanadvisor.com"
                     className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 rounded-xl transition-all duration-300"
                     whileTap={{ scale: 0.98 }}
                   >
