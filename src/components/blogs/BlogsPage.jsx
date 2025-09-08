@@ -229,12 +229,12 @@ const BlogPage = () => {
         </div>
       </section>
 
+     
       {/* Search and Filter Section */}
       <section className="py-12 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
+        <div className="relative flex-1 mb-4 max-w-md">
+           {/* Search Bar */}
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
@@ -244,6 +244,9 @@ const BlogPage = () => {
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+           
+          
 
             {/* Category Filter */}
             <div className="flex flex-wrap gap-2">

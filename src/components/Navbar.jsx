@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
+import FreeGuidePopup from './FreeGuidePopUp'; // Import the popup component
 
 import {
   Menu,
@@ -26,6 +27,7 @@ const MoroccoResponsiveNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Add popup state
   const router = useRouter();
   const pathname = usePathname();
 
@@ -95,6 +97,17 @@ const MoroccoResponsiveNavbar = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [activeDropdown]);
 
+  // Handler functions for popup
+  const handleFreeGuideClick = () => {
+    setIsPopupOpen(true);
+    // Close mobile menu if open
+    setIsOpen(false);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   const navigationItems = [
     {
       label: "About",
@@ -144,12 +157,6 @@ const MoroccoResponsiveNavbar = () => {
       icon: BookOpen,
       href: "/guide",
       dropdown: [
-        // {
-        //   name: "Free Safety Guide",
-        //   href: "/guide",
-        //   icon: Shield,
-        //   color: "#10B981",
-        // },
         {
           name: "Pocket Marrakesh",
           href: "/guide",
@@ -332,8 +339,6 @@ const MoroccoResponsiveNavbar = () => {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              
-
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -342,9 +347,8 @@ const MoroccoResponsiveNavbar = () => {
                   background:
                     "linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)",
                 }}
-                onClick={() => handleNavigation("/guide")}
+                onClick={handleFreeGuideClick} // Use popup handler
               >
-               
                 Free Guide to avoid scam
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
@@ -382,8 +386,6 @@ const MoroccoResponsiveNavbar = () => {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
                 {/* Mobile CTA */}
                 <div className="flex gap-2 mb-4">
-                  
-
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 px-4 py-3 rounded-xl font-bold text-white shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
@@ -391,10 +393,9 @@ const MoroccoResponsiveNavbar = () => {
                       background:
                         "linear-gradient(135deg, #EF4444 0%, #F59E0B 100%)",
                     }}
-                    onClick={() => handleNavigation("/guide")}
+                    onClick={handleFreeGuideClick} // Use popup handler
                   >
-                 
-                 Free Guide to avoid scam
+                    Free Guide to avoid scam
                   </motion.button>
                 </div>
 
@@ -439,6 +440,7 @@ const MoroccoResponsiveNavbar = () => {
                           />
                         )}
                       </motion.button>
+
 
                       {/* Mobile Dropdown */}
                       <AnimatePresence>
@@ -498,19 +500,6 @@ const MoroccoResponsiveNavbar = () => {
                     </div>
                   );
                 })}
-
-                {/* Mobile Contact */}
-                {/* <div className="pt-4 mt-4 border-t border-gray-200/50">
-                  <motion.a
-                    href="mailto:contact@moroccanadvisor.com"
-                    className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 rounded-xl transition-all duration-300"
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>Contact Us</span>
-                    <ExternalLink className="w-4 h-4 ml-auto" />
-                  </motion.a>
-                </div> */}
               </div>
             </motion.div>
           )}
@@ -519,6 +508,12 @@ const MoroccoResponsiveNavbar = () => {
 
       {/* Spacer for fixed navbar */}
       <div className="h-16 md:h-20" />
+
+      {/* Render the popup - THIS WAS MISSING! */}
+      <FreeGuidePopup 
+        isOpen={isPopupOpen} 
+        onClose={handleClosePopup} 
+      />
     </>
   );
 };
