@@ -341,7 +341,7 @@ const InteractiveMoroccoMap = () => {
         </motion.div>
 
         {/* CTA Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -371,7 +371,7 @@ const InteractiveMoroccoMap = () => {
               Customize My Trip
             </motion.button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

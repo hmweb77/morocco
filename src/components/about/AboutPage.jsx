@@ -315,13 +315,15 @@ const AboutPage = () => {
               Every great story needs its next chapter. Let Morocco be yours.
             </p>
             
-            <motion.button
+            <motion.a
+              href="https://wa.me/+212708140617?text=Hello%2C%20I%27d%20like%20to%20chat%20with%20a%20local%20expert"
+              target="_blank"
               className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-12 py-6 rounded-full text-xl font-semibold shadow-2xl hover:shadow-3xl transform transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
               Begin Your Journey
-            </motion.button>
+            </motion.a>
           </motion.div>
         </div>
       </section>
