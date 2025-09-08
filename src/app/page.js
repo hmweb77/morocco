@@ -10,6 +10,7 @@ import PremiumEbooksSection from "@/components/home/SellEbook";
 import TravelersTestimonialsSection from "@/components/home/Testimonials";
 import MoroccoResponsiveNavbar from "@/components/Navbar";
 
+
 // 🔁 Dynamic import to prevent SSR crash from Leaflet in the map component
 const InteractiveMoroccoMap = dynamic(
   () => import('@/components/home/InteractiveMap'),
