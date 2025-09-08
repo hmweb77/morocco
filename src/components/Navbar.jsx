@@ -144,12 +144,12 @@ const MoroccoResponsiveNavbar = () => {
       icon: BookOpen,
       href: "/guide",
       dropdown: [
-        {
-          name: "Free Safety Guide",
-          href: "/guide",
-          icon: Shield,
-          color: "#10B981",
-        },
+        // {
+        //   name: "Free Safety Guide",
+        //   href: "/guide",
+        //   icon: Shield,
+        //   color: "#10B981",
+        // },
         {
           name: "Pocket Marrakesh",
           href: "/guide",
@@ -344,8 +344,8 @@ const MoroccoResponsiveNavbar = () => {
                 }}
                 onClick={() => handleNavigation("/guide")}
               >
-                <Star className="w-4 h-4" />
-                Plan My Trip
+               
+                Free Guide to avoid scam
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </div>
@@ -393,8 +393,8 @@ const MoroccoResponsiveNavbar = () => {
                     }}
                     onClick={() => handleNavigation("/guide")}
                   >
-                    <Star className="w-4 h-4" />
-                    Plan Trip
+                 
+                 Free Guide to avoid scam
                   </motion.button>
                 </div>
 
@@ -500,7 +500,7 @@ const MoroccoResponsiveNavbar = () => {
                 })}
 
                 {/* Mobile Contact */}
-                <div className="pt-4 mt-4 border-t border-gray-200/50">
+                {/* <div className="pt-4 mt-4 border-t border-gray-200/50">
                   <motion.a
                     href="mailto:contact@moroccanadvisor.com"
                     className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 rounded-xl transition-all duration-300"
@@ -510,7 +510,7 @@ const MoroccoResponsiveNavbar = () => {
                     <span>Contact Us</span>
                     <ExternalLink className="w-4 h-4 ml-auto" />
                   </motion.a>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           )}

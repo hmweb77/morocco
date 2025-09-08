@@ -31,8 +31,8 @@ export async function POST(request) {
 
     // Free guide configuration
     const freeGuideConfig = {
-      bucket: "freeebook",
-      path: "free-morocco-guide.pdf", // Update with your actual file name
+      bucket: "freeEbook",
+      path: "free ebook MA.pdf", // Update with your actual file name
       title: "Free Morocco Travel Safety Guide",
       description: "Essential tips for safe and authentic travel in Morocco"
     };

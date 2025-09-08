@@ -1618,7 +1618,7 @@ export const blogPosts = [
         readTime: "10 min read",
         category: "Travel Safety",
         tags: ["Solo Travel", "Women", "Safety", "Morocco"],
-        image: "/blog/solo-female-travel.jpg",
+        image: "/blog/soloFemM.png",
         views: 9700,
         likes: 102,
         featured: true,

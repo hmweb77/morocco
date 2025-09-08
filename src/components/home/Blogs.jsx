@@ -304,7 +304,7 @@ const LatestBlogSection = () => {
         </motion.div>
 
         {/* Newsletter CTA */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -312,7 +312,7 @@ const LatestBlogSection = () => {
           className="relative p-8 rounded-3xl shadow-2xl text-center overflow-hidden bg-white border-2"
           style={{ borderColor: 'rgba(99, 102, 241, 0.3)' }}
         >
-          {/* Background Gradient */}
+       
           <div 
             className="absolute inset-0 opacity-5"
             style={{
@@ -361,7 +361,7 @@ const LatestBlogSection = () => {
               Join 2,847+ travelers. No spam, unsubscribe anytime.
             </p>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
