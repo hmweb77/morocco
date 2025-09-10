@@ -140,7 +140,7 @@ function generateFreeGuideHTML({ customerName, downloadLink }) {
                     </h3>
                     <ul style="color: #1E40AF; margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8;">
                       <li>Essential safety tips for Morocco</li>
-                      <li>How to avoid common tourist scams</li>
+                      <li>How to avoid common tourist traps</li>
                       <li>Cultural etiquette and respectful travel</li>
                       <li>Budget-friendly travel recommendations</li>
                       <li>Useful Arabic/French phrases</li>
@@ -231,7 +231,7 @@ Expires: ${downloadLink.expiresIn}
 
 🎯 WHAT'S INSIDE YOUR FREE GUIDE:
 • Essential safety tips for Morocco
-• How to avoid common tourist scams  
+• How to avoid common tourist traps  
 • Cultural etiquette and respectful travel
 • Budget-friendly travel recommendations
 • Useful Arabic/French phrases

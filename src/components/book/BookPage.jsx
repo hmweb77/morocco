@@ -62,7 +62,7 @@ const ebooksData = [
     subtitle: "Travel with confidence and safety",
     category: "SAFETY & CULTURE",
     description: "Candid, empowering, and practical — this guide helps women navigate Morocco with confidence, safety, and soul.",
-    fullDescription: "Written by experienced female travelers, this comprehensive guide addresses the unique considerations for women traveling solo in Morocco. From cultural sensitivities and appropriate dress codes to safety strategies and empowering experiences, this guide ensures you can explore Morocco with confidence while respecting local customs. Inside, you'll find destination highlights, female-friendly accommodations, solo dining tips, scams to avoid, cultural etiquette, and empowering real-life stories.",
+    fullDescription: "Written by experienced female travelers, this comprehensive guide addresses the unique considerations for women traveling solo in Morocco. From cultural sensitivities and appropriate dress codes to safety strategies and empowering experiences, this guide ensures you can explore Morocco with confidence while respecting local customs. Inside, you'll find destination highlights, female-friendly accommodations, solo dining tips,  cultural etiquette, and empowering real-life stories.",
     image: "/books/stripe-image-2.jpeg",
     originalPrice: 9.99,
     salePrice: 4.90,
@@ -328,7 +328,7 @@ const EbooksPage = () => {
                 name: "Anna K.",
                 location: "Germany",
                 rating: 5,
-                text: "The free guide helped me avoid three scams in one day! Morocco was my dream trip, but I was nervous. The ebook explained everything — from bargaining tricks to safe taxi tips. I felt 100% more prepared.",
+                text: "The free guide helped me navigate! Morocco was my dream trip, but I was nervous. The ebook explained everything — from bargaining tricks to safe taxi tips. I felt 100% more prepared.",
                 guide: "Solo Female Travel"
               },
               {

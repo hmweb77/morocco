@@ -18,7 +18,7 @@ const MoroccoEbookSection = () => {
   const guideFeatures = [
     {
       icon: Shield,
-      title: "How to Spot Common Tourist Scams",
+      title: "How to Spot Common Tourist trap",
       description: "Learn the 7 sneaky tricks used in markets, taxis, and even restaurants — and how to confidently say no.",
       color: '#A34128'
     },
@@ -98,7 +98,7 @@ const MoroccoEbookSection = () => {
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 font-serif leading-tight"
                 style={{ color: '#FDFDFD' }}
               >
-                Don't Get Scammed in Morocco –{' '}
+                Don't Get Lost in Morocco –{' '}
                 <span style={{ color: '#F9C75E' }}>Read This First</span>
               </motion.h1>
 

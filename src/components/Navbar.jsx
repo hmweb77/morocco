@@ -349,7 +349,7 @@ const MoroccoResponsiveNavbar = () => {
                 }}
                 onClick={handleFreeGuideClick} // Use popup handler
               >
-                Free Guide to avoid scam
+                Free Guide For Prices
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </div>
@@ -395,7 +395,7 @@ const MoroccoResponsiveNavbar = () => {
                     }}
                     onClick={handleFreeGuideClick} // Use popup handler
                   >
-                    Free Guide to avoid scam
+                    Free Guide For Prices
                   </motion.button>
                 </div>
 

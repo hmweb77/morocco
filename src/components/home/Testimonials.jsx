@@ -15,7 +15,7 @@ const TravelersTestimonialsSection = () => {
       location: 'Germany',
       avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
       rating: 5,
-      quote: 'The free guide helped me avoid three scams in one day!',
+      quote: 'The free guide helped me avoid three traps in one day!',
       content: 'Morocco was my dream trip, but I was nervous. The ebook explained everything — from bargaining tricks to safe taxi tips. I felt 100× more prepared.',
       tag: 'Solo Female Traveler',
       tagColor: '#70977B',

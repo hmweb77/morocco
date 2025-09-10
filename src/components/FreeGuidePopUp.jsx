@@ -201,7 +201,7 @@ const FreeGuidePopup = ({ isOpen, onClose }) => {
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      How to avoid common tourist scams
+                      How to avoid common tourist trap
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />

@@ -3,15 +3,15 @@
 export const blogPosts = [
     {
       id: 1,
-      slug: "morocco-scams-avoid",
-      title: "10 Common Scams in Morocco — And How to Avoid Them",
+      slug: "morocco-trap-avoid",
+      title: "10 Common trap in Morocco — And How to Avoid Them",
       excerpt: "From fake guides to rigged taxi meters, we break down real stories and how to stay protected.",
       content: `
-  # 10 Common Scams in Morocco — And How to Avoid Them
+  # 10 Common trap in Morocco — And How to Avoid Them
   
-  Morocco is an incredible destination, but like any popular tourist spot, it has its share of scams targeting visitors. Here's your guide to staying safe and smart during your Moroccan adventure.
+  Morocco is an incredible destination, but like any popular tourist spot, it has its share of trap targeting visitors. Here's your guide to staying safe and smart during your Moroccan adventure.
   
-  ## 1. The Fake Guide Scam
+  ## 1. The Fake Guide trap
   
   **How it works:** Someone approaches you claiming to be an official guide, often wearing fake badges or ID cards.
   
@@ -65,7 +65,7 @@ export const blogPosts = [
   
   **How to avoid:** Watch the entire packaging process. Better yet, buy spices from reputable shops with fixed prices.
   
-  ## 10. Hotel Booking Scam
+  ## 10. Hotel Booking trap
   
   **How it works:** Taxi drivers claim your hotel is closed, full, or dangerous, then take you to their friend's place for a commission.
   
@@ -76,7 +76,7 @@ export const blogPosts = [
   - **Learn key phrases:** "La, shukran" (No, thank you) and "Maashi" (Go away)
   - **Dress modestly** to blend in better
   - **Walk confidently** like you know where you're going
-  - **Carry small bills** to avoid "no change" scams
+  - **Carry small bills** to avoid "no change" traps
   - **Research prices** beforehand for common items and services
   - **Trust your instincts** – if something feels off, walk away
   
@@ -88,20 +88,20 @@ export const blogPosts = [
   - Requests for payment after claiming something is "free"
   - People who follow you persistently
   
-  Remember, most Moroccan people are genuinely helpful and honest. These scams are typically run by a small minority who target tourists. By staying alert and informed, you can enjoy Morocco's incredible culture, food, and hospitality without falling victim to these common tricks.
+  Remember, most Moroccan people are genuinely helpful and honest. These traps are typically run by a small minority who target tourists. By staying alert and informed, you can enjoy Morocco's incredible culture, food, and hospitality without falling victim to these common tricks.
   
-  Have you encountered any of these scams during your travels? Share your experiences in the comments below to help fellow travelers stay safe!
+  Have you encountered any of these trap during your travels? Share your experiences in the comments below to help fellow travelers stay safe!
       `,
       author: "Youssef El Mansouri",
       publishDate: "2024-12-15",
       readTime: "8 min read",
       category: "Travel Safety",
-      tags: ["Safety", "Scams", "Travel Tips", "Morocco"],
+      tags: ["Safety", "traps", "Travel Tips", "Morocco"],
       image: "/blog/scam.png",
       views: 12400,
       likes: 89,
       featured: true,
-      metaDescription: "Learn how to identify and avoid the 10 most common tourist scams in Morocco with our comprehensive safety guide.",
+      metaDescription: "Learn how to identify and avoid the 10 most common tourist traps in Morocco with our comprehensive safety guide.",
       relatedPosts: [2, 4, 7]
     },
     {
@@ -431,7 +431,7 @@ export const blogPosts = [
       ---
       
       ## Related Travel Tips
-      - [10 Common Scams in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
+      - [10 Common traps in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
       - [The Best Time to Visit Morocco — Season by Season](/best-time-to-visit-morocco)  
       - [Chefchaouen: Why the Blue City Should Be on Your Itinerary](/chefchaouen-blue-city)  
       
@@ -1174,7 +1174,7 @@ export const blogPosts = [
       
       ---
       
-      ## 8. Safety & Scams for Budget Travelers
+      ## 8. Safety & traps for Budget Travelers
       
       - Don’t accept unsolicited “guides” in medinas — they’ll demand money.  
       - Always check menus before eating.  
@@ -1200,7 +1200,7 @@ export const blogPosts = [
       ---
       
       ## Related Posts
-      - [10 Common Scams in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
+      - [10 Common traps in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
       - [The Perfect 10-Day Morocco Itinerary](/morocco-itinerary-10-days)  
       - [Family Travel in Morocco — Tips for Kids and Parents](/family-travel-morocco)  
       
@@ -1607,7 +1607,7 @@ export const blogPosts = [
       ---
       
       ## Related Posts
-      - [10 Common Scams in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
+      - [10 Common traps in Morocco — And How to Avoid Them](/morocco-scams-avoid)  
       - [Inside the Moroccan Hammam Experience](/moroccan-hammam-experience)  
       - [The Perfect 10-Day Morocco Itinerary](/morocco-itinerary-10-days)  
       
