@@ -1,9 +1,69 @@
-// src/lib/brevoService.js - Updated with free guide function
+// src/lib/brevoService.js - Updated with contact list functionality
 import * as brevo from '@getbrevo/brevo';
 
-// Initialize Brevo API
-const apiInstance = new brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
+// Initialize Brevo APIs
+const emailApiInstance = new brevo.TransactionalEmailsApi();
+const contactsApiInstance = new brevo.ContactsApi();
+
+emailApiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
+contactsApiInstance.setApiKey(brevo.ContactsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
+
+// Configuration - Add your Brevo List ID
+const BREVO_LIST_ID = process.env.BREVO_LIST_ID || 8; // Replace with your actual list ID
+
+// Function to add contact to Brevo list
+async function addContactToList({ email, firstName, lastName = '', listId = BREVO_LIST_ID }) {
+  try {
+    const createContact = new brevo.CreateContact();
+    createContact.email = email;
+    createContact.listIds = [parseInt(listId)];
+    
+    // Set attributes
+    createContact.attributes = {
+      FIRSTNAME: firstName || '',
+      LASTNAME: lastName || '',
+      SOURCE: 'FREE_GUIDE',
+      SIGNUP_DATE: new Date().toISOString(),
+      WEBSITE: 'moroccanadvisor.com'
+    };
+
+    // Optional: Set updateEnabled to true to update existing contacts
+    createContact.updateEnabled = true;
+
+    const response = await contactsApiInstance.createContact(createContact);
+    console.log('✅ Contact added to list successfully:', response.body);
+    return { success: true, contactId: response.body.id };
+    
+  } catch (error) {
+    // Handle duplicate contact error (this is normal)
+    if (error.status === 400 && error.response?.body?.code === 'duplicate_parameter') {
+      console.log('ℹ️ Contact already exists, updating instead...');
+      
+      try {
+        // Update existing contact
+        const updateContact = new brevo.UpdateContact();
+        updateContact.listIds = [parseInt(listId)];
+        updateContact.attributes = {
+          FIRSTNAME: firstName || '',
+          LASTNAME: lastName || '',
+          SOURCE: 'FREE_GUIDE',
+          LAST_ACTIVITY: new Date().toISOString()
+        };
+
+        await contactsApiInstance.updateContact(email, updateContact);
+        console.log('✅ Existing contact updated successfully');
+        return { success: true, contactId: null, updated: true };
+        
+      } catch (updateError) {
+        console.error('❌ Failed to update existing contact:', updateError);
+        return { success: false, error: updateError.message };
+      }
+    } else {
+      console.error('❌ Failed to add contact to list:', error);
+      return { success: false, error: error.message };
+    }
+  }
+}
 
 // Existing function for paid downloads
 export async function sendDownloadEmail({ customerEmail, customerName, downloadLinks, sessionId }) {
@@ -30,7 +90,7 @@ export async function sendDownloadEmail({ customerEmail, customerName, downloadL
     };
 
     // Send email
-    const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    const response = await emailApiInstance.sendTransacEmail(sendSmtpEmail);
     console.log('✅ Email sent successfully:', response.body);
     return { success: true, messageId: response.body.messageId };
     
@@ -40,10 +100,28 @@ export async function sendDownloadEmail({ customerEmail, customerName, downloadL
   }
 }
 
-// NEW: Free guide email function
+// UPDATED: Free guide email function with list subscription
 export async function sendFreeGuideEmail({ customerEmail, customerName, downloadLink }) {
   try {
-    // Create email content for free guide
+    // 1. First, add contact to mailing list
+    console.log('📝 Adding contact to mailing list...');
+    const listResult = await addContactToList({
+      email: customerEmail,
+      firstName: customerName,
+      listId: BREVO_LIST_ID
+    });
+    
+    if (listResult.success) {
+      if (listResult.updated) {
+        console.log('✅ Contact updated in mailing list');
+      } else {
+        console.log('✅ Contact added to mailing list');
+      }
+    } else {
+      console.log('⚠️ Failed to add to mailing list, but continuing with email...');
+    }
+
+    // 2. Send the free guide email
     const htmlContent = generateFreeGuideHTML({ customerName, downloadLink });
     const textContent = generateFreeGuideText({ customerName, downloadLink });
 
@@ -64,9 +142,15 @@ export async function sendFreeGuideEmail({ customerEmail, customerName, download
     };
 
     // Send email
-    const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    console.log('✅ Free guide email sent successfully:', response.body);
-    return { success: true, messageId: response.body.messageId };
+    const emailResponse = await emailApiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log('✅ Free guide email sent successfully:', emailResponse.body);
+    
+    return { 
+      success: true, 
+      messageId: emailResponse.body.messageId,
+      addedToList: listResult.success,
+      listResult: listResult
+    };
     
   } catch (error) {
     console.error('❌ Free guide email failed:', error);
@@ -74,7 +158,35 @@ export async function sendFreeGuideEmail({ customerEmail, customerName, download
   }
 }
 
-// FREE GUIDE EMAIL TEMPLATES
+// Helper function to get list information (useful for debugging)
+export async function getListInfo(listId = BREVO_LIST_ID) {
+  try {
+    const response = await contactsApiInstance.getList(parseInt(listId));
+    return {
+      success: true,
+      listName: response.body.name,
+      totalContacts: response.body.totalSubscribers,
+      listId: response.body.id
+    };
+  } catch (error) {
+    console.error('❌ Failed to get list info:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// Helper function to remove contact from list (for unsubscribes)
+export async function removeContactFromList(email, listId = BREVO_LIST_ID) {
+  try {
+    await contactsApiInstance.removeContactFromList(parseInt(listId), email);
+    console.log('✅ Contact removed from list successfully');
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Failed to remove contact from list:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// FREE GUIDE EMAIL TEMPLATES (keeping existing templates...)
 
 function generateFreeGuideHTML({ customerName, downloadLink }) {
   return `
@@ -132,6 +244,16 @@ function generateFreeGuideHTML({ customerName, downloadLink }) {
                       </td>
                     </tr>
                   </table>
+
+                  <!-- Newsletter Signup Confirmation -->
+                  <div style="background: #E0F2FE; border: 2px solid #0891B2; border-radius: 12px; padding: 20px; margin: 24px 0;">
+                    <h3 style="color: #0E7490; margin: 0 0 12px 0; font-size: 16px;">
+                      📧 You're Now Subscribed to Our Travel Tips!
+                    </h3>
+                    <p style="color: #0E7490; margin: 0; font-size: 14px;">
+                      You'll receive exclusive Morocco travel tips, hidden gems, and special offers directly in your inbox. Don't worry, we respect your privacy and you can unsubscribe anytime.
+                    </p>
+                  </div>
 
                   <!-- What's Inside -->
                   <div style="background: #F0F9FF; border: 2px solid #3B82F6; border-radius: 12px; padding: 24px; margin: 24px 0;">
@@ -202,7 +324,9 @@ function generateFreeGuideHTML({ customerName, downloadLink }) {
                     Your authentic Morocco adventure starts here! 🇲🇦✨
                   </p>
                   <p style="color: #70977B; margin: 16px 0 0 0; font-size: 12px;">
-                    You received this email because you requested our free Morocco travel guide.
+                    You received this email because you requested our free Morocco travel guide and subscribed to our newsletter.
+                    <br><a href="[UNSUBSCRIBE]" style="color: #70977B;">Unsubscribe</a> | 
+                    <a href="https://moroccanadvisor.com/privacy" style="color: #70977B;">Privacy Policy</a>
                   </p>
                 </td>
               </tr>
@@ -229,6 +353,9 @@ Download: ${downloadLink.url}
 File: ${downloadLink.filename}
 Expires: ${downloadLink.expiresIn}
 
+📧 NEWSLETTER SUBSCRIPTION
+You're now subscribed to our exclusive Morocco travel tips! You'll receive hidden gems, local secrets, and special offers. You can unsubscribe anytime.
+
 🎯 WHAT'S INSIDE YOUR FREE GUIDE:
 • Essential safety tips for Morocco
 • How to avoid common tourist traps  
@@ -238,7 +365,26 @@ Expires: ${downloadLink.expiresIn}
 • Local customs and traditions to know
 
 ⏰ IMPORTANT: Download within 24 hours
-Your download link expires in 24 hours for security. Save the PDF to your device for offline
+Your download link expires in 24 hours for security. Save the PDF to your device for offline access during your trip.
+
+Ready for more? Check out our premium guides: https://moroccanadvisor.com/guide
+Explore experiences: https://moroccanadvisor.com/experiences
+
+Questions? Email us: contact@moroccanadvisor.com
+
+--
+Moroccan Advisor - Your authentic Morocco adventure starts here! 🇲🇦✨
+Unsubscribe: [UNSUBSCRIBE]
   `;
 }
 
+// Keep the existing generateEmailHTML and generateEmailText functions for paid downloads...
+function generateEmailHTML({ customerName, downloadLinks, sessionId }) {
+  // ... existing paid download email template
+  return `<!-- Your existing paid download email template -->`;
+}
+
+function generateEmailText({ customerName, downloadLinks }) {
+  // ... existing paid download text template  
+  return `Your existing paid download text template`;
+}
