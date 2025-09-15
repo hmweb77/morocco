@@ -15,7 +15,7 @@ export async function sendDownloadEmail({ customerEmail, customerName, downloadL
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.to = [{ email: customerEmail, name: customerName || 'Valued Customer' }];
     sendSmtpEmail.sender = { 
-      email: 'contact@hmwebs.com', 
+      email: 'contact@moroccanadvisor.com', 
       name: 'Moroccan Advisor' 
     };
     sendSmtpEmail.subject = '🎉 Your Morocco Travel Guides Are Ready!';
@@ -50,7 +50,7 @@ export async function sendFreeGuideEmail({ customerEmail, customerName, download
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.to = [{ email: customerEmail, name: customerName || 'Fellow Traveler' }];
     sendSmtpEmail.sender = { 
-      email: 'contact@hmwebs.com', 
+      email: 'contact@moroccanadvisor.com', 
       name: 'Moroccan Advisor' 
     };
     sendSmtpEmail.subject = '🎁 Your FREE Morocco Travel Guide is Here!';
@@ -186,7 +186,7 @@ function generateFreeGuideHTML({ customerName, downloadLink }) {
                   <p style="color: #70977B; margin: 0 0 16px 0; font-size: 14px;">
                     We're here to help you plan the perfect Morocco adventure!
                   </p>
-                  <a href="mailto:contact@hmwebs.com" 
+                  <a href="mailto:contact@moroccanadvisor.com" 
                      style="background: #3E8DC1; color: white; padding: 12px 24px; 
                             text-decoration: none; border-radius: 8px; font-weight: bold;">
                     Contact Our Travel Experts

@@ -159,7 +159,7 @@ export default function Thanks() {
 
             <div className="mt-6 p-4 bg-blue-50 rounded-lg text-sm text-blue-800">
               <p><strong>Need help?</strong></p>
-              <p>Contact us at <a href="mailto:contact@hmwebs.com" className="underline">contact@moroccanadvisor.com</a> with your order details.</p>
+              <p>Contact us at <a href="mailto:contact@moroccanadvisor.com" className="underline">contact@moroccanadvisor.com</a> with your order details.</p>
             </div>
           </motion.div>
         </div>
@@ -337,7 +337,7 @@ export default function Thanks() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a 
-                  href="mailto:contact@hmwebs.com"
+                  href="mailto:contact@moroccanadvisor.comm"
                   className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Contact Support
